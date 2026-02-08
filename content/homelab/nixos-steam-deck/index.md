@@ -23,10 +23,6 @@ Given the open nature of the Steam Deck, and also considering some people might 
 Start by downloading a minimal NixOS ISO image from [NixOS's official website](https://nixos.org/download/), flash the image to a USB drive, and boot the Steam Deck from the USB drive by holding the volume down button and hitting the power button while it is powered off.
 You should be able to see the NixOS installer screen.
 
-![installer](./nixos-installer.webp)
-
-{% cap() %}NixOS installer screen on the Steam Deck.{% end %}
-
 Once we are in the command line interface of the installer, what I like to do is plug the Steam Deck into Ethernet and enable SSH connection by setting a password for the installer's default user `nixos`.
 
 ```bash
@@ -281,11 +277,6 @@ Most of the functionalities that most people love about SteamOS on the Steam Dec
 
 {% cap() %}Balatro, playing on the NixOS-powered Steam Deck, with performance overlay.{% end %}
 
-There can be some minor user experience issues that require you to finetune your Nix config, depending on your needs.
-For example, unlike SteamOS that comes with good multi-language support, the above configuration will only grant you English support. For me, I need to include Chinese fonts in my Nix config for the Steam client to display Chinese characters.
-I also haven't figured out how to get Chinese on-screen keyboard to work in gaming mode.
-Part of the reason is, although this Steam Deck looks and feels like the default SteamOS for the most part, technically we are actually running a custom Linux distribution, installing the Steam client, and automatically booting into Steam client's big screen mode.
-Valve introduces many custom functions in the pre-installed SteamOS on Steam Deck, but some of them haven't been introduced elsewhere yet. So do expect that not everything you missed from SteamOS can be brought back by tweaking your NixOS config.
 
 ## What Next?
 
@@ -295,6 +286,14 @@ For example, if I want to introduce a desktop environment to make Steam Deck my 
 
 There are also lots of gaming-related stuff you can do with NixOS and the `jovian-nixos` module.
 For example, in [this post](https://heywoodlh.io/nixos-steamdeck) where the owner set up a WireGuard tunnel to their desktop PC so they can do game streaming remotely.
+Similarly you can think of things like introducing a BorgBackup module to do your own game save backup, using `rsync` and a timer to automatically upload Steam screenshots, and so on.
+
 `jovian-nixos` also has [`decky-loader`](https://github.com/SteamDeckHomebrew/decky-loader) built-in, which is a popular plugin system for Steam Deck customization. All you need is to set `jovian.decky-loader.enable = true`.
 Generally speaking, installing or removing packages on NixOS should be cleaner and easier than the default SteamOS, which is non-declarative and might brick your Steam Deck.
 
+There can be some minor user experience issues that require you to finetune your Nix config, depending on your needs.
+For example, unlike SteamOS that comes with good multi-language support, the above configuration will only grant you English support. For me, I need to include Chinese fonts in my Nix config for the Steam client to display Chinese characters.
+I also haven't figured out how to get Chinese on-screen keyboard to work in gaming mode.
+
+Part of the reason is, although this Steam Deck looks and feels like the default SteamOS for the most part, technically we are actually running a custom Linux distribution, installing the Steam client, and automatically booting into Steam client's big screen mode.
+Valve introduces many custom functions in the pre-installed SteamOS on Steam Deck, but some of them haven't been introduced elsewhere yet. So do expect that not everything you missed from SteamOS can be brought back by tweaking your NixOS config.
