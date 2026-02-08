@@ -6,7 +6,7 @@ compile_sass = true
 minify_html = false
 generate_feeds = true
 feed_filenames = ["rss.xml"]
-ignored_content = ["*.svg", "*.gif", "*.drawio", "*.png", "*.jpg", "*.jpeg", "*.mp4", "*.mov", "*.mkv"]
+ignored_content = ["*.heic", "*.svg", "*.gif", "*.drawio", "*.png", "*.jpg", "*.jpeg", "*.mp4", "*.mov", "*.mkv"]
 
 [markdown]
 highlighting = { light_theme = "gruvbox-light-hard", dark_theme = "gruvbox-dark-hard" }

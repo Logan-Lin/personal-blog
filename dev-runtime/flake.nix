@@ -10,7 +10,7 @@
         packages = with pkgs; [
           zola
           (writeShellScriptBin "serve" ''
-            zola serve --open
+            zola serve --open --drafts
           '')
           (writeShellScriptBin "build" ''
             zola build

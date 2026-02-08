@@ -43,9 +43,9 @@ Inserts table of contents where placed:
 
 ## Cloudflare Pages Deployment
 
-To use a specific version of Zola, and to handle Cloudflare's distinction between preview and production builds:
+To use a specific version of Zola, handle Cloudflare's distinction between preview and production builds, and include draft pages in preview builds:
 
 ```bash
-curl -sL https://github.com/getzola/zola/releases/download/v0.22.1/zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz | tar xz && if [ "$CF_PAGES_BRANCH" = "main" ]; then ./zola build; else ./zola build --base-url $CF_PAGES_URL; fi
+curl -sL https://github.com/getzola/zola/releases/download/v0.22.1/zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz | tar xz && if [ "$CF_PAGES_BRANCH" = "main" ]; then ./zola build; else ./zola build --drafts --base-url $CF_PAGES_URL; fi
 ```
 
