@@ -4,7 +4,7 @@
   --accent: #3568a8;
   --muted: #666;
   --border: #e5e5e5;
-  --code-bg: #f3f3f3;
+  --code-bg: #f2f2f2;
   --max-width: 50rem;
 }
 
@@ -12,10 +12,10 @@
   :root {
     --bg: #161618;
     --fg: #ebebec;
-    --accent: #7b97aa;
+    --accent: #86a5bb;
     --muted: #999;
     --border: #333;
-    --code-bg: #272727;
+    --code-bg: #272828;
   }
 }
 
@@ -182,6 +182,7 @@ pre {
   overflow-x: auto;
   border-radius: 4px;
   margin-bottom: 1rem;
+  background: var(--code-bg) !important;
 
   code {
     background: none;

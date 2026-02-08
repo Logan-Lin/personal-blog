@@ -13,7 +13,7 @@ It also proves that the "plug and play" experience of traditional consoles and o
 
 {% cap() %}
 Steam Deck OLED (top) and Nintendo Switch 2 (bottom).
-Both with the ["Killswitch" line of cases from dbrand](https://dbrand.com/shop/killswitch/).
+Both with the "Killswitch" line of cases from dbrand.
 {% end %}
 
 Given the open nature of the Steam Deck, and also considering some people might not prefer every design choice of SteamOS (e.g., the desktop environment), installing NixOS on Steam Deck can be a good option if you want to customize it while still preserving most of the handheld gaming experience. Thanks to the existence of [Jovian-NixOS](https://jovian-experiments.github.io/Jovian-NixOS/), a NixOS module built specifically for running NixOS on Steam Deck, the process is actually very straightforward if you are already familiar with NixOS.
