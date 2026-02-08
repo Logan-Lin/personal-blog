@@ -1,7 +1,8 @@
 +++
 title = "NixOS-powered Steam Deck"
-date = 2026-02-08
+date = "2026-02-08"
 description = ""
+draft = true
 +++
 
 [Steam Deck](https://store.steampowered.com/steamdeck) is a great handheld gaming device and Steam Deck OLED is even better with the beautiful OLED screen, among other hardware improvements.
