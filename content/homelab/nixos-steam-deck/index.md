@@ -1,12 +1,12 @@
 +++
 title = "NixOS-powered Steam Deck"
-date = 2026-02-10
+date = 2026-02-08
 description = ""
 +++
 
-Steam Deck is a great handheld gaming device and Steam Deck OLED is even better with the beautiful OLED screen, among other hardware improvements.
+[Steam Deck](https://store.steampowered.com/steamdeck) is a great handheld gaming device and Steam Deck OLED is even better with the beautiful OLED screen, among other hardware improvements.
 Its default operating system (SteamOS) is essentially a custom Linux distribution with KDE Plasma desktop environment and a console-style Steam overlay.
-It proves that Linux gaming is quite mature, and depending on what games you often play, the experience can be better than a Windows machine in many aspects.
+It proves that Linux gaming has became quite mature, and depending on what games you often play, the experience can be better than a Windows machine in many aspects.
 It also proves that the "plug and play" experience of traditional consoles and open hardware and software can coexist.
 
 ![deck-switch](./deck-switch.webp)
@@ -16,7 +16,7 @@ Steam Deck OLED (top) and Nintendo Switch 2 (bottom).
 Both with the ["Killswitch" line of cases from dbrand](https://dbrand.com/shop/killswitch/).
 {% end %}
 
-Given the open nature of the Steam Deck, and also considering some people might not prefer every design choice of the default SteamOS (e.g., the desktop environment), installing NixOS on Steam Deck can be a good option if you want to customize it while still preserving most of the handheld gaming experience. Thanks to the existence of [Jovian NixOS](https://jovian-experiments.github.io/Jovian-NixOS/), a NixOS module built specifically for running NixOS on Steam Deck, the process is actually very straightforward if you are already familiar with NixOS.
+Given the open nature of the Steam Deck, and also considering some people might not prefer every design choice of SteamOS (e.g., the desktop environment), installing NixOS on Steam Deck can be a good option if you want to customize it while still preserving most of the handheld gaming experience. Thanks to the existence of [Jovian-NixOS](https://jovian-experiments.github.io/Jovian-NixOS/), a NixOS module built specifically for running NixOS on Steam Deck, the process is actually very straightforward if you are already familiar with NixOS.
 
 ## Install Process
 
@@ -122,7 +122,7 @@ Do note that since we are using `disko` to manage the mounting of the system dri
 
 Finally, we can install NixOS onto the system drive.
 To keep things simple for the installation, I prepared a barebones system configuration `system.nix` with the `jovian-nixos` module as follows.
-This config will only replicate the "gaming mode" of the default SteamOS, with no desktop environment.
+This config will only replicate the "gaming mode" of SteamOS, with no desktop environment.
 
 ```nix
 { config, pkgs, lib, ... }:
@@ -244,12 +244,7 @@ sudo nixos-install --flake /tmp/nix-config#deck
 
 Note that this will take a long time (several hours), since it will build Valve's custom Linux kernel on Steam Deck's (not that powerful) CPU. Maybe you can consider an alternative install process by building the system image on another device if you don't want to wait.
 
-Technically, you could also use the standard NixOS Linux kernel by disabling kernel patches in the system config:
-
-```nix
-jovian.devices.steamdeck.enableKernelPatches = false;
-```
-
+Technically, you could also use the standard NixOS Linux kernel by disabling kernel patches in the system config as `enableKernelPatches = false`.
 But from my testing, you won't be able to use the Steam Deck normally, since many things won't work (for example audio output).
 
 Once the installation process has finished, you will be prompted to setup a password.
@@ -257,21 +252,21 @@ After that, reboot from the system drive and you should boot straight to the Ste
 
 ## How Does It Play?
 
-Given the above configurations, if you stay in the gaming mode, you probably won't be able to notice that this Steam Deck is now powered by NixOS rather than the default SteamOS, aside from the unconventional boot screen.
+Given the above configurations, if you stay in the gaming mode, you probably won't be able to notice that this Steam Deck is now powered by NixOS rather than SteamOS, aside from the unconventional boot screen.
 
 ![boot-screen](./nixos-deck-boot.webp)
 
 {% cap() %}Boot screen of this NixOS-powered Steam Deck (speed up 3 times).{% end %}
 
-Since we haven't included a desktop environment, right now if you try to enter desktop mode, it will just boot back to the gaming mode. If you are planning to only use the Steam Deck as a gaming handheld, then it is totally fine to leave it as it is. To some extent it is even more pure than the default SteamOS since no desktop environment is included.
-Also, you can still SSH into the Steam Deck even when it is in gaming mode and use whatever headless command line modules in your system or Home Manager config.
+Since we haven't included a desktop environment, right now if you try to enter desktop mode, it will just boot back to the gaming mode. If you are planning to use the Steam Deck only as a gaming handheld, then it is totally fine to leave it as it is. To some extent it is even more pure than SteamOS since no desktop environment is included.
+Also, you can SSH into the Steam Deck even when it is in gaming mode and use whatever headless command line modules in your system or Home Manager config.
 
 ![fastfetch-deck](./fastfetch.webp)
 
 {% cap() %}`fastfetch` screen of this Steam Deck, reminding you that it is really running NixOS.{% end %}
 
 As for the core gaming experience, there is no performance difference compared to SteamOS that I can tell.
-Most of the functionalities that most people love about SteamOS on the Steam Deck are all here, like the performance overlay and quick resume.
+Most of the functionalities that people love about SteamOS on the Steam Deck are all here, like the performance overlay and quick resume.
 
 ![balatro](./balatro.webp)
 
@@ -282,18 +277,18 @@ Most of the functionalities that most people love about SteamOS on the Steam Dec
 
 If you have been using NixOS for a while, you probably can think of hundreds of things you can do on a NixOS-powered Steam Deck.
 
-For example, if I want to introduce a desktop environment to make Steam Deck my Linux PC, all I have to do is to include either the [Hyprland module](https://github.com/Logan-Lin/nix-config/tree/master/modules/hyprland) or the [GNOME module](https://github.com/Logan-Lin/nix-config/tree/master/modules/gnome) in my Nix config repo, and declare the desktop session name as `jovian.steam.desktopSession = "hyprland";`
+For example, if I want to introduce a desktop environment to make Steam Deck my Linux PC, all I have to do is to include either the [Hyprland module](https://github.com/Logan-Lin/nix-config/tree/master/modules/hyprland) or the [GNOME module](https://github.com/Logan-Lin/nix-config/tree/master/modules/gnome) in my Nix config repo, and declare the desktop session name as `jovian.steam.desktopSession = "hyprland"` or as `"gnome"`.
 
-There are also lots of gaming-related stuff you can do with NixOS and the `jovian-nixos` module.
+There are also lots of gaming-related stuff you can do with NixOS.
 For example, in [this post](https://heywoodlh.io/nixos-steamdeck) where the owner set up a WireGuard tunnel to their desktop PC so they can do game streaming remotely.
 Similarly you can think of things like introducing a BorgBackup module to do your own game save backup, using `rsync` and a timer to automatically upload Steam screenshots, and so on.
 
 `jovian-nixos` also has [`decky-loader`](https://github.com/SteamDeckHomebrew/decky-loader) built-in, which is a popular plugin system for Steam Deck customization. All you need is to set `jovian.decky-loader.enable = true`.
-Generally speaking, installing or removing packages on NixOS should be cleaner and easier than the default SteamOS, which is non-declarative and might brick your Steam Deck.
+Generally speaking, installing or removing packages on NixOS should be cleaner and easier than SteamOS, which is non-declarative and might brick your Steam Deck.
 
 There can be some minor user experience issues that require you to finetune your Nix config, depending on your needs.
 For example, unlike SteamOS that comes with good multi-language support, the above configuration will only grant you English support. For me, I need to include Chinese fonts in my Nix config for the Steam client to display Chinese characters.
 I also haven't figured out how to get Chinese on-screen keyboard to work in gaming mode.
 
-Part of the reason is, although this Steam Deck looks and feels like the default SteamOS for the most part, technically we are actually running a custom Linux distribution, installing the Steam client, and automatically booting into Steam client's big screen mode.
+Part of the reason is, although this Steam Deck looks and feels like SteamOS for the most part, technically we are actually running a custom Linux distribution, installing the Steam client, and automatically booting into Steam client's big screen mode.
 Valve introduces many custom functions in the pre-installed SteamOS on Steam Deck, but some of them haven't been introduced elsewhere yet. So do expect that not everything you missed from SteamOS can be brought back by tweaking your NixOS config.
