@@ -37,34 +37,22 @@ It will simply create an ext4 partition on Steam Deck's NVMe drive (since I have
 
 ```nix
 {
-  disko.devices = {
-    disk = {
-      main = {
-        type = "disk";
-        device = "/dev/nvme0n1";
-        content = {
-          type = "gpt";
-          partitions = {
-            ESP = {
-              size = "512M";
-              type = "EF00";
-              content = {
-                type = "filesystem";
-                format = "vfat";
-                mountpoint = "/boot";
-                mountOptions = [ "fmask=0077" "dmask=0077" ];
-              };
-            };
-
-            root = {
-              size = "100%";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
-              };
-            };
+  disko.devices.disk.main = {
+    type = "disk";
+    device = "/dev/nvme0n1";
+    content = {
+      type = "gpt";
+      partitions = {
+        ESP = {
+          size = "512M"; type = "EF00";
+          content = {
+            type = "filesystem"; format = "vfat"; mountpoint = "/boot";
+            mountOptions = [ "fmask=0077" "dmask=0077" ];
           };
+        };
+        root = {
+          size = "100%";
+          content = { type = "filesystem"; format = "ext4"; mountpoint = "/"; };
         };
       };
     };
@@ -104,18 +92,14 @@ cat /mnt/etc/nixos/hardware-configuration.nix
 Do note that since we are using `disko` to manage the mounting of the system drive, we should remove the `fileSystems` and `swapDevices` entries from the generated configuration. Below is my final `hardware-configuration.nix`.
 
 ```nix
-{ config, lib, pkgs, modulesPath, ... }:
-
-{
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
+{ config, lib, pkgs, modulesPath, ... }: {
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  boot.initrd.availableKernelModules = [
+    "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "sdhci_pci"
   ];
-
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.kernelModules = [ "kvm-amd" ];
-
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
+  hardware.cpu.amd.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
 ```
@@ -125,13 +109,8 @@ To keep things simple for the installation, I prepared a barebones system config
 This config will only replicate the "gaming mode" of SteamOS, with no desktop environment.
 
 ```nix
-{ config, pkgs, lib, ... }:
-
-{
-  imports = [
-    ./hardware-configuration.nix
-    ../system-default.nix
-  ];
+{ config, pkgs, lib, ... }: {
+  imports = [ ./hardware-configuration.nix ../system-default.nix ];
 
   boot.loader = {
     systemd-boot.enable = true;
@@ -141,19 +120,10 @@ This config will only replicate the "gaming mode" of SteamOS, with no desktop en
   };
 
   jovian.devices.steamdeck.enable = true;
-
-  jovian.steam = {
-    enable = true;
-    autoStart = true;
-    user = "yanlin";
-  };
-
+  jovian.steam = { enable = true; autoStart = true; user = "yanlin"; };
   jovian.steamos.useSteamOSConfig = true;
-
   jovian.hardware.has.amd.gpu = true;
-
   hardware.enableRedistributableFirmware = true;
-
   security.rtkit.enable = true;
 
   networking = {
@@ -164,27 +134,18 @@ This config will only replicate the "gaming mode" of SteamOS, with no desktop en
 
   users.users.yanlin = {
     extraGroups = [ "networkmanager" "wheel" "video" "audio" "input" ];
-    openssh.authorizedKeys.keys = [
-      "<your ssh public key>"
-    ];
+    openssh.authorizedKeys.keys = [ "<your ssh public key>" ];
   };
 
-  environment.systemPackages = with pkgs; [
-    pciutils
-    usbutils
-  ];
+  environment.systemPackages = with pkgs; [ pciutils usbutils ];
 }
 ```
 
 And a barebones `home.nix` module since I use Home Manager:
 
 ```nix
-{ config, pkgs, ... }:
-
-{
-  imports = [
-    ../home-default.nix
-  ];
+{ config, pkgs, ... }: {
+  imports = [ ../home-default.nix ];
 }
 ```
 
@@ -193,34 +154,23 @@ And add the new system and Home Manager entries to the `flake.nix` in [my Nix co
 ```nix
 {
   description = "Default environment";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-    jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
-    jovian.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
+    disko = { url = "github:nix-community/disko"; inputs.nixpkgs.follows = "nixpkgs"; };
+    jovian = { url = "github:Jovian-Experiments/Jovian-NixOS"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
-
-  outputs = inputs@{ self, nixpkgs, home-manager, disko, jovian }:
-  {
+  outputs = inputs@{ self, nixpkgs, home-manager, disko, jovian }: {
     nixosConfigurations."deck" = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        jovian.nixosModules.default
-        disko.nixosModules.disko
-        ./hosts/nixos/deck/system.nix
-        ./hosts/nixos/deck/disk-config.nix
+        jovian.nixosModules.default  disko.nixosModules.disko
+        ./hosts/nixos/deck/system.nix  ./hosts/nixos/deck/disk-config.nix
       ];
     };
-
-    homeConfigurations = {
-      "yanlin@deck" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [ ./hosts/nixos/deck/home.nix ];
-      };
+    homeConfigurations."yanlin@deck" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      modules = [ ./hosts/nixos/deck/home.nix ];
     };
   };
 }
