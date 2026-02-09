@@ -4,6 +4,15 @@
 
 {% block description %}{% if page.description %}{{ page.description }}{% else %}{{ config.description }}{% endif %}{% endblock description %}
 
+{% block canonical %}{{ page.permalink }}{% endblock canonical %}
+{% block og_title %}{{ page.title }}{% endblock og_title %}
+{% block og_description %}{% if page.description %}{{ page.description }}{% else %}{{ config.description }}{% endif %}{% endblock og_description %}
+{% block og_url %}{{ page.permalink }}{% endblock og_url %}
+{% block og_type %}article{% endblock og_type %}
+{% block og_extra %}{% if page.date %}<meta property="article:published_time" content="{{ page.date }}">{% endif %}{% endblock og_extra %}
+{% block twitter_title %}{{ page.title }}{% endblock twitter_title %}
+{% block twitter_description %}{% if page.description %}{{ page.description }}{% else %}{{ config.description }}{% endif %}{% endblock twitter_description %}
+
 {% block content %}
 <article>
     <header class="post-header">

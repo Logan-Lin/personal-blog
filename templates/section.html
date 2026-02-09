@@ -2,6 +2,15 @@
 
 {% block title %}{{ section.title }} - {{ config.title }}{% endblock title %}
 
+{% block description %}{% if section.description %}{{ section.description }}{% else %}{{ config.description }}{% endif %}{% endblock description %}
+
+{% block canonical %}{{ section.permalink }}{% endblock canonical %}
+{% block og_title %}{{ section.title }} - {{ config.title }}{% endblock og_title %}
+{% block og_description %}{% if section.description %}{{ section.description }}{% else %}{{ config.description }}{% endif %}{% endblock og_description %}
+{% block og_url %}{{ section.permalink }}{% endblock og_url %}
+{% block twitter_title %}{{ section.title }} - {{ config.title }}{% endblock twitter_title %}
+{% block twitter_description %}{% if section.description %}{{ section.description }}{% else %}{{ config.description }}{% endif %}{% endblock twitter_description %}
+
 {% block content %}
 <h1>{{ section.title }}</h1>
 
