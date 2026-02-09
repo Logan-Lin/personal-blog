@@ -5,7 +5,7 @@ description = ""
 +++
 
 [Steam Deck](https://store.steampowered.com/steamdeck) is a great handheld gaming device and Steam Deck OLED is even better with the beautiful OLED screen, among other hardware improvements.
-Its default operating system (SteamOS) is essentially a custom Linux distribution with KDE Plasma desktop environment and a console-style Steam overlay.
+Its default operating system (SteamOS) is essentially a custom Linux distribution (based on Arch Linux) with KDE Plasma desktop environment and a console-style Steam overlay.
 It proves that Linux gaming has became quite mature, and depending on what games you often play, the experience can be better than a Windows machine in many aspects.
 It also proves that the "plug and play" experience of traditional consoles and open hardware and software can coexist.
 
