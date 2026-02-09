@@ -1,8 +1,7 @@
 +++
 title = "NixOS-powered Steam Deck"
-date = "2026-02-08"
+date = "2026-02-09"
 description = ""
-draft = true
 +++
 
 [Steam Deck](https://store.steampowered.com/steamdeck) is a great handheld gaming device and Steam Deck OLED is even better with the beautiful OLED screen, among other hardware improvements.
@@ -67,23 +66,7 @@ And then we can partition the drive using the following command.
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disk-config.nix
 ```
 
-Once done, you should be able to see the drive and the mounted system root.
-
-```
-[nixos@nixos:~]$ lsblk
-NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
-loop0         7:0    0   1.4G  1 loop /nix/.ro-store
-sda           8:0    1     0B  0 disk
-sdb           8:16   1     0B  0 disk
-sdc           8:32   1 232.9G  0 disk
-├─sdc1        8:33   1   1.5G  0 part /iso
-└─sdc2        8:34   1     3M  0 part
-nvme0n1     259:0    0 476.9G  0 disk
-├─nvme0n1p1 259:2    0   512M  0 part /mnt/boot
-└─nvme0n1p2 259:3    0 476.4G  0 part /mnt
-```
-
-Generate hardware configuration on the Steam Deck:
+Move on to generate hardware configuration on the Steam Deck:
 
 ```bash
 sudo nixos-generate-config --root /mnt
