@@ -197,9 +197,7 @@ Right now Immich is the only service I am running with containers rather than na
 And to be honest, I don't think there is much benefit going with pure Nix module here (especially for Immich which you can still [declare its config](https://github.com/Logan-Lin/nix-config/blob/master/config/immich.nix) even with containers), other than fulfilling the purism many Nix users seem to have.
 Also, I am not using Docker but Podman instead, which is said to have better integration with NixOS. From my experience it is fairly declarative and efficient, should be practically nearly identical to running directly on the host.
 
-## Peripherals
-
-### Proxy
+## Expose Services Publicly
 
 If you take a look at [my whole Nix config repo](https://github.com/Logan-Lin/nix-config), you will notice the home server is just part of setup.
 I also have a cloud VM that is running NixOS (see its [system config](https://github.com/Logan-Lin/nix-config/blob/master/hosts/nixos/vps/system.nix)). It is serving as a proxy server for all my services running on the home server, as you can see in [this configuration file](https://github.com/Logan-Lin/nix-config/blob/master/hosts/nixos/vps/proxy.nix).
@@ -207,22 +205,9 @@ My goal is to make all my services accessible without the need for VPN, so every
 This also have the added benefit that I can create public share links to send to my family/friends, for example using the Immich's built-in sharing function.
 But this also means I have to set strong passwords for all my services. Forget about trying to brute force them, they are all randomly generated 40+ characters with mix of alphabet, numbers, and symbols.
 
-### VPN
-
 Nevertheless, I do have VPN setup on all my hosts to make things like remote access to Samba share and ssh easier. I previously used [Wireguard](https://www.wireguard.com/) and now switched to [Tailscale](https://tailscale.com/).
 The reason is very similar to the Jellyfin vs. Plex situation. While Tailscale is less declarative and not fully a "free software", I am lazy and I like that Tailscale is easy to setup and have good experience on most platforms.
 The P2P nature of Tailscale also means that, if you have no interest in creating public share links and are OK with always accessing your services with VPN outside your home, you don't actually need to rent a cloud VM to proxy your services.
-
-### Health Monitor
-
-I don't want to complicate things so I haven't set up any automated system to check the health status of my home server and send notification if anything goes wrong.
-I do have a [login display module](https://github.com/Logan-Lin/nix-config/blob/master/modules/login-display.nix) that will report important status every time I SSH into my home server.
-
-![login display](login-display.webp)
-
-{% cap() %}
-Information displayed at `ssh` login.
-{% end %}
 
 ## Why NixOS?
 
