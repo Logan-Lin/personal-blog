@@ -135,14 +135,14 @@ It is very easy to add or remove drives later, and no worry about mixed size.
 I used to run [Nextcloud](https://nextcloud.com/) on my home server but now I don't, since I feel it is overcomplicated for my personal use. (It is nice if you want to share files publicly)
 Right now for simple file sharing, I have two options: WebDAV and Samba. For both of which I wrote a custom module that can be enabled in the home server system config.
 
-For WebDAV, I wrote [a module](https://github.com/Logan-Lin/nix-config/blob/master/modules/dufs.nix) that wraps [dufs](https://github.com/sigoden/dufs). The benefit of WebDAV is that it is HTTP-based, thus can be proxied like a website to serve files publicly.
-For Samba, I have [another module](https://github.com/Logan-Lin/nix-config/blob/master/modules/samba.nix) that wraps, well, Samba. It has better performance compared to WebDAV, but cannot be proxied. Thus, if you need to access a Samba share outside of the home network, you probably will need a VPN routing back to your home LAN.
+For WebDAV, I wrote [a module](https://github.com/Logan-Lin/nix-config/blob/master/modules/file-server/dufs.nix) that wraps [dufs](https://github.com/sigoden/dufs). The benefit of WebDAV is that it is HTTP-based, thus can be proxied like a website to serve files publicly.
+For Samba, I have [another module](https://github.com/Logan-Lin/nix-config/blob/master/modules/file-server/samba.nix) that wraps, well, Samba. It has better performance compared to WebDAV, but cannot be proxied. Thus, if you need to access a Samba share outside of the home network, you probably will need a VPN routing back to your home LAN.
 
 ## Media Server
 
 One of the primary purpose of my home server is to download, store, and serve (*totally legit and definitely legally obtained*) TV shows and movies.
 To do so I use a common stack of media management and streaming services: [Deluge](https://deluge-torrent.org/) for download, [Servarr](https://wiki.servarr.com/) stacks ([Sonarr](https://sonarr.tv/), [Radarr](https://radarr.video/), [Lidarr](https://lidarr.audio/), and [Bazarr](https://www.bazarr.media/)) for management, and [Plex](https://www.plex.tv/) for streaming.
-And they are setup by using native nix packages. I wrote a simple [media server module](https://github.com/Logan-Lin/nix-config/blob/master/modules/media-server.nix) and left some basic options for myself:
+And they are setup by using native nix packages. I wrote a simple [media server module](https://github.com/Logan-Lin/nix-config/blob/master/modules/media/server.nix) and left some basic options for myself:
 
 ```nix
 user = lib.mkOption {
