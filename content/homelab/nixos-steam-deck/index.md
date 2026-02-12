@@ -133,7 +133,7 @@ And a barebones `home.nix` module since I use Home Manager:
 }
 ```
 
-And add the new system and Home Manager entries to the `flake.nix` in [my Nix config repo](https://github.com/Logan-Lin/nix-config).
+And add the new system and Home Manager entries to the `flake.nix` in [my Nix config repo](https://github.com/Logan-Lin/nix-archive).
 
 ```nix
 {

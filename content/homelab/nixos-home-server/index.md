@@ -28,8 +28,8 @@ Not very important here, as long as you stick to common hardware, it should be r
 ### System Root
 
 I use two 1TB SSDs as ZFS mirror, serving as system root and storage for mission-critical files. With NixOS and [disko](https://github.com/nix-community/disko), it is fairly easy to declare such a setup.
-You declare two SSDs, and then declare the ZFS mirror pool (see my [disko config file](https://github.com/Logan-Lin/nix-config/blob/master/hosts/nixos/hs/disk-config.nix)).
-I do have some other configuration for ZFS service in the [system configuration file](https://github.com/Logan-Lin/nix-config/blob/master/hosts/nixos/hs/system.nix):
+You declare two SSDs, and then declare the ZFS mirror pool (see my [disko config file](https://github.com/Logan-Lin/nix-archive/blob/master/hosts/nixos/hs/disk-config.nix)).
+I do have some other configuration for ZFS service in the [system configuration file](https://github.com/Logan-Lin/nix-archive/blob/master/hosts/nixos/hs/system.nix):
 
 ```nix
 services.zfs = {
@@ -59,7 +59,7 @@ Before switching to NixOS, my home server was running [Unraid](https://unraid.ne
 As far as I know, the closest setup on NixOS (or Linux in general) is to use [MergerFS](https://github.com/trapexit/mergerfs) and [SnapRAID](https://www.snapraid.it/), with MergerFS creating a unified mounting point for a group of disks, and SnapRAID periodically writes parity data to parity drives.
 This is slightly different from Unraid where it writes parity data in real-time. But in normal home scenarios, this should be sufficient.
 
-I didn't use disko to manage any part of my bulk storage. Instead, since I was using XFS for all my HDDs back on Unraid, I simply mount these drives (and yes, all the data is preserved) in my [system config](https://github.com/Logan-Lin/nix-config/blob/master/hosts/nixos/hs/system.nix):
+I didn't use disko to manage any part of my bulk storage. Instead, since I was using XFS for all my HDDs back on Unraid, I simply mount these drives (and yes, all the data is preserved) in my [system config](https://github.com/Logan-Lin/nix-archive/blob/master/hosts/nixos/hs/system.nix):
 
 ```nix
 fileSystems."/mnt/wd-12t-1" = {
@@ -193,7 +193,7 @@ For photo backup I use [Immich](https://immich.app/). It is a self-hosted altern
 
 {% cap() %}Web interface of Immich.{% end %}
 
-Right now Immich is the only service I am running with containers rather than native Nix modules (as you can see in [this configuration file](https://github.com/Logan-Lin/nix-config/blob/master/hosts/nixos/hs/containers.nix)). Technically it is possible to set up Immich with pure Nix modules, but for this type of services that rely on specific versions of databases (in this case, PostgreSQL with vector support), I feel containers are the easier route.
+Right now Immich is the only service I am running with containers rather than native Nix modules (as you can see in [this configuration file](https://github.com/Logan-Lin/nix-archive/blob/master/hosts/nixos/hs/containers.nix)). Technically it is possible to set up Immich with pure Nix modules, but for this type of services that rely on specific versions of databases (in this case, PostgreSQL with vector support), I feel containers are the easier route.
 And to be honest, I don't think there is much benefit going with pure Nix module here (especially for Immich which you can still [declare its config](https://github.com/Logan-Lin/nix-config/blob/master/config/immich.nix) even with containers), other than fulfilling the purism many Nix users seem to have.
 Also, I am not using Docker but Podman instead, which is said to have better integration with NixOS. From my experience it is fairly declarative and efficient, should be practically nearly identical to running directly on the host.
 
