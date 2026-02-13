@@ -1,5 +1,5 @@
 +++
-title = "Deep Learning for Trajectory"
+title = "Deep Learning for Trajectories"
 sort_by = "weight"
 paginate_by = 10
 

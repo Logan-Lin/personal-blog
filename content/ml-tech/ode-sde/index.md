@@ -1,5 +1,5 @@
 +++
-title = "Shortcuts in ODE and SDE"
+title = "Shortcuts in Flow Matching ODE and Score Matching SDE"
 date = 2025-07-01
 description = "Idea of finding shortcuts that universally apply to time-dependent differential equations"
 +++
