@@ -2,7 +2,6 @@
 title = "From Soft Guidance to Hard Constraints on Diffusion Sampling"
 date = 2026-02-13
 description = ""
-draft = true
 +++
 
 Diffusion models, or more broadly speaking, both score-matching and flow-matching models, are the foundational frameworks for building generative models these days. Compared to previous frameworks including VAEs and GANs, they are actually capable of generating high-quality data, ~like NSFW images that you might or might not want to jerk off to~.
