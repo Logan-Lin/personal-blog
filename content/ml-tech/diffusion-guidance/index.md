@@ -9,7 +9,7 @@ Diffusion models, or more broadly speaking, both score-matching and flow-matchin
 For a more detailed treatment of diffusion models, see [this post on shortcut models](../ode-sde) and [this post on discrete diffusion models](../discrete-diffusion).
 
 In many scenarios, we would like a generative model to be able to do conditional generation.
-For example, when generating images, one might want to generate an image of a dog, rather than any image that is realistic.
+For example, when generating images, one might want to generate an image of a dog, rather than any image that is plausible.
 Formally, instead of sampling from an unconditional probability $x\sim p_\theta(x)$ (where $p_\theta(x)$ is the probability parameterized by the generative model with parameters $\theta$), we want to sample from a conditional probability $x\sim p_\theta(x|y)$, where $y$ is the condition.
 
 One straightforward solution is to train a diffusion model where the denoiser takes both the condition $y$ and the noisy data $x_t$ as input.
@@ -40,7 +40,7 @@ With Bayes' rule we can do a clean decomposition. Since $p(x_t|y)\propto p(y|x_t
 In other words, the conditional score is the unconditional score plus the gradient of $\log p(y|x_t)$.
 
 When $y$ is a class label, we can implement the above formulation by training a classifier $p_\phi(y|x_t)$ on noisy images $x_t$ at various noise levels. At each denoising step, we compute the classifier's gradient with respect to $x_t$ and add it to the diffusion model's score.
-The diffusion model itself is never modified. In DDPM sampling, this amounts to shifting the predicted mean:
+The diffusion model itself is never modified. In DDPM sampling, this becomes shifting the predicted mean:
 
 {% math() %}
 \tilde{\mu}=\mu+s\,\Sigma\,\nabla_{x_t}\log p_\phi(y|x_t)
@@ -48,8 +48,7 @@ The diffusion model itself is never modified. In DDPM sampling, this amounts to 
 
 where $\Sigma$ is the covariance of the denoising step and $s$ is a gradient scale.
 Intuitively, we are using the gradient of a classifier to steer the generation direction towards the condition's favor.
-By extension, $y$ does not have to be a class label and $p_\phi(y|x_t)$ does not have to be a classifier.
-$p(y|x_t)$ can be any differentiable predictor that predicts the condition $y$ of any modality given $x_t$.
+By extension, $y$ does not have to be a class label and $p_\phi(y|x_t)$ does not have to be a classifier: $p(y|x_t)$ can be any differentiable predictor that predicts the condition $y$ of any modality given $x_t$.
 
 In theory, $s=1$ is the correct value corresponding to exact $p(x_t|y)$. In practice, it is too weak because the diffusion model's score overwhelms the classifier gradient. Scaling up to $s>1$ is equivalent to sampling from a sharpened distribution:
 
@@ -92,14 +91,14 @@ If we already have a conditional diffusion model that estimates $\nabla_{x_t}\lo
 Equivalently, in the noise prediction formulation:
 
 {% math() %}
-\tilde{\epsilon}_\theta=s\cdot\epsilon_\theta(x_t,t,y)+(1-s)\cdot\epsilon_\theta(x_t,t,\varnothing)
+\tilde{\epsilon}_\theta=(1+s)\cdot\epsilon_\theta(x_t,t,y)-s\cdot\epsilon_\theta(x_t,t,\varnothing)
 {% end %}
 
-When $s=1$, this is standard conditional sampling, equivalent to classifier guidance with $s=1$. Higher $s$ amplifies the implicit classifier signal.
+Similar to classifier guidance, higher $s$ amplifies the implicit classifier signal.
 
 ![classifier-free-guidance](./classifier-free-guidance.webp)
 {% cap() %}
-Images generated with classifier-free guidance, $s=1$ (left) or $s=4$ (right).
+Images generated with classifier-free guidance, $s=0$ (left) or $s=3$ (right).
 Similar conclusion to the above example with classifier guidance.
 {% end %}
 
@@ -124,13 +123,14 @@ But on this aspect, classifier guidance has the limitation that $\nabla_{x_t}\lo
 So, in scenarios where the classifier is non-differentiable, classifier guidance won't work.
 Say for example, in symbolic music generation, one might want to control the note density (total number of notes) of the generated piece, where the classifier involves counting how many elements exceed a threshold. Or the classifier might be a black-box, like an online API scoring the aesthetics of an image, where gradients are simply not available.
 
-The key observation is that DDPM/score-matching sampling is inherently stochastic. Each denoising step samples from a Gaussian distribution around the predicted posterior mean:
+In such scenarios, we can still steer the sampling process by exploiting the stochasticity in DDPM sampling.
+In DDPM sampling, each denoising step samples from a Gaussian distribution around the predicted posterior mean:
 
 {% math() %}
 x_{t-1}=\hat{x}_{t-1}+\sigma_t\mathbf{z},\quad\mathbf{z}\sim\mathcal{N}(\mathbf{0},\mathbf{I})
 {% end %}
 
-Different draws of $\mathbf{z}$ lead to different valid next states. We can exploit this stochasticity as a search mechanism. Instead of drawing one noise sample and moving on, we draw $n$ candidates:
+Different draws of $\mathbf{z}$ lead to different valid next states. We can exploit this to implement a search mechanism. Instead of drawing one noise sample and moving on, we draw $n$ candidates:
 
 {% math() %}
 x_{t-1}^i=\hat{x}_{t-1}+\sigma_t\mathbf{z}^i,\quad\mathbf{z}^i\sim\mathcal{N}(\mathbf{0},\mathbf{I}),\quad i=1,\ldots,n
@@ -160,7 +160,7 @@ The ones guided with aesthetic scoring API have higher fidelity.
 
 A side note on flow matching models, where the sampling step is a deterministic ODE step with no noise to vary. We can still apply the same idea: at each sampling step, run the velocity predictor once to get the predicted clean sample $\hat{x}_1$, then create $n$ noisy variations $\hat{x}_1^i\sim\mathcal{N}(\hat{x}_1,\rho_t\mathbf{I})$, evaluate the classifier on each $\hat{x}_1^i$, and use the best one to compute the next ODE step.
 
-Generating $n$ candidates does not require running the denoiser $n$ times. The posterior mean $\hat{x}_{t-1}$ is computed once, and the candidates are produced by simply drawing $n$ different noise samples from $\mathcal{N}(\mathbf{0},\mathbf{I})$, which is cheap. The main computational overhead is evaluating the classifier $n$ times per step.
+Note that generating $n$ candidates does not require running the denoiser $n$ times. The posterior mean $\hat{x}_{t-1}$ is computed once, and the candidates are produced by simply drawing $n$ different noise samples from $\mathcal{N}(\mathbf{0},\mathbf{I})$, which is cheap. The main computational overhead is evaluating the classifier $n$ times per step.
 
 
 ## Imposing Hard Constraints on Diffusion Sampling
@@ -171,8 +171,8 @@ All the above techniques can only add soft guidance to the diffusion sampling pr
 No matter how large of a gradient scale {% m() %}s{% end %} we use, there is no guarantee that the generated sample strictly satisfies the condition.
 In scenarios like scientific computing, this can be a problem, since the generation might need to exactly conserve mass or satisfy boundary conditions.
 
-In such scenarios, we can guarantee exact constraint satisfaction by projecting intermediate states onto the constraint surface during sampling.
-Consider the flow matching setting, where a pretrained model has learned a velocity field {% m() %}v_\theta(x_t, t){% end %} that transports noise {% m() %}x_0{% end %} to clean samples {% m() %}x_1{% end %} via the ODE {% m() %}\frac{d}{dt}x_t = v_\theta(x_t, t){% end %}, with {% m() %}t{% end %} going from {% m() %}0{% end %} to {% m() %}1{% end %}.
+In such scenarios, we can guarantee exact constraint satisfaction by projecting intermediate steps onto the constraint surface during sampling.
+Consider the flow matching setting, where the model has a learned velocity field {% m() %}v_\theta(x_t, t){% end %} that transports noise {% m() %}x_0{% end %} to clean samples {% m() %}x_1{% end %} via the ODE {% m() %}\frac{d}{dt}x_t = v_\theta(x_t, t){% end %}.
 The constraint is formulated as {% m() %}h(x_1) = 0{% end %}, where $h$ is a differentiable function.
 
 At each sampling step {% m() %}t \to t + \delta t{% end %}, we first estimate the clean sample {% m() %}\hat{x}_1{% end %} from the current {% m() %}x_t{% end %} (similar to Tweedie's formula, we can use one Euler step from $t$ to $1$).
@@ -199,5 +199,6 @@ using Newton iterations to machine precision, i.e., making the final generation 
 
 This approach does have the same limitation as classifier guidance that the constraint needs to be differentiable.
 On top of that, the constraint also needs to be able to be expressed as {% m() %}h(x_1) = 0{% end %}.
-One could also see that you do not want to use DDPM sampling with this approach, since the stochasticity in DDPM sampling won't help us get the exact satisfaction of a constraint, and that is why we choose to use flow matching with ODE sampling.
+But it shares the same benefit with classifier guidance that it can be plugged into a pretrained model since it only changes the sampling process.
+One could also see that you do not want to use DDPM sampling with this approach, since its stochasticity won't help us get the exact satisfaction of a constraint, and that is why we choose to use flow matching with ODE sampling.
 
