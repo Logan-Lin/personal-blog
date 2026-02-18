@@ -133,7 +133,7 @@ And a barebones `home.nix` module since I use Home Manager:
 }
 ```
 
-And add the new system and Home Manager entries to the `flake.nix` in [my Nix config repo](https://github.com/Logan-Lin/nix-archive).
+And add the new system and Home Manager entries to the `flake.nix` in [my Nix config repo](https://git.yanlincs.com/yanlin/nix).
 
 ```nix
 {
@@ -211,7 +211,7 @@ Most of the functionalities that people love about SteamOS on the Steam Deck are
 
 If you have been using NixOS for a while, you probably can think of hundreds of things you can do on a NixOS-powered Steam Deck.
 
-For example, if I want to introduce a desktop environment to make Steam Deck my Linux PC, all I have to do is to include either the [Hyprland module](https://github.com/Logan-Lin/nix-archive/tree/master/modules/hyprland) or the [GNOME module](https://github.com/Logan-Lin/nix-archive/tree/master/modules/gnome) in my Nix config repo, and declare the desktop session name as `jovian.steam.desktopSession = "hyprland"` or as `"gnome"`.
+For example, if I want to introduce a desktop environment to make Steam Deck my Linux PC, all I have to do is to include either the [Hyprland module](https://git.yanlincs.com/yanlin/nix-archive/src/branch/main/modules/hyprland) or the [GNOME module](https://git.yanlincs.com/yanlin/nix-archive/src/branch/main/modules/gnome) in my Nix config repo, and declare the desktop session name as `jovian.steam.desktopSession = "hyprland"` or as `"gnome"`.
 
 There are also lots of gaming-related stuff you can do with NixOS.
 For example, in [this post](https://heywoodlh.io/nixos-steamdeck) where the owner set up a WireGuard tunnel to their desktop PC so they can do game streaming remotely.
