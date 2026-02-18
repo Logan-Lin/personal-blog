@@ -41,11 +41,12 @@ Inserts table of contents where placed:
 {{ toc() }}
 ```
 
-## Cloudflare Pages Deployment
+## Deployment
 
-To use a specific version of Zola, handle Cloudflare's distinction between preview and production builds, and include draft pages in preview builds:
+Automated via Forgejo Actions (`.forgejo/workflows/deploy.yml`). On push:
 
-```bash
-curl -sL https://github.com/getzola/zola/releases/download/v0.22.1/zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz | tar xz && if [ "$CF_PAGES_BRANCH" = "main" ]; then ./zola build; else ./zola build --drafts --base-url $CF_PAGES_URL; fi
-```
+- **`main`** → production deploy to Cloudflare Pages
+- **`preview`** → preview deploy with draft posts included
+
+Required secrets in Forgejo repo settings: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `CF_PAGES_PROJECT_NAME`.
 
