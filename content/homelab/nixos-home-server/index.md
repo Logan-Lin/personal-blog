@@ -28,8 +28,8 @@ Not very important here, as long as you stick to common hardware, it should be r
 ### System Root
 
 I use two 1TB SSDs as ZFS mirror, serving as system root and storage for mission-critical files. With NixOS and [disko](https://github.com/nix-community/disko), it is fairly easy to declare such a setup.
-You declare two SSDs, and then declare the ZFS mirror pool (see my [disko config file](https://git.yanlincs.com/yanlin/nix-archive/src/branch/main/hosts/nixos/hs/disk-config.nix)).
-I do have some other configuration for ZFS service in the [system configuration file](https://git.yanlincs.com/yanlin/nix-archive/src/branch/main/hosts/nixos/hs/system.nix):
+You declare two SSDs, and then declare the ZFS mirror pool.
+I do have some other configuration for ZFS service in the system configuration:
 
 ```nix
 services.zfs = {
@@ -59,7 +59,7 @@ Before switching to NixOS, my home server was running [Unraid](https://unraid.ne
 As far as I know, the closest setup on NixOS (or Linux in general) is to use [MergerFS](https://github.com/trapexit/mergerfs) and [SnapRAID](https://www.snapraid.it/), with MergerFS creating a unified mounting point for a group of disks, and SnapRAID periodically writes parity data to parity drives.
 This is slightly different from Unraid where it writes parity data in real-time. But in normal home scenarios, this should be sufficient.
 
-I didn't use disko to manage any part of my bulk storage. Instead, since I was using XFS for all my HDDs back on Unraid, I simply mount these drives (and yes, all the data is preserved) in my [system config](https://git.yanlincs.com/yanlin/nix-archive/src/branch/main/hosts/nixos/hs/system.nix):
+I didn't use disko to manage any part of my bulk storage. Instead, since I was using XFS for all my HDDs back on Unraid, I simply mount these drives (and yes, all the data is preserved) in my system config:
 
 ```nix
 fileSystems."/mnt/wd-12t-1" = {
@@ -135,14 +135,14 @@ It is very easy to add or remove drives later, and no worry about mixed size.
 I used to run [Nextcloud](https://nextcloud.com/) on my home server but now I don't, since I feel it is overcomplicated for my personal use. (It is nice if you want to share files publicly)
 Right now for simple file sharing, I have two options: WebDAV and Samba. For both of which I wrote a custom module that can be enabled in the home server system config.
 
-For WebDAV, I wrote [a module](https://git.yanlincs.com/yanlin/nix/src/branch/master/modules/file-server/dufs.nix) that wraps [dufs](https://github.com/sigoden/dufs). The benefit of WebDAV is that it is HTTP-based, thus can be proxied like a website to serve files publicly.
-For Samba, I have [another module](https://git.yanlincs.com/yanlin/nix/src/branch/master/modules/file-server/samba.nix) that wraps, well, Samba. It has better performance compared to WebDAV, but cannot be proxied. Thus, if you need to access a Samba share outside of the home network, you probably will need a VPN routing back to your home LAN.
+For WebDAV, I wrote a module that wraps [dufs](https://github.com/sigoden/dufs). The benefit of WebDAV is that it is HTTP-based, thus can be proxied like a website to serve files publicly.
+For Samba, I have another module that wraps, well, Samba. It has better performance compared to WebDAV, but cannot be proxied. Thus, if you need to access a Samba share outside of the home network, you probably will need a VPN routing back to your home LAN.
 
 ## Media Server
 
 One of the primary purpose of my home server is to download, store, and serve (*totally legit and definitely legally obtained*) TV shows and movies.
 To do so I use a common stack of media management and streaming services: [Deluge](https://deluge-torrent.org/) for download, [Servarr](https://wiki.servarr.com/) stacks ([Sonarr](https://sonarr.tv/), [Radarr](https://radarr.video/), [Lidarr](https://lidarr.audio/), and [Bazarr](https://www.bazarr.media/)) for management, and [Plex](https://www.plex.tv/) for streaming.
-And they are setup by using native nix packages. I wrote a simple [media server module](https://git.yanlincs.com/yanlin/nix/src/branch/master/modules/media/server.nix) and left some basic options for myself:
+And they are setup by using native nix packages. I wrote a simple media server module and left some basic options for myself:
 
 ```nix
 user = lib.mkOption {
@@ -193,14 +193,13 @@ For photo backup I use [Immich](https://immich.app/). It is a self-hosted altern
 
 {% cap() %}Web interface of Immich.{% end %}
 
-Right now Immich is the only service I am running with containers rather than native Nix modules (as you can see in [this configuration file](https://git.yanlincs.com/yanlin/nix-archive/src/branch/main/hosts/nixos/hs/containers.nix)). Technically it is possible to set up Immich with pure Nix modules, but for this type of services that rely on specific versions of databases (in this case, PostgreSQL with vector support), I feel containers are the easier route.
-And to be honest, I don't think there is much benefit going with pure Nix module here (especially for Immich which you can still [declare its config](https://git.yanlincs.com/yanlin/nix/src/branch/master/config/immich.nix) even with containers), other than fulfilling the purism many Nix users seem to have.
+Right now Immich is the only service I am running with containers rather than native Nix modules. Technically it is possible to set up Immich with pure Nix modules, but for this type of services that rely on specific versions of databases (in this case, PostgreSQL with vector support), I feel containers are the easier route.
+And to be honest, I don't think there is much benefit going with pure Nix module here (especially for Immich which you can still declare its config even with containers), other than fulfilling the purism many Nix users seem to have.
 Also, I am not using Docker but Podman instead, which is said to have better integration with NixOS. From my experience it is fairly declarative and efficient, should be practically nearly identical to running directly on the host.
 
 ## Expose Services Publicly
 
-If you take a look at [my whole Nix config repo](https://git.yanlincs.com/yanlin/nix), you will notice the home server is just part of setup.
-I also have a cloud VM that is running NixOS (see its [system config](https://git.yanlincs.com/yanlin/nix/src/branch/master/hosts/nixos/vps/system.nix)). It is serving as a proxy server for all my services running on the home server, as you can see in [this configuration file](https://git.yanlincs.com/yanlin/nix/src/branch/master/hosts/nixos/vps/proxy.nix).
+I also have a cloud VM that is running NixOS. It is serving as a proxy server for all my services running on the home server.
 My goal is to make all my services accessible without the need for VPN, so everything is proxied through this cloud VM that can be publicly accessed at subdomains of `yanlincs.com`.
 This also have the added benefit that I can create public share links to send to my family/friends, for example using the Immich's built-in sharing function.
 But this also means I have to set strong passwords for all my services. Forget about trying to brute force them, they are all randomly generated 40+ characters with mix of alphabet, numbers, and symbols.
@@ -215,7 +214,7 @@ This is sort of a conclusion section.
 
 Compared to purposefully built home server systems (like Unraid) and pre-built home server solutions (like Synology), setting up a home server from scratch using a Linux distribution like NixOS definitely requires much more prior knowledge, patience, and effort. But you get to learn lots of Sysop stuff, which for me who will be staying in the computer science domain is certainly beneficial. It also teaches you that most off-the-shelf solutions are not much more than wrappers of open-source software, and maybe let you think twice next time you are about to pay for a service. Personally, I am a masochist so I tend to go for the harder route for no practical reason.
 
-Compared to other Linux distributions, NixOS is quite suitable for setting up a home server. Since it is declarative, setting up many things are probably easier than you thought. In other words, for the most part, you only have to care **what** you want to achieve, not **how** you are going to achieve them (this is of course, primarily thanks to the amazing NixOS community). On the other hand, most of the configuration is fully self-contained and tracked in your Nix config repo (supposing you use git). So it is much less prone to oversight during configuration, and you also don't have to explicitly remember your setup for future references. Before switching my home server to NixOS, I've been using Nix-darwin on my Macbook for a while, so I also get to reuse a lot of custom modules, like the [neovim module](https://git.yanlincs.com/yanlin/nix/src/branch/master/modules/nvim.nix).
+Compared to other Linux distributions, NixOS is quite suitable for setting up a home server. Since it is declarative, setting up many things are probably easier than you thought. In other words, for the most part, you only have to care **what** you want to achieve, not **how** you are going to achieve them (this is of course, primarily thanks to the amazing NixOS community). On the other hand, most of the configuration is fully self-contained and tracked in your Nix config repo (supposing you use git). So it is much less prone to oversight during configuration, and you also don't have to explicitly remember your setup for future references. Before switching my home server to NixOS, I've been using Nix-darwin on my Macbook for a while, so I also get to reuse a lot of custom modules, like my neovim module.
 
 ![terminal comparison](terminal-comparison.webp)
 
