@@ -41,12 +41,3 @@ Inserts table of contents where placed:
 {{ toc() }}
 ```
 
-## Deployment
-
-Automated via Forgejo Actions (`.forgejo/workflows/deploy.yml`). On push:
-
-- **`main`** → production deploy to Cloudflare Pages
-- **`preview`** → preview deploy with draft posts included
-
-Required secrets in Forgejo repo settings: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `CF_PAGES_PROJECT_NAME`.
-

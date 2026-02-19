@@ -16,10 +16,6 @@
             zola build
           '')
         ];
-        shellHook = ''
-          echo "Zola blog development environment"
-          echo "Commands: serve, build, zola"
-        '';
       };
     });
   };
