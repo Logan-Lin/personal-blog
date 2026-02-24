@@ -162,6 +162,20 @@ A side note on flow matching models, where the sampling step is a deterministic 
 Note that generating $n$ candidates does not require running the denoiser $n$ times. The posterior mean $\hat{x}_{t-1}$ is computed once, and the candidates are produced by simply drawing $n$ different noise samples from $\mathcal{N}(\mathbf{0},\mathbf{I})$, which is cheap. The main computational overhead is evaluating the classifier $n$ times per step.
 
 
+
+> 1. Bansal, Arpit, Hong-Min Chu, Avi Schwarzschild, et al. “Universal Guidance for Diffusion Models.”
+> 2. Shen, Yuchen, Chenhao Zhang, Chenghui Zhou, Sijie Fu, Newell Washburn, and Barnabás Póczos. “Non-Differentiable Diffusion Guidance for Improved Molecular Geometry.”
+
+Another route is to preserve the classifier guidance framework, but for non-differentiable classifiers, estimate the required gradient using simultaneous perturbation stochastic approximation (SPSA). The idea is straightforward: to approximate $\nabla_{x_t}\log p(y|x_t)$, we probe around $x_t$ with a random perturbation and use the change in classifier score to construct a gradient estimate. Concretely, draw a random perturbation vector $\boldsymbol{\Delta}\sim\mathcal{N}(\mathbf{0},\mathbf{I})$ and compute:
+
+{% math() %}
+\widetilde{\nabla}_{x_t}\log p(y|x_t)\approx\frac{\log p(y|x_t+\zeta\boldsymbol{\Delta})-\log p(y|x_t-\zeta\boldsymbol{\Delta})}{2\zeta}\,\boldsymbol{\Delta}
+{% end %}
+
+where $\zeta$ is a small perturbation scale. The numerator measures how much the classifier score changes along the random direction $\boldsymbol{\Delta}$, and multiplying by $\boldsymbol{\Delta}$ projects that scalar difference back into a full-dimensional gradient estimate. In expectation over $\boldsymbol{\Delta}$ this recovers the true gradient, and it requires only two forward evaluations of the classifier regardless of the dimensionality of $x_t$. The estimated gradient then replaces the exact gradient in the classifier guidance update.
+
+
+
 ## Imposing Hard Constraints on Diffusion Sampling
 
 > Utkarsh, Utkarsh, Pengfei Cai, Alan Edelman, Rafael Gomez-Bombarelli, and Christopher Vincent Rackauckas. “Physics-Constrained Flow Matching: Sampling Generative Models with Hard Constraints.”

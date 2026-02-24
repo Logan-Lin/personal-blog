@@ -12,7 +12,7 @@ I want to demonstrate that with the good old Git and the industry standard CI/CD
 ## Why?
 
 I have touched on the general topic of replacing cloud-based tools with local file synchronization in [this post](../replace-cloud-w-sync).
-To repeat the point, I believe pure cloud-based tools like Overleaf is simply unusable and should be avoided at all cost: your data only have one copy on their server, meaning there is zero guarantee that you can always access them or they will never lost them; even the slightest network instability will interrupt your workflow; and why would you trust them to keep your classified work in progress a secret?
+To repeat the point, I believe pure cloud-based tools like Overleaf is simply unusable and should be avoided at all cost: your data only have one copy on their server, meaning there is zero guarantee that you can always access them or they will never lost them; even the slightest network instability will interrupt your workflow; and why would you trust them to keep your work in progress a secret?
 Specific to Overleaf, their price for premium accounts is also absurdly high, and the set of functionalities at free tier is very limited.
 
 While it is understandable that Overleaf provide two core functionalities that make it user-friendly:
