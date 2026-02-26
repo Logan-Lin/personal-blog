@@ -1,0 +1,8 @@
+www.youtube.com###comments
+www.youtube.com###related
+bgm.tv###robot
+bgm.tv###dock
+bgm.tv###columnHomeB
+bilibili.com##.rec-list
+bilibili.com##.feed2
+bilibili.com##.bili-header
