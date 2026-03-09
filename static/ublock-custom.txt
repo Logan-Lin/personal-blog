@@ -7,3 +7,4 @@ bilibili.com##.rec-list
 bilibili.com##.feed2
 bilibili.com##.bili-header
 bilibili.com##.next-play
+bilibili.com##bili-comments
