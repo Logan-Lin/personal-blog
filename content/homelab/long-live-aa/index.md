@@ -19,8 +19,9 @@ However, as of right now, you probably still need quite a lot of effort getting 
 
 AA/AAA/CR batteries, on the other hand, are so common that they are essentially an open standard, not locked down to any specific vendor, and always available everywhere.
 Replacing batteries on devices that use them usually takes only a few seconds, versus needing to find a charger and a cable and wait for a few hours for the device to charge.
-Most importantly, I can confidently pull out one of the devices from my drawer 10 or 20 years later, pop in a new pair of batteries, and it would serve me as well as today. I cannot make the same claim for devices with built-in lithium batteries, and sometimes people forget that lithium batteries will degrade whether you use them or not.
-In fact, many of the devices I showed in the picture above are already more than 10 years old, and still hold up as a valid purchase today.
+Most importantly, I can confidently pull out one of the devices from my drawer 10 or 20 years later, pop in a new pair of batteries, and it would serve me as well as today.
+(In fact, many of the devices I showed in the picture above are already more than 10 years old, and still hold up as a valid purchase today.)
+I cannot make the same claim for devices with built-in lithium batteries, and sometimes people forget that lithium batteries will degrade whether you use them or not.
 
 From my experience, devices that use AA/AAA/CR batteries usually have a quite long battery life to begin with, so you don't need to constantly replace the batteries (_long live AA batteries, literally_).
 And even if you really like the idea of rechargeable batteries, just buy a set of rechargeable AA/AAA batteries from IKEA or Amazon or elsewhere, and it is super easy to always have a few batteries that are fully charged and ready to use.
