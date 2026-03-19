@@ -49,6 +49,7 @@
             {% set s = get_section(path=path) %}
             <a href="{{ s.permalink }}">{{ s.extra.abbr | default(value=s.title) }}</a>
             {% endfor %}
+            <a href="https://www.yanlincs.com">Homepage</a>
         </nav>
     </header>
     <main>
@@ -56,9 +57,9 @@
     </main>
     <footer>
         <div class="footer-links">
-            <a href="https://www.yanlincs.com" target="_blank">Homepage</a>
-            <a href="https://git.yanlincs.com" target="_blank">Git</a>
             <a href="mailto:s@yanlincs.com">Email</a>
+            <a href="https://github.com/Logan-Lin" target="_blank">GitHub</a>
+            <a href="https://git.yanlincs.com" target="_blank">Git Server</a>
         </div>
         <p>&copy; {{ now() | date(format="%Y") }} {{ config.extra.author }}. Content licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.</p>
     </footer>
