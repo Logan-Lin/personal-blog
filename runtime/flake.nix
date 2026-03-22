@@ -9,8 +9,11 @@
       default = pkgs.mkShell {
         packages = with pkgs; [
           zola
-          (writeShellScriptBin "serve" ''
+          (writeShellScriptBin "draft" ''
             zola serve --open --drafts
+          '')
+          (writeShellScriptBin "serve" ''
+            zola serve --open
           '')
           (writeShellScriptBin "build" ''
             zola build
