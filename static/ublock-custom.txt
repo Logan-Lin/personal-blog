@@ -1,5 +1,7 @@
 www.youtube.com###comments
 www.youtube.com###related
+www.youtube.com###masthead-container
+www.youtube.com##ytd-search
 bgm.tv###robot
 bgm.tv###dock
 bgm.tv###columnHomeB
