@@ -1,0 +1,25 @@
++++
+title = "Interacting with AI Systems"
+date = 2026-10-01
+description = ""
+weight = 10
+
+[extra]
+chapter = "Part A"
++++
+
+As mentioned in the [Introduction](@/ai-system/introduction/index.md), just the AI models alone won't be able to allow us to cram AI features into every corner of our digital life. The primary focus of an AI model is to implement the core mathematical algorithm of an AI system.
+But a typical AI system usually contains other implementation enabling all kinds of software to interact with the AI system in a streamlined way.
+And such implementation is what we are going to discuss in this part of the course.
+
+We will largely focus on the industry standard technique for streamlined interaction between software: application programming interface (API).
+In [Module A.1](@/ai-system/api-fundamentals/index.md) we will establish concepts essential for the discussion around API. We will also have the chance to play with the API for an existing AI system.
+In [Module A.2](@/ai-system/interacting-with-apis-in-python/index.md) we will learn how to integrate API interaction in the programming language that you are most familiar with (in this case, Python), so you can easily incorporate AI functionalities into your programs.
+
+Then we move from being consumers that rely on existing APIs to implement our own so we can become producers.
+In [Module A.3](@/ai-system/api-server-fundamentals/index.md) we will get to know that APIs that we interact with in the previous two modules are also a type of software called API server. We can also implement one ourselves using an API server framework, with FastAPI being the prime example.
+In [Module A.4](@/ai-system/implementing-ai-enabled-api-servers/index.md) we will go a bit deeper and integrate AI models into our API servers.
+
+In the end, we will be capable of implementing a system with AI functionalities powered by AI models, while allowing streamlined interaction from various types of software on the market.
+In other words, a system we can confidently call an AI system, fully featured and ready to be deployed in the real world to inflate the AI bubble even more.
+
