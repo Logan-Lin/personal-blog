@@ -20,7 +20,7 @@ OpenAI itself also does not have to write any specific code for a certain type o
 
 {% cap() %}Various types of programs interact with ChatGPT through OpenAI's family of APIs.{% end %}
 
-In this module we will cover fundamental concepts for understanding and using APIs.
+In this module, we will cover fundamental concepts for understanding and using APIs.
 We will also get to interact with an existing AI system's family of APIs to gain hands-on experience of how APIs work in practice.
 
 {{ toc() }}
@@ -40,7 +40,7 @@ A [**domain**](https://www.geeksforgeeks.org/computer-networks/introduction-to-d
 In the ChatGPT example above, `api.openai.com` is the domain name of the API, pointing to IP addresses like `162.159.140.245` and `172.66.0.243`.
 
 A [**URL**](https://www.geeksforgeeks.org/computer-networks/difference-between-domain-name-and-url/) always contains a domain but also adds the protocol that specifies how the communication should happen (such as HTTP, which we will discuss later), along with a path that narrows down to a specific resource or function hosted under that domain.
-An example URL is `https://api.openai.com/v1/chat/completions`, that specifies the communication protocol (`https`), the domain name (`api.openai.com`), version of the API (v1), and the specific function (conversation completion).
+An example URL is `https://api.openai.com/v1/chat/completions`, which specifies the communication protocol (`https`), the domain name (`api.openai.com`), the version of the API (v1), and the specific function (conversation completion).
 Think of the domain name `api.openai.com` as the building address like _Fredrik Bajers Vej 7K_ that usually corresponds to a certain group of hardware resources. The full URL is like an address with a floor and room number, such as _Fredrik Bajers Vej 7K, 3.2.50_, with a specified delivery company (like PostNord).
 
 Finally, we have ports.
@@ -79,13 +79,13 @@ The [**request line**](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/
 ```http
 POST https://api.openai.com/v1/chat/completions HTTP/1.1
 ```
-It is divided into three parts by the blank space.
+It is divided into three parts by spaces.
 The first part is the [HTTP request method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods). Different methods correspond to different purposes of the request, and also mean the sender expects different behavior from the recipient.
 Two methods that you will frequently encounter when using AI service APIs are `GET` and `POST`.
 `GET` means the sender wants to retrieve information, for example checking OpenAI's available AI models by sending a `GET` request to `https://api.openai.com/v1/models`. It is similar to sending an inquiry letter to your landlord asking for information.
 `POST` is for sending data and expecting a response corresponding to that data, which will be the primary method we use to send data to AI services and retrieve their response. It is similar to sending a blueprint to a manufacturer expecting them to send you back a prototype.
 
-The second part is the URL of the recipient API; and the third part is the protocol version, which, similar to the port, we can ignore and stick to the default one in most cases.
+The second part is the URL of the recipient API, and the third part is the protocol version, which, similar to the port, we can ignore and stick to the default one in most cases.
 
 The [**request headers**](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields) are a set of key-value pairs that carry metadata about the request, such as who is sending it, what format the data is in, and what the sender expects back. They do not contain the main content of the request, but provide additional context that helps the recipient understand how to handle it. Think of them as the information you write on the envelope of a letter: not the letter itself, but essential details for proper delivery and processing. A typical set of request headers will be something like this:
 ```http
@@ -109,7 +109,7 @@ Finally, we have the **request body**, which is the content of the request. Ther
 }
 ```
 The key-value format of the JSON object is specific to the API we are sending our request to.
-In practice, when we are sending a request to an existing API served by an AI system provider, like OpenAI with one of their APIs, we will need to read their documentation for the specification on the expected format.
+In practice, when we are sending a request to an existing API served by an AI system provider, like OpenAI with one of their APIs, we will need to read their documentation for the specification of the expected format.
 There are also other [content types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Type) that might be more suitable for certain types of data. Generally speaking, JSON is the most popular one since it's both machine-parseable and human-friendly.
 
 Also recall that of the two HTTP methods `GET` and `POST`, we will be sending data to the recipient when using `POST` but not when using `GET`. Thus, we will not include the request body in a `GET` request.
@@ -181,7 +181,7 @@ With the above fundamental concepts established, we have most of the knowledge n
 
 ### Interact with APIs in Browsers
 
-You might not have realized, but you've been interacting with APIs all the time when you are reading this blog post.
+You might not have realized, but you've been interacting with APIs all the time while reading this blog post.
 When you visit one page of my blog site, your browser is sending an HTTP request with a request line and request headers that look like the following:
 ```http
 GET https://blog.yanlincs.com/ai-system/api-fundamentals/ HTTP/1.1
@@ -219,14 +219,14 @@ For example, if we go to the root URL of GitHub APIs (`https://api.github.com/`)
 
 Nevertheless, you can tell that browsers are not an ideal tool for interacting with and testing APIs.
 Aside from the fact that browsers are not built to test APIs in the first place, there are also several limitations with this method of interaction.
-You cannot send `POST` requests to APIs that accept them, since there is no place for you to enter the request body; you also cannot interact with APIs that require API key authentication (which is very common for AI systems), since there is no place for you to control the request headers (where you will put your API keys in).
+You cannot send `POST` requests to APIs that accept them, since there is no place for you to enter the request body; you also cannot interact with APIs that require API key authentication (which is very common for AI systems), since there is no place for you to control the request headers (where you would put your API keys).
 
 ### API Testing Tools
 
 Introducing HTTP API testing tools, which are proprietary development tools for testing HTTP APIs. They are suitable for us to control every nitty-gritty detail of HTTP API-based interaction, and get a better idea of the behavior of HTTP APIs.
 
 There are lots of API testing tools on the market.
-Here I will use [Postman](https://www.postman.com/) as an example, which is the more widely used and intuitive one.
+Here I will use [Postman](https://www.postman.com/) as an example, which is the most widely used and intuitive one.
 
 To begin, let's send a `GET` request to GitHub APIs just like we did above, but this time with Postman. Immediately we can more easily find the request and response components on its interface.
 
@@ -257,11 +257,11 @@ Say you want to interact with APIs served by Google, OpenAI, or Anthropic, you c
 
 Second, when sending requests to APIs for AI systems served by most of the big AI companies, you are expected to register an account under their developer platforms, and identify yourself with an API key when sending HTTP requests. This topic is also covered in the above documentation.
 Since AI systems cost these companies (a lot of) money to run, you might be charged to use their APIs, and they might reject your requests if you don't have any quota left.
-Many platforms will give you a small amount of free quota to play with if you are a newly registered user. Google is also relatively generous with their free quota; as of writing, you can use some of their lighter models completely free as stated in their [pricing policy](https://ai.google.dev/gemini-api/docs/pricing) (with limits or asterisks, of course).
+Many platforms will give you a small amount of free quota to play with if you are a newly registered user. Google is also relatively generous with their free quota; as of this writing, you can use some of their lighter models completely free as stated in their [pricing policy](https://ai.google.dev/gemini-api/docs/pricing) (with limits or asterisks, of course).
 
 > Here are some text and video tutorials for Postman if you want to learn it more systematically.
 > - [Postman tutorial (blog post)](https://www.geeksforgeeks.org/software-testing/postman-tutorial/)
-> - [Postman Api Testing Tutorial for beginners (video)](https://www.youtube.com/watch?v=MFxk5BZulVU)
+> - [Postman API Testing Tutorial for beginners (video)](https://www.youtube.com/watch?v=MFxk5BZulVU)
 >
 > Here are some alternative API testing tools to Postman, if you do not enjoy Postman for any reason.
 > - [curl](https://www.geeksforgeeks.org/linux-unix/curl-command-in-linux-with-examples/), the classic Unix command line program that can be used to test APIs
@@ -281,6 +281,10 @@ Before you start, make sure you have the following ready:
 Start by reading the API documentation of your chosen provider, and figure out how to construct a `POST` request that sends a chat message to one of their AI models. Pay attention to the URL, the required request headers, where to place your API key, and the expected format of the request body.
 Send the request, and if everything goes well, you should receive a response with a `200 OK` status line. Take a moment to look through the response body and try to locate the AI model's reply, as well as any metadata the API provides alongside it.
 If you receive an error instead, take a look at the status code and the response body, as they will often give you a hint of what went wrong and how to fix it. The API documentation of your chosen provider usually also has information on common error codes and their causes.
+
+> **Pro tip:** Nowadays, most AI API documentation shows examples using the provider's official Python package by default, which hides the underlying HTTP details.
+> To bypass that, look for a programming language selector near the code examples and switch to `curl`.
+> You can then extract the HTTP request specification from these examples as long as you know [how to read `curl` commands](https://www.geeksforgeeks.org/linux-unix/curl-command-in-linux-with-examples/).
 
 Now that you have a working request, try the following experiments and observe what happens:
 
