@@ -18,15 +18,15 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{% block twitter_title %}{{ config.title }}{% endblock twitter_title %}">
     <meta name="twitter:description" content="{% block twitter_description %}{{ config.description }}{% endblock twitter_description %}">
-    <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
+    <link rel="stylesheet" href="{{ get_url(path='style.css', cachebust=true) }}">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ get_url(path='rss.xml') }}">
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ get_url(path='favicon-96x96.png') }}" sizes="96x96">
-    <link rel="icon" type="image/svg+xml" href="{{ get_url(path='favicon.svg') }}">
-    <link rel="shortcut icon" href="{{ get_url(path='favicon.ico') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ get_url(path='apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" href="{{ get_url(path='favicon-96x96.png', cachebust=true) }}" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="{{ get_url(path='favicon.svg', cachebust=true) }}">
+    <link rel="shortcut icon" href="{{ get_url(path='favicon.ico', cachebust=true) }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ get_url(path='apple-touch-icon.png', cachebust=true) }}">
     <meta name="apple-mobile-web-app-title" content="YL Blog">
-    <link rel="manifest" href="{{ get_url(path='site.webmanifest') }}">
+    <link rel="manifest" href="{{ get_url(path='site.webmanifest', cachebust=true) }}">
     <meta name="theme-color" content="#fff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#161618" media="(prefers-color-scheme: dark)">
     <!-- KaTeX for math rendering -->
