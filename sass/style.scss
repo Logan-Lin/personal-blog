@@ -277,9 +277,17 @@ footer {
   color: var(--muted);
   font-size: 1.0rem;
 
+  .footer-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.0rem;
+  }
+
   .footer-links {
     display: flex;
     gap: 1.5rem;
-    margin-bottom: 0.5rem;
   }
 }
