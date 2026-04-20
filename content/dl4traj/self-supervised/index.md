@@ -87,10 +87,9 @@ Locations with similar temporal visitation patterns will be closer in the embedd
 
 The location embeddings learned through these methods encode functional roles based on visitation patterns. When locations are Points of Interest (POIs), the embeddings can support tasks such as POI category classification and next-visit prediction, since POIs of the same category tend to have similar visitation patterns and thus similar embeddings. The same framework applies when locations are Areas of Interest (AOIs), where embeddings of urban zones or grid cells can be used for visiting flow prediction between areas.
 
-> **References:**
-> - Mikolov, Tomas, Kai Chen, Greg Corrado, and Jeffrey Dean. "Efficient Estimation of Word Representations in Vector Space."
-> - Feng, Shanshan, Gao Cong, Bo An, and Yeow Meng Chee. "POI2Vec: Geographical Latent Representation for Predicting Future Visitors."
-> - Wan, Huaiyu, Yan Lin, Shengnan Guo, and Youfang Lin. "Pre-Training Time-Aware Location Embeddings from Spatial-Temporal Trajectories."
+> 1. Mikolov, Tomas, Kai Chen, Greg Corrado, and Jeffrey Dean. "Efficient Estimation of Word Representations in Vector Space."
+> 2. Feng, Shanshan, Gao Cong, Bo An, and Yeow Meng Chee. "POI2Vec: Geographical Latent Representation for Predicting Future Visitors."
+> 3. Wan, Huaiyu, Yan Lin, Shengnan Guo, and Youfang Lin. "Pre-Training Time-Aware Location Embeddings from Spatial-Temporal Trajectories."
 
 
 ## Graph Node Embedding
@@ -128,9 +127,8 @@ Additionally, in scenarios where only aggregate transition data is available (e.
 
 Graph node embedding methods are particularly suited for learning representations of road segments and AOIs. For road networks, each segment serves as a node and the graph captures connectivity, role in the road network, and traffic flow patterns; the learned segment embeddings can then be used in downstream tasks such as travel time estimation or traffic flow prediction. For AOIs, the transition graph between urban zones encodes inter-region mobility patterns, and the resulting embeddings can support tasks like land use classification or origin-destination flow prediction.
 
-> **References:**
-> - Perozzi, Bryan, Rami Al-Rfou, and Steven Skiena. "DeepWalk: Online Learning of Social Representations."
-> - Grover, Aditya, and Jure Leskovec. "Node2vec: Scalable Feature Learning for Networks."
+> 1. Perozzi, Bryan, Rami Al-Rfou, and Steven Skiena. "DeepWalk: Online Learning of Social Representations."
+> 2. Grover, Aditya, and Jure Leskovec. "Node2vec: Scalable Feature Learning for Networks."
 
 ## Contextual Word Embedding
 
@@ -187,10 +185,9 @@ However, the effectiveness of contextual modeling depends on data density.
 Rich context from dense trajectory data (such as mobile signaling data) enables more effective contextual modeling.
 Sparse data (such as check-in data) may not provide sufficient context for the approach to show clear advantages over static methods.
 
-> **References:**
-> - Peters, Matthew E., Mark Neumann, Mohit Iyyer, et al. "Deep Contextualized Word Representations."
-> - Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. "BERT: Pre-Training of Deep Bidirectional Transformers for Language Understanding."
-> - Lin, Yan, Huaiyu Wan, Shengnan Guo, and Youfang Lin. "Pre-Training Context and Time Aware Location Embeddings from Spatial-Temporal Trajectories for User Next Location Prediction."
+> 1. Peters, Matthew E., Mark Neumann, Mohit Iyyer, et al. "Deep Contextualized Word Representations."
+> 2. Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. "BERT: Pre-Training of Deep Bidirectional Transformers for Language Understanding."
+> 3. Lin, Yan, Huaiyu Wan, Shengnan Guo, and Youfang Lin. "Pre-Training Context and Time Aware Location Embeddings from Spatial-Temporal Trajectories for User Next Location Prediction."
 
 ## Auto-encoding
 
@@ -241,11 +238,10 @@ VAE-based models extend the applications to trajectory generation. By sampling l
 
 The probabilistic nature of VAEs also enables anomaly detection. A trajectory that deviates from typical patterns will have a low likelihood under the learned model, either through high reconstruction error or low probability under the prior. This allows identifying unusual trajectories such as detours, suspicious movements, or data collection errors.
 
-> **References:**
-> - Hinton, G. E., and R. R. Salakhutdinov. "Reducing the Dimensionality of Data with Neural Networks."
-> - Kingma, Diederik P., and Max Welling. "Auto-Encoding Variational Bayes."
-> - Yao, Di, Chao Zhang, Zhihua Zhu, Jianhui Huang, and Jingping Bi. "Trajectory Clustering via Deep Representation Learning."
-> - Liu, Yiding, Kaiqi Zhao, Gao Cong, and Zhifeng Bao. "Online Anomalous Trajectory Detection with Deep Generative Sequence Modeling."
+> 1. Hinton, G. E., and R. R. Salakhutdinov. "Reducing the Dimensionality of Data with Neural Networks."
+> 2. Kingma, Diederik P., and Max Welling. "Auto-Encoding Variational Bayes."
+> 3. Yao, Di, Chao Zhang, Zhihua Zhu, Jianhui Huang, and Jingping Bi. "Trajectory Clustering via Deep Representation Learning."
+> 4. Liu, Yiding, Kaiqi Zhao, Gao Cong, and Zhifeng Bao. "Online Anomalous Trajectory Detection with Deep Generative Sequence Modeling."
 
 ## Contrastive Learning
 
@@ -295,9 +291,8 @@ Contrastive learning directly optimizes for embedding similarity, so intuitively
 
 Contrastive learning does not train a decoder. On the one hand, the architecture is simpler compared to auto-encoding. On the other hand, it means contrastive learning cannot be applied to tasks requiring generation of trajectories.
 
-> **References:**
-> - Chen, Ting, Simon Kornblith, Mohammad Norouzi, and Geoffrey Hinton. "A Simple Framework for Contrastive Learning of Visual Representations."
-> - Tian, Yonglong, Dilip Krishnan, and Phillip Isola. "Contrastive Multiview Coding."
-> - Oord, Aaron van den, Yazhe Li, and Oriol Vinyals. "Representation Learning with Contrastive Predictive Coding."
-> - Lin, Yan, Huaiyu Wan, Shengnan Guo, Jilin Hu, Christian S. Jensen, and Youfang Lin. "Pre-Training General Trajectory Embeddings With Maximum Multi-View Entropy Coding."
+> 1. Chen, Ting, Simon Kornblith, Mohammad Norouzi, and Geoffrey Hinton. "A Simple Framework for Contrastive Learning of Visual Representations."
+> 2. Tian, Yonglong, Dilip Krishnan, and Phillip Isola. "Contrastive Multiview Coding."
+> 3. Oord, Aaron van den, Yazhe Li, and Oriol Vinyals. "Representation Learning with Contrastive Predictive Coding."
+> 4. Lin, Yan, Huaiyu Wan, Shengnan Guo, Jilin Hu, Christian S. Jensen, and Youfang Lin. "Pre-Training General Trajectory Embeddings With Maximum Multi-View Entropy Coding."
 

@@ -126,11 +126,10 @@ _Arrival time estimation_ predicts when the destination will be reached based on
 Location-based services might implement _next POI recommendation_ by predicting which point of interest (POI) a user will visit next based on their check-in history.
 A user's past visits form a trajectory $\mathcal{T}\_{1:m}$ where each location $l_i$ is a POI identifier and each timestamp $t_i$ indicates when the visit occurred. The task is to predict the next POI: $f_\theta: \mathcal{T}\_{1:m} \rightarrow l\_{m+1}$, a multi-to-one classification problem over the set of candidate POIs. This enables applications like personalized venue suggestions and location-aware advertising. Top-K hit rate is a common evaluation metric, reflecting whether the ground truth POI appears among the top recommendations.
 
-> **Representative Works:**
-> - Kong, Dejiang, and Fei Wu. “HST-LSTM: A Hierarchical Spatial-Temporal Long-Short Term Memory Network for Location Prediction.”
-> - Liang, Yuebing, and Zhan Zhao. “NetTraj: A Network-Based Vehicle Trajectory Prediction Model With Directional Representation and Spatiotemporal Attention Mechanisms.”
-> - Wu, Hao, Ziyang Chen, Weiwei Sun, Baihua Zheng, and Wei Wang. “Modeling Trajectories with Recurrent Neural Networks.”
-> - Yan, Bingqi, Geng Zhao, Lexue Song, Yanwei Yu, and Junyu Dong. “PreCLN: Pretrained-Based Contrastive Learning Network for Vehicle Trajectory Prediction.”
+> 1. Kong, Dejiang, and Fei Wu. “HST-LSTM: A Hierarchical Spatial-Temporal Long-Short Term Memory Network for Location Prediction.”
+> 2. Liang, Yuebing, and Zhan Zhao. “NetTraj: A Network-Based Vehicle Trajectory Prediction Model With Directional Representation and Spatiotemporal Attention Mechanisms.”
+> 3. Wu, Hao, Ziyang Chen, Weiwei Sun, Baihua Zheng, and Wei Wang. “Modeling Trajectories with Recurrent Neural Networks.”
+> 4. Yan, Bingqi, Geng Zhao, Lexue Song, Yanwei Yu, and Junyu Dong. “PreCLN: Pretrained-Based Contrastive Learning Network for Vehicle Trajectory Prediction.”
 
 
 ## Trajectory Classification
@@ -208,10 +207,9 @@ _Trajectory-user linking_ determines which user generated a given trajectory bas
 Let $\mathcal{U} = \{u_1, u_2, \ldots, u_K\}$ be a set of $K$ users. Given a trajectory $\mathcal{T}$ from an unknown user, the task is to identify which user generated it: $f_\theta: \mathcal{T} \rightarrow u \in \mathcal{U}$.
 This is trajectory-level classification where the classes are user identities. The model learns to recognize individual mobility patterns from historical trajectories of each user.
 
-> **Representative Works:**
-> - Liang, Yuxuan, Kun Ouyang, Yiwei Wang, et al. “TrajFormer: Efficient Trajectory Classification with Transformers.”
-> - Sang, Yu, Zhenping Xie, Wei Chen, and Lei Zhao. “TULRN: Trajectory User Linking on Road Networks.”
-> - Luo, Kang, Yuanshao Zhu, Wei Chen, et al. “Towards Robust Trajectory Representations: Isolating Environmental Confounders with Causal Learning.”
+> 1. Liang, Yuxuan, Kun Ouyang, Yiwei Wang, et al. “TrajFormer: Efficient Trajectory Classification with Transformers.”
+> 2. Sang, Yu, Zhenping Xie, Wei Chen, and Lei Zhao. “TULRN: Trajectory User Linking on Road Networks.”
+> 3. Luo, Kang, Yuanshao Zhu, Wei Chen, et al. “Towards Robust Trajectory Representations: Isolating Environmental Confounders with Causal Learning.”
 
 
 
@@ -277,9 +275,8 @@ Sparse sampling is common in real-world trajectory data due to constraints on GP
 Imputation recovers the fine-grained movement details lost to sparse sampling, enabling more accurate map matching, smoother trajectory visualization, and better input for downstream analyses that assume densely sampled data.
 In some contexts, trajectory imputation is also referred to as trajectory recovery or trajectory reconstruction.
 
-> **Representative Works:**
-> - Xia, Tong, Yunhan Qi, Jie Feng, et al. “AttnMove: History Enhanced Trajectory Recovery via Attentional Network.”
-> - Chen, Yuqi, Hanyuan Zhang, Weiwei Sun, and Baihua Zheng. “RNTrajRec: Road Network Enhanced Trajectory Recovery with Spatial-Temporal Transformer.”
-> - Wei, Tonglong, Youfang Lin, Yan Lin, Shengnan Guo, Lan Zhang, and Huaiyu Wan. “Micro-Macro Spatial-Temporal Graph-Based Encoder-Decoder for Map-Constrained Trajectory Recovery.”
-> - Wei, Tonglong, Yan Lin, Youfang Lin, et al. “PLMTrajRec: A Scalable and Generalizable Trajectory Recovery Method with Pre-Trained Language Models.”
+> 1. Xia, Tong, Yunhan Qi, Jie Feng, et al. “AttnMove: History Enhanced Trajectory Recovery via Attentional Network.”
+> 2. Chen, Yuqi, Hanyuan Zhang, Weiwei Sun, and Baihua Zheng. “RNTrajRec: Road Network Enhanced Trajectory Recovery with Spatial-Temporal Transformer.”
+> 3. Wei, Tonglong, Youfang Lin, Yan Lin, Shengnan Guo, Lan Zhang, and Huaiyu Wan. “Micro-Macro Spatial-Temporal Graph-Based Encoder-Decoder for Map-Constrained Trajectory Recovery.”
+> 4. Wei, Tonglong, Yan Lin, Youfang Lin, et al. “PLMTrajRec: A Scalable and Generalizable Trajectory Recovery Method with Pre-Trained Language Models.”
 

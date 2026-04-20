@@ -27,7 +27,7 @@ Thus the idea of using their foundational Transformer model to process spatiotem
 
 And in reality, LLMs are infamous for being insensitive to numbers, let alone spatiotemporal data. Many research papers also questioned the rational and actual effectiveness of using LLMs on spatiotemporal data and time series. I personally have also worked on a few papers adopting LLMs to spatiotemporal data, and despite the results reported in the paper, I will be honest here and say that some clever "tricks" contributes a lot to those results, and in reality such practice will probably result in 1\% performance improvement (at best) at the cost of 10000\% model size increase.
 
-> Tan, Mingtian, et al. "Are language models actually useful for time series forecasting?." _Advances in Neural Information Processing Systems_ 37 (2024): 60162-60191.
+> Tan, Mingtian, et al. "Are Language Models Actually Useful for Time Series Forecasting?"
 
 ### The Necessity of Spatiotemporal Agents
 
@@ -37,7 +37,7 @@ Problem is, building an agent for ST-DM in many cases is hard to justify. If we 
 
 Another idea would be building agents that perform tasks we as human usually do in ST-DM research, like data analysis. Some works already explored this idea. This direction might be more promising, but will also be largely engineering. Also depending who you ask, the usefulness of such agents can still be questionable, seeing that: the procedure of such tasks is highly matured and might make more sense to hard-code instead of letting an LLM to decide; and an experienced researcher would probably do a better and faster job at such tasks compared to an AI agent.
 
-> Hong, Sirui, et al. "Data interpreter: An llm agent for data science." _arXiv preprint arXiv:2402.18679_ (2024).
+> Hong, Sirui, et al. "Data Interpreter: An LLM Agent for Data Science."
 
 ## When to Build ST Agents
 

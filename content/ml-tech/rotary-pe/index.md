@@ -60,6 +60,8 @@ This causes problems when you try to extend a Transformer to sequences longer th
 
 ## Rotary Position Embedding (RoPE)
 
+> Su, Jianlin, et al. "RoFormer: Enhanced Transformer with Rotary Position Embedding."
+
 RoPE is proposed to achieve one goal: let the Transformer only interpret relative position information, while maintaining the benefits of PE (that is, it is a non-learning encoding, adding very little computational overhead, and does not require modifying the Attention mechanism).
 
 Remember that the dot-product of PE vectors is already relative, the problem being they are first added to token embedding vectors.
@@ -113,6 +115,8 @@ Ideally we want to extend RoPE without fine-tuning the Transformer, or at least 
 
 ### Positional Interpolation (PI)
 
+> Chen, Shouyuan, et al. "Extending Context Window of Large Language Models via Positional Interpolation."
+
 PI is a straightforward extension of RoPE: if the network can only interpret relative position differences (context) up to a certain length, then we simply squeeze the target extended context during inference to fit that length.
 Formally, if $L$ is the training context length and we want to extend it to $L'$ during inference, PI scales every input position index $m$ to $\frac{L}{L'}m$.
 
@@ -121,6 +125,8 @@ For example, if $L'=2L$, then a relative position of 2 will be compressed to 1 b
 Thus, fine-tuning is necessary for PI to work effectively.
 
 ### Yet Another RoPE Extension (YaRN)
+
+> Peng, Bowen, et al. "YaRN: Efficient Context Window Extension of Large Language Models."
 
 YaRN is the result of multiple "informal" techniques proposed on Reddit and GitHub ([NTK-aware interpolation](https://www.reddit.com/r/LocalLLaMA/comments/14lz7j5/ntkaware_scaled_rope_allows_llama_models_to_have/) and [NTK-by-parts interpolation](https://github.com/jquesnelle/yarn/pull/1)) that were later formalized in a research paper.
 
@@ -139,6 +145,8 @@ This way, the network maintains its ability to understand local relationships wh
 
 ### Resonance RoPE
 
+> Wang, Suyuchen, et al. "Resonance RoPE: Improving Context Length Generalization of Large Language Models."
+
 YaRN solves the extrapolation problem by not interpolating the high-frequency dimensions. But there's still an issue even with dimensions YaRN leaves unchanged.
 
 The problem is RoPE's non-integer wavelengths. Because of the common base value 10,000, most dimensions have wavelengths like 6.28 or 15.7 tokens.
@@ -156,6 +164,8 @@ Experiments show the combination consistently outperforms YaRN alone on long-con
 
 ### LongRoPE
 
+> Ding, Yiran, et al. "LongRoPE: Extending LLM Context Window Beyond 3 Million Tokens."
+
 Both YaRN and Resonance RoPE rely on hand-crafted rules to determine how different dimensions should be scaled. YaRN divides dimensions into three groups with fixed boundaries, and Resonance rounds wavelengths to integers. LongRoPE takes a different approach: instead of manually designing the scaling strategy, it uses evolutionary search to find optimal rescale factors for each dimension automatically.
 
 The search process treats the rescale factors as parameters to optimize. Starting from an initial population of candidates, LongRoPE evaluates each candidate's perplexity on validation data and evolves better solutions over iterations. This automated approach discovered non-uniform scaling patterns that outperform hand-crafted rules, enabling LongRoPE to extend context windows to 2048k tokens (over 2 million).
@@ -163,11 +173,3 @@ The search process treats the rescale factors as parameters to optimize. Startin
 LongRoPE also introduces a progressive extension strategy. Rather than jumping directly from the training length to the target length, it extends in stages: first from 4k to 256k with evolutionary search, then applies the same factors to reach 2048k. The model only needs 1000 fine-tuning steps at 256k tokens to adapt, making the extension process both effective and efficient. This progressive approach reduces the risk of performance degradation that can occur with aggressive single-step extensions.
 
 ![](longrope.webp)
-
-> **References:**
->
-> 1. RoFormer: Enhanced transformer with Rotary Position Embedding (2024). Su, Jianlin and Ahmed, Murtadha and Lu, Yu and Pan, Shengfeng and Bo, Wen and Liu, Yunfeng.
-> 2. Extending context window of large language models via positional interpolation (2023). Chen, Shouyuan and Wong, Sherman and Chen, Liangjian and Tian, Yuandong.
-> 3. YaRN: Efficient Context Window Extension of Large Language Models (2023). Peng, Bowen and Quesnelle, Jeffrey and Fan, Honglu and Shippole, Enrico.
-> 4. Resonance rope: Improving context length generalization of large language models (2024). Wang, Suyuchen and Kobyzev, Ivan and Lu, Peng and Rezagholizadeh, Mehdi and Liu, Bang.
-> 5. LongRoPE: Extending LLM Context Window Beyond 3 Million Tokens (2024). Ding, Yiran and Zhang, Li Lyna and Zhang, Chengruidong and Xu, Yuanyuan and Shang, Ning and Xu, Jiahang and Yang, Fan and Yang, Mao.

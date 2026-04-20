@@ -87,10 +87,9 @@ There are also hybrid approaches that combine both objectives. For example, GLM 
 
 {% cap() %}Blank-infilling objective used by GLM.{% end %}
 
-> **References:**
-> - Vaswani, Ashish, Noam Shazeer, Niki Parmar, et al. "Attention Is All You Need."
-> - Su, Jianlin, Murtadha Ahmed, Yu Lu, Shengfeng Pan, Wen Bo, and Yunfeng Liu. "RoFormer: Enhanced Transformer with Rotary Position Embedding."
-> - Du, Zhengxiao, Yujie Qian, Xiao Liu, et al. "GLM: General Language Model Pretraining with Autoregressive Blank Infilling."
+> 1. Vaswani, Ashish, Noam Shazeer, Niki Parmar, et al. "Attention Is All You Need."
+> 2. Su, Jianlin, Murtadha Ahmed, Yu Lu, Shengfeng Pan, Wen Bo, and Yunfeng Liu. "RoFormer: Enhanced Transformer with Rotary Position Embedding."
+> 3. Du, Zhengxiao, Yujie Qian, Xiao Liu, et al. "GLM: General Language Model Pretraining with Autoregressive Blank Infilling."
 
 ## Developments of Large Language Models
 
@@ -217,10 +216,9 @@ Here $g_{[m]}$ represents missing points between $g_1$ and $g_4$, and the model 
 
 Under this formulation, we can frame different tasks with different masking patterns. For origin-destination travel time estimation, the input is $(l_o, t_o, [m]), (l_d, [m], [m])$, where only the origin coordinate, departure time, and destination coordinate are known, and the model generates the arrival time as part of the destination tuple. For trajectory recovery, known sparse points have complete tuples while gaps between them are marked with $g_{[m]}$, and the model generates the intermediate points. For trajectory prediction, historical points are complete and a single $g_{[m]}$ at the end signals that future points should be generated.
 
-> **References:**
-> - Zhou, Zeyu, Yan Lin, Haomin Wen, et al. "TrajCogn: Leveraging LLMs for Cognizing Movement Patterns and Travel Purposes from Trajectories."
-> - Liu, Shuo, Di Yao, Yan Lin, Gao Cong, and Jingping Bi. "Traj-MLLM: Can Multimodal Large Language Models Reform Trajectory Data Mining?"
-> - Lin, Yan, Jilin Hu, Shengnan Guo, et al. "UVTM: Universal Vehicle Trajectory Modeling With ST Feature Domain Generation."
+> 1. Zhou, Zeyu, Yan Lin, Haomin Wen, et al. "TrajCogn: Leveraging LLMs for Cognizing Movement Patterns and Travel Purposes from Trajectories."
+> 2. Liu, Shuo, Di Yao, Yan Lin, Gao Cong, and Jingping Bi. "Traj-MLLM: Can Multimodal Large Language Models Reform Trajectory Data Mining?"
+> 3. Lin, Yan, Jilin Hu, Shengnan Guo, et al. "UVTM: Universal Vehicle Trajectory Modeling With ST Feature Domain Generation."
 
 
 ## How Necessary are Large Trajectory Models?
@@ -242,8 +240,7 @@ Given these considerations, one might wonder whether the current pursuit of larg
 
 One direction that could justify large-scale trajectory models is enabling multimodal output capabilities that conventional models cannot provide, which we discuss further in the next section.
 
-> **References:**
-> - Tan, Mingtian, Mike A. Merrill, Vinayak Gupta, Tim Althoff, and Thomas Hartvigsen. "Are Language Models Actually Useful for Time Series Forecasting?"
+> Tan, Mingtian, Mike A. Merrill, Vinayak Gupta, Tim Althoff, and Thomas Hartvigsen. "Are Language Models Actually Useful for Time Series Forecasting?"
 
 ## Future Directions
 
