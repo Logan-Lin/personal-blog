@@ -12,6 +12,11 @@ Despite BERT failing to dominate LLMs, they are still highly relevant, both in t
 
 In this post we will take a look at a few recent works aiming to modernize BERT, bringing latest advancement in LLMs to the "classic" BERT framework.
 
+> 1. Warner, Benjamin, et al. "Smarter, Better, Faster, Longer: A Modern Bidirectional Encoder for Fast, Memory Efficient, and Long Context Finetuning and Inference."
+> 2. Breton, Lola Le, et al. "NeoBERT: A Next Generation BERT."
+> 3. Nussbaum, Zach, et al. "Nomic Embed: Training a Reproducible Long Context Text Embedder."
+> 4. Xiao, Yisheng, et al. "Unveiling the Potential of BERT-family: A New Recipe for Building Scalable, General and Competitive Large Language Models."
+
 Note that I am more interested in adopting those methods to domains other than NLP, thus will ignore the technical details that are only applicable in the NLP domain (e.g., text datasets used for training). I will also be focusing on common design choices that appear in all four existing works listed above.
 
 ## Positional Encoding
@@ -26,7 +31,7 @@ $$
 PE_{(pos,2i+1)} = \cos(pos/10000^{2i/d_{\text{model}}})
 $$
 
-> Vaswani, Ashish, et al. "Attention is all you need." _Advances in neural information processing systems_ 30 (2017).
+> Vaswani, Ashish, et al. "Attention Is All You Need."
 
 There are limitations of this encoding, the most apparent one being it cannot generalize to sequences longer than those in the training set. This is especially problematic for LLMs, since you will want to generate sentences longer than those in the training set.
 
@@ -36,7 +41,7 @@ Thus, LLMs nowadays mostly use RoPE (rotary positional embeddings) or its varian
 f_{\{q,k\}}(x_m, m) = \begin{pmatrix} \cos m\theta & -\sin m\theta \\ \sin m\theta & \cos m\theta \end{pmatrix} \begin{pmatrix} W_{\{q,k\}}^{(11)} & W_{\{q,k\}}^{(12)} \\ W_{\{q,k\}}^{(21)} & W_{\{q,k\}}^{(22)} \end{pmatrix} \begin{pmatrix} x_m^{(1)} \\ x_m^{(2)} \end{pmatrix}
 {% end %}
 
-> RoFormer: Enhanced transformer with Rotary Position Embedding (2024). Su, Jianlin and Ahmed, Murtadha and Lu, Yu and Pan, Shengfeng and Bo, Wen and Liu, Yunfeng.
+> Su, Jianlin, et al. "RoFormer: Enhanced Transformer with Rotary Position Embedding."
 
 Replacing the vanilla positional encoding with RoPE is a common design choice in modernized BERT. This can bring the benefit of easy context extension to BERT.
 
@@ -56,7 +61,7 @@ $$
 \text{SwiGLU}(x, W, V, b, c, \beta) = \text{Swish}_\beta(xW + b) \otimes (xV + c)
 $$
 
-> GLU variants improve transformer (2020). Shazeer, Noam.
+> Shazeer, Noam. "GLU Variants Improve Transformer."
 
 These are basically free performance improvement to BERT.
 
@@ -66,7 +71,7 @@ Vanilla BERT uses the original Transformer layer normalization design: a layer n
 
 ![normalization](normalization.webp)
 
-> On layer normalization in the transformer architecture (2020). Xiong, Ruibin and Yang, Yunchang and He, Di and Zheng, Kai and Zheng, Shuxin and Xing, Chen and Zhang, Huishuai and Lan, Yanyan and Wang, Liwei and Liu, Tieyan.
+> Xiong, Ruibin, et al. "On Layer Normalization in the Transformer Architecture."
 
 While this design choice might not introduce much performance improvement, it is proven to stabilize training and allow for higher learning rate.
 
@@ -78,13 +83,13 @@ First and foremost, most modernized BERT models preserve the MLM task, but drop 
 
 Another aspect of improvement is how the masked tokens are selected. Vanilla BERT masks 15\% of tokens in an input sequence, a design choice that has been proven not optimal. Thus, most modernized BERT models increase the mask portion to 20\% or higher.
 
-> Should you mask 15% in masked language modeling? (2023). Wettig, Alexander and Gao, Tianyu and Zhong, Zexuan and Chen, Danqi.
+> Wettig, Alexander, et al. "Should You Mask 15% in Masked Language Modeling?"
 
 If you were to train BERT to perform generative tasks, randomly masking and recovering tokens in input sequences might not be enough, and you should consider more generation-oriented pre-training tasks. An intuitive design is an AR-like generation task where a long and consecutive sub-sequence is fully masked and set for recovering.
 
 ![ar-mask](ar-mask.webp)
 
-> Unveiling the Potential of BERT-family: A New Recipe for Building Scalable, General and Competitive Large Language Models (2025). Xiao, Yisheng and Li, Juntao and Hu, Wenpeng and Luo, Zhunchen and Zhang, Min.
+> Xiao, Yisheng, et al. "Unveiling the Potential of BERT-family: A New Recipe for Building Scalable, General and Competitive Large Language Models."
 
 ## Efficiency Improvement
 
@@ -95,10 +100,4 @@ Seeing the insane computational load required by LLMs, there are lots of techniq
 - Optimizers: AdamW is a widely adopted optimizer that decouples weight decay from the gradient update; StableAdamW is a variant that further improves upon AdamW by adding Adafactor-style update clipping as a per-parameter learning rate adjustment
 - Learning Rate Schedule: A modified trapezoidal (Warmup-Stable-Decay) schedule with a short warmup period, constant learning rate for the majority of training, and a decay phase at the end
 - Batch Size Schedule: Gradually increases batch size during training from smaller to larger values; this can accelerate training progress by updating weights more frequently in early stages with smaller batches.
-
-> **References:**
-> 1. Smarter, Better, Faster, Longer: A Modern Bidirectional Encoder for Fast, Memory Efficient, and Long Context Finetuning and Inference (2025). Warner, Benjamin and Chaffin, Antoine and Clavié, Benjamin and Weller, Orion and Hallstr"om, Oskar and Taghadouini, Said and Gallagher, Alexis and Biswas, Raja and Ladhak, Faisal and Aarsen, Tom and Adams, Griffin Thomas and Howard, Jeremy and Poli, Iacopo.
-> 2. NeoBERT: A Next Generation BERT (2025). Breton, Lola Le and Fournier, Quentin and Morris, John Xavier and Mezouar, Mariam El and Chandar, Sarath.
-> 3. Nomic Embed: Training a Reproducible Long Context Text Embedder (2025). Nussbaum, Zach and Morris, John Xavier and Mulyar, Andriy and Duderstadt, Brandon.
-> 4. Unveiling the Potential of BERT-family: A New Recipe for Building Scalable, General and Competitive Large Language Models (2025). Xiao, Yisheng and Li, Juntao and Hu, Wenpeng and Luo, Zhunchen and Zhang, Min.
 

@@ -20,7 +20,7 @@ There are some practices that you can improve efficiency of this training step. 
 
 ![](llava-architecture.webp)
 
-> Liu, Haotian, et al. "Visual instruction tuning." _Advances in neural information processing systems_ 36 (2023): 34892-34916.
+> Liu, Haotian, et al. "Visual Instruction Tuning."
 
 Still, if we only rely this training step, we will be needing a lots of data and text pairs, which is challenging even for images, let alone other types of multi-modal data.
 
@@ -32,13 +32,13 @@ You can first train a smaller LLM with available data-text pairs at hand, then u
 
 ![](blip-bootstrap.webp)
 
-> Li, Junnan, et al. "Blip: Bootstrapping language-image pre-training for unified vision-language understanding and generation." _International conference on machine learning_. PMLR, 2022.
+> Li, Junnan, et al. "BLIP: Bootstrapping Language-Image Pre-training for Unified Vision-Language Understanding and Generation."
 
 Even crazier, you can train a new or use an off-the-shelf conditioned diffusion model that can generate images given descriptions. It should be relatively easy to make up descriptions using text-only LLMs.
 
 ![](diffusion-captions.webp)
 
-> Ma, Feipeng, et al. "Image captioning with multi-context synthetic data." _Proceedings of the AAAI Conference on Artificial Intelligence_. Vol. 38. No. 5. 2024.
+> Ma, Feipeng, et al. "Image Captioning with Multi-Context Synthetic Data."
 
 Based on the idea of instruction-tuning that is widely use to train LLMs, LLaVA proposed a solution to augment text descriptions that can also improve the trained LLM's ability to follow instructions. The core idea is that a text-only LLM can be used to generate various specific questions regarding an image (and the corresponding answer), given the image's:
 - Original text description
@@ -46,7 +46,7 @@ Based on the idea of instruction-tuning that is widely use to train LLMs, LLaVA 
 
 ![](llava-instruction.webp)
 
-> Liu, Haotian, et al. "Visual instruction tuning." _Advances in neural information processing systems_ 36 (2023): 34892-34916.
+> Liu, Haotian, et al. "Visual Instruction Tuning."
 
 Or you can understand this practice as: letting a text-only LLM understand the content of an image, without actually giving the LLM the image.
 
@@ -56,13 +56,13 @@ There are also self-supervising/pre-training techniques that can be used to help
 
 You can try to apply the vast available self-supervising methods that have been developed over the years to see if they will help. DINOv2 applied simple self-supervising methods, like contrastive learning and mask recovery, on pure image datasets when pre-training a multi-modal LLM. It is reported that self-supervision is actually better at learning general representations of images compared to training on image-text pairs, and can help with the later stage alignment between images and text.
 
-> Oquab, Maxime, et al. "Dinov2: Learning robust visual features without supervision." _Trans. Mach. Learn. Res._ (2024).
+> Oquab, Maxime, et al. "DINOv2: Learning Robust Visual Features without Supervision."
 
 STIC also demonstrates an interesting implementation of self-supervised learning: Use LLMs to generate positive and negative (less preferred) captions of the same image, which can then be used to perform contrastive learning or [direct preference optimization (DPO)](https://arxiv.org/abs/2305.18290).
 
 ![](stic-self-training.webp)
 
-> Deng, Yihe, et al. "Enhancing large vision language models with self-training on image comprehension." _Advances in Neural Information Processing Systems_ 37 (2024): 131369-131397.
+> Deng, Yihe, et al. "Enhancing Large Vision Language Models with Self-Training on Image Comprehension."
 
 Nevertheless, at least in current stage of AI, to align the embeddings of multi-modal data and text, having a certain amount of data-text pairs is necessary, even with self-supervising techniques that can be applied without text.
 
@@ -74,7 +74,7 @@ DeepSeek-OCR is a recently published and very interesting work. The core idea is
 
 ![](deepseek-ocr.webp)
 
-> Wei, Haoran, Yaofeng Sun, and Yukun Li. "DeepSeek-OCR: Contexts Optical Compression." _arXiv preprint arXiv:2510.18234_ (2025).
+> Wei, Haoran, Yaofeng Sun, and Yukun Li. "DeepSeek-OCR: Contexts Optical Compression."
 
 My takeaway from this paper is: Maintaining multi-modal data in native (or compressed native) representations is more token-efficient than text descriptions, when the task requires preserving fine-grained information. In that case, even if you can describe all information contained in the original data using plain text, it is probably less efficient than the native representations, seeing that text is not even efficient enough to represent itself in LLMs.
 

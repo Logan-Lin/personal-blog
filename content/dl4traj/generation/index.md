@@ -221,15 +221,14 @@ where $w > 1$ amplifies the effect of the condition. This provides explicit cont
 For hard constraints like origin-destination requirements, post-processing or constrained decoding can enforce that generated trajectories satisfy the constraints exactly. In autoregressive generation, the first point can be fixed to the origin, and generation can be guided or truncated to reach the destination.
 Diffusion models pose more difficulty for hard constraints due to their multi-step nature. Intermediate noisy states do not directly correspond to valid trajectories, so constraints applied during denoising may not translate accurately to the final output.
 
-> **References:**
-> - Kingma, Diederik P., Max Welling. "Auto-Encoding Variational Bayes."
-> - Goodfellow, Ian J., Jean Pouget-Abadie, Mehdi Mirza, et al. "Generative Adversarial Nets."
-> - Ho, Jonathan, Ajay Jain, Pieter Abbeel. "Denoising Diffusion Probabilistic Models."
-> - Dhariwal, Prafulla, and Alexander Nichol. "Diffusion Models Beat GANs on Image Synthesis."
-> - Ho, Jonathan, and Tim Salimans. "Classifier-Free Diffusion Guidance."
-> - Kapp, Alexandra, Julia Hansmeyer, Helena Mihaljević. "Generative Models for Synthetic Urban Mobility Data: A Systematic Literature Review."
-> - Jiang, Wenjun, Wayne Xin Zhao, Jingyuan Wang, Jiawei Jiang. "Continuous Trajectory Generation Based on Two-Stage GAN."
-> - Wei, Tonglong, Youfang Lin, Shengnan Guo, et al. "Diff-RNTraj: A Structure-Aware Diffusion Model for Road Network-Constrained Trajectory Generation."
+> 1. Kingma, Diederik P., and Max Welling. "Auto-Encoding Variational Bayes."
+> 2. Goodfellow, Ian J., Jean Pouget-Abadie, Mehdi Mirza, et al. "Generative Adversarial Nets."
+> 3. Ho, Jonathan, Ajay Jain, and Pieter Abbeel. "Denoising Diffusion Probabilistic Models."
+> 4. Dhariwal, Prafulla, and Alexander Nichol. "Diffusion Models Beat GANs on Image Synthesis."
+> 5. Ho, Jonathan, and Tim Salimans. "Classifier-Free Diffusion Guidance."
+> 6. Kapp, Alexandra, Julia Hansmeyer, and Helena Mihaljević. "Generative Models for Synthetic Urban Mobility Data: A Systematic Literature Review."
+> 7. Jiang, Wenjun, Wayne Xin Zhao, Jingyuan Wang, and Jiawei Jiang. "Continuous Trajectory Generation Based on Two-Stage GAN."
+> 8. Wei, Tonglong, Youfang Lin, Shengnan Guo, et al. "Diff-RNTraj: A Structure-Aware Diffusion Model for Road Network-Constrained Trajectory Generation."
 
 
 

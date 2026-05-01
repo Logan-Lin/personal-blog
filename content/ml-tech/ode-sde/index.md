@@ -5,9 +5,15 @@ description = "Idea of finding shortcuts that universally apply to time-dependen
 +++
 > **TL;DR:** In the context of generative modeling, we examine ODEs, SDEs, and two recent works that share the idea of learning shortcuts that traverse through vector fields defined by ODEs faster. We then discuss the generalization of this idea to both ODE- and SDE-based models.
 
+> Holderrieth and Erives. "An Introduction to Flow Matching and Diffusion Models."
+
 ## Differential Equations
 
-Let's start with a general scenario of **generative modeling**: suppose you want to generate data $x$ that follows a distribution $p(x)$. In many cases, the exact form of $p(x)$ is unknown. What you can do is follow the idea of *normalizing flow*: start from a very simple, closed-form distribution $p(x_0)$ (for example, a standard normal distribution), transform this distribution through time $t\in [0, 1]$ with intermediate distributions $p(x_t)$, and finally obtain the estimated distribution $p(x_1)$. By doing this, you are essentially trying to solve a *differential equation (DE)* that depends on time:
+Let's start with a general scenario of **generative modeling**: suppose you want to generate data $x$ that follows a distribution $p(x)$. In many cases, the exact form of $p(x)$ is unknown. What you can do is follow the idea of *normalizing flow*: start from a very simple, closed-form distribution $p(x_0)$ (for example, a standard normal distribution), transform this distribution through time $t\in [0, 1]$ with intermediate distributions $p(x_t)$, and finally obtain the estimated distribution $p(x_1)$.
+
+> Rezende, Danilo, and Shakir Mohamed. "Variational Inference with Normalizing Flows."
+
+By doing this, you are essentially trying to solve a *differential equation (DE)* that depends on time:
 
 $$
 dx_t=\mu(x_t,t)dt+\sigma(x_t,t)dW_t,\quad x_0\sim p(x_0)
@@ -62,6 +68,8 @@ In other words, we discretize the time span $[0, 1]$ into $N$ time steps, and fo
 
 ### Flow Matching
 
+> Lipman, Yaron, et al. "Flow Matching for Generative Modeling."
+
 In many scenarios, the exact form of the vector field $\mu$ is unknown. The general idea of *flow matching* is to find a ground truth vector field that defines the *flow* transporting $p(x_0)$ to $p(x_1)$, and build a neural network $\mu_\theta$ that is trained to *match* the ground truth vector field, hence the name. In practice, this is usually done by independently sampling $x_0$ from the noise and $x_1$ from the training data, calculating the intermediate data point $x_t$ and the ground truth velocity $\mu(x_t,t)$, and minimizing the deviation between $\mu_\theta(x_t,t)$ and $\mu(x_t,t)$.
 
 Ideally, the ground truth vector field should be as straight as possible, so we can use a small number of $N$ steps to calculate the ODE integral. Thus, the ground truth velocity is usually defined following the optimal transport flow map:
@@ -93,6 +101,8 @@ As we discussed, when you calculate the ODE integral, you are using the instanta
 If we cannot straighten the ground truth vector field, can we tackle the problem of few-step sampling by learning velocities that properly jump across long time steps instead of learning the instantaneous velocities? Yes, we can.
 
 #### Shortcut Models
+
+> Frans, Kevin, et al. "One Step Diffusion via Shortcut Models."
 
 Shortcut models implement the above idea by training a network $u_\theta(x_t,t,\Delta t)$ to match the *velocities that jump across long time steps* (termed *shortcuts* in the paper). A ground truth shortcut $u(x_t,t,\Delta t)$ will be the velocity pointing from $x_t$ to $x_{t+\Delta t}$, formally:
 
@@ -133,6 +143,8 @@ Where $\text{sg}$ is stop gradient, i.e., detach $\mathbf{u}_\text{target}$ from
 {% cap() %}Training of the shortcut models with self-consistency loss.{% end %}
 
 #### Mean Flow
+
+> Geng, Zhengyang, et al. "Mean Flows for One-step Generative Modeling."
 
 Mean flow is another work sharing the idea of learning velocities that take large step size shortcuts but with a stronger theoretical foundation and a different approach to training.
 
@@ -183,6 +195,8 @@ Notice that the JVP computation inside $\text{sg}$ is performed with the network
 
 Both shortcut models and mean flow are built on top of the ground truth curvy ODE field. They don't modify the field $\mu$, but rather try to learn shortcut velocities that can traverse the field with fewer Euler steps. This is reflected in their loss function design: shortcut models' loss function specifically includes a standard flow matching component, and mean flow's loss function is derived from the relationship between vector fields $\mu$ and $u$.
 
+> Liu, Xingchao, Chengyue Gong, and Qiang Liu. "Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow."
+
 Rectified flow, another family of flow matching models that aims to achieve one-step sampling, is fundamentally different in this regard. It aims to replace the original ground truth ODE field with a new one with straight flows. Ideally, the resulting ODE field has zero curvature, enabling one-step integration with the simple Euler method. This usually involves augmentation of the training data and a repeated *reflow* process.
 
 We won't discuss rectified flow in further detail in this post, but it's worth pointing out its difference from shortcut models and mean flow.
@@ -204,6 +218,8 @@ dx_t=\mu(x_t,t)dt+\sigma(t)dW_t
 $$
 
 $W_t$ is the Brownian motion (a.k.a. standard Wiener process). In practice, its behavior over time $t$ can be described as $W_{t+\Delta t}-W_t\sim \mathcal N(0, \Delta t)$. This is the source of SDE's stochasticity, and also why people like to call the family of SDE-based generative models *diffusion models*, since Brownian motion is derived from physical diffusion processes.
+
+> Ho, Jonathan, Ajay Jain, and Pieter Abbeel. "Denoising Diffusion Probabilistic Models."
  
 In the context of generative modeling, the stochasticity in SDE means it can theoretically handle augmented data or data that is stochastic in nature (e.g., financial data) more gracefully. Practically, it also enables techniques such as stochastic control guidance. At the same time, it also means SDE is mathematically more complicated compared to ODE. We no longer have a deterministic vector field $\mu$ specifying flows of data points $x_0$ moving towards $x_1$. Instead, both $\mu$ and $\sigma$ have to be designed to ensure that the SDE leads to the target distribution $p(x_1)$ we want.
 
@@ -216,6 +232,8 @@ $$
 In other words, we move the data point guided by the velocity $\mu(x_t,t)$ plus a bit of Gaussian noise scaled by $\sqrt{t_{k+1}-t_k}\sigma(t)$.
 
 ### Score Matching
+
+> Song and Ermon. "Generative Modeling by Estimating Gradients of the Data Distribution."
 
 In SDE, the exact form of the vector field $\mu$ is still (quite likely) unknown. To solve this, the general idea is consistent with flow matching: we want to find the ground truth $\mu(x_t,t)$ and build a neural network $\mu_\theta(x_t,t)$ to match it.
 
@@ -258,27 +276,3 @@ Below are some preliminary results I obtained from a set of amorphous material g
 
 ![SDE shortcut results](sde-results.webp)
 {% cap() %}Structural functions of generated materials, sampled in 10 steps.{% end %}
-
-> **References:**
-> 
-> 1. Holderrieth and Erives, "An Introduction to Flow Matching and Diffusion Models."
-> 2. Song and Ermon, "Generative Modeling by Estimating Gradients of the Data Distribution."
-> 3. Rezende, Danilo, and Shakir Mohamed. "Variational inference with normalizing flows."
-> 4. https://en.wikipedia.org/wiki/Differential_equation
-> 5. https://en.wikipedia.org/wiki/Brownian_motion
-> 6. https://en.wikipedia.org/wiki/Vector_field
-> 7. https://en.wikipedia.org/wiki/Vector_flow
-> 8. https://en.wikipedia.org/wiki/Ordinary_differential_equation
-> 9. https://en.wikipedia.org/wiki/Stochastic_differential_equation
-> 10. https://en.wikipedia.org/wiki/Euler_method
-> 11. https://github.com/rtqichen/torchdiffeq
-> 12. Lipman, Yaron, et al. "Flow matching for generative modeling."
-> 13. Frans, Kevin, et al. "One step diffusion via shortcut models."
-> 14. Geng, Zhengyang, et al. "Mean Flows for One-step Generative Modeling."
-> 15. Liu, Xingchao, Chengyue Gong, and Qiang Liu. "Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow."
-> 16. Ho, Jonathan, Ajay Jain, and Pieter Abbeel. "Denoising diffusion probabilistic models."
-> 17. https://en.wikipedia.org/wiki/Diffusion_process
-> 18. Huang et al., "Symbolic Music Generation with Non-Differentiable Rule Guided Diffusion."
-> 19. https://en.wikipedia.org/wiki/Euler–Maruyama_method
-> 20. Song et al., "Score-Based Generative Modeling through Stochastic Differential Equations."
-> 21. https://en.wikipedia.org/wiki/Informant_(statistics)

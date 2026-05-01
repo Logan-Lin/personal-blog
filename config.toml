@@ -1,6 +1,6 @@
 base_url = "https://blog.yanlincs.com"
 title = "Yan Lin's Blog"
-description = "Personal blog of Yan Lin, Postdoctoral Researcher at Aalborg University"
+description = "Personal blog of Yan Lin, researcher in computer science"
 default_language = "en"
 compile_sass = true
 minify_html = false

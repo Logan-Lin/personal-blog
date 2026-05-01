@@ -15,7 +15,9 @@ For the purpose of training the model a noising process is also used, which adds
 
 ![ddpm](./ddpm.webp)
 
-{% cap() %}The noising and denoising process illustrated in DDPM [1].{% end %}
+{% cap() %}The noising and denoising process illustrated in DDPM.{% end %}
+
+> Ho, Jonathan, Ajay Jain, and Pieter Abbeel. "Denoising Diffusion Probabilistic Models."
 
 "Adding noise" in practice typically means sampling a certain magnitude of Gaussian noise and adding it to the data features.
 Obviously this only works on continuous features.
@@ -25,7 +27,9 @@ What if we want to adapt diffusion models to data with discrete features?
 
 ![diffusion-lm](./diffusion-lm.webp)
 
-{% cap() %}The diffusion process of Diffusion-LM [2] that works on the embedding space of discrete features.{% end %}
+{% cap() %}The diffusion process of Diffusion-LM that works on the embedding space of discrete features.{% end %}
+
+> Li, Xiang Lisa, John Thickstun, Ishaan Gulrajani, Percy Liang, and Tatsunori B. Hashimoto. "Diffusion-LM Improves Controllable Text Generation."
 
 The most straight-forward way to adapt diffusion models to discrete features is to encode them to continuous space, use standard diffusion models on the continuous features, and decode the continuous features back to discrete ones.
 Both the encode and the decode processes can be learned or non-learned.
@@ -48,7 +52,10 @@ At the same time this would create a gap between the training of the diffusion m
 
 {% cap() %}Illustration of diffusion processes operating on categorical distributions.{% end %}
 
-There are diffusion models that operate directly on the discrete space [3, 4], in other words, they are trying to build a pair of Markov processes that manipulate category labels directly.
+There are diffusion models that operate directly on the discrete space, in other words, they are trying to build a pair of Markov processes that manipulate category labels directly.
+
+> 1. Hoogeboom, Emiel, Didrik Nielsen, Priyank Jaini, Patrick Forré, and Max Welling. "Argmax Flows and Multinomial Diffusion: Learning Categorical Distributions."
+> 2. Austin, Jacob, Daniel D. Johnson, Jonathan Ho, Daniel Tarlow, and Rianne van den Berg. "Structured Denoising Diffusion Models in Discrete State-Spaces."
 
 To simplify, let's suppose a data point $x$ just contains one category label.
 During the forward diffusion process, given the clean $x_0$, "adding noise" to calculate $x_t$ is implemented as either (a) staying at the current label with a probability $\beta_t$, or (b) switching to another category with a probability $1-\beta_t$.
@@ -61,7 +68,10 @@ For training, one can re-parameterize $\hat x_{t-1}$ by letting the network pred
 
 ### Score-matching on Categories
 
-Building on the above general framework, SEDD [6] frames the reverse process and trains the denoiser differently. Recall in standard score-matching [5], each reverse step follows:
+Building on the above general framework, SEDD frames the reverse process and trains the denoiser differently. Recall in standard score-matching, each reverse step follows:
+
+> 1. Lou, Aaron, Chenlin Meng, and Stefano Ermon. "Discrete Diffusion Modeling by Estimating the Ratios of the Data Distribution."
+> 2. Song, Yang, Jascha Sohl-Dickstein, Diederik P. Kingma, Abhishek Kumar, Stefano Ermon, and Ben Poole. "Score-Based Generative Modeling through Stochastic Differential Equations."
 
 $$x_{t-\Delta t} = x_t + \nabla_{x_t} \log p_t(x_t) \cdot \Delta t$$
 
@@ -81,17 +91,9 @@ The first term is the probability of staying at the current category, and the se
 
 Within the above frameworks, during inference you sample from a categorical distribution to get the cleaner step.
 
-If you want no stochasticity in the sampling steps, similar to how you would use flow matching ODE instead of score-matching SDE, you can use discrete flow [7]. The key difference is that instead of sampling from a distribution, you use $\arg \max$ to deterministically pick the category for the cleaner step.
+If you want no stochasticity in the sampling steps, similar to how you would use flow matching ODE instead of score-matching SDE, you can use discrete flow. The key difference is that instead of sampling from a distribution, you use $\arg \max$ to deterministically pick the category for the cleaner step.
+
+> Tran, Dustin, Keyon Vafa, Kumar Agrawal, Laurent Dinh, and Ben Poole. "Discrete Flows: Invertible Generative Models of Discrete Data."
 
 Of course $\arg \max$ is non-differentiable, so you cannot directly train a model on its output. A trick to bypass this is to backpropagate through a softmax with low temperature instead, which approximates $\arg \max$ while remaining differentiable. The true $\arg \max$ is still used during inference.
-
-
-> **References:**
-> 1. Ho, Jonathan, Ajay Jain, and Pieter Abbeel. “Denoising Diffusion Probabilistic Models.”
-> 2. Li, Xiang Lisa, John Thickstun, Ishaan Gulrajani, Percy Liang, and Tatsunori B. Hashimoto. “Diffusion-LM Improves Controllable Text Generation.”
-> 3. Hoogeboom, Emiel, Didrik Nielsen, Priyank Jaini, Patrick Forré, and Max Welling. “Argmax Flows and Multinomial Diffusion: Learning Categorical Distributions.”
-> 4. Austin, Jacob, Daniel D. Johnson, Jonathan Ho, Daniel Tarlow, and Rianne van den Berg. “Structured Denoising Diffusion Models in Discrete State-Spaces.”
-> 5. Song, Yang, Jascha Sohl-Dickstein, Diederik P. Kingma, Abhishek Kumar, Stefano Ermon, and Ben Poole. “Score-Based Generative Modeling through Stochastic Differential Equations.”
-> 6. Lou, Aaron, Chenlin Meng, and Stefano Ermon. “Discrete Diffusion Modeling by Estimating the Ratios of the Data Distribution.”
-> 7. Tran, Dustin, Keyon Vafa, Kumar Agrawal, Laurent Dinh, and Ben Poole. “Discrete Flows: Invertible Generative Models of Discrete Data.”
 
