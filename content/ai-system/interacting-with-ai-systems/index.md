@@ -1,6 +1,6 @@
 +++
 title = "Interacting with AI Systems"
-date = 2026-10-01
+date = 2026-04-12
 description = ""
 weight = 10
 
@@ -14,7 +14,7 @@ And such implementation is what we are going to discuss in this part of the cour
 
 We will largely focus on the industry standard technique for streamlined interaction between software: application programming interface (API).
 In [Module A.1](@/ai-system/api-fundamentals/index.md) we will establish concepts essential for the discussion around API. We will also have the chance to play with the API for an existing AI system.
-In [Module A.2](@/ai-system/interacting-with-apis-in-python/index.md) we will learn how to integrate API interaction in the programming language that you are most familiar with (in this case, Python), so you can easily incorporate AI functionalities into your programs.
+In [Module A.2](@/ai-system/interact-api-python/index.md) we will learn how to integrate API interaction in the programming language that you are most familiar with (in this case, Python), so you can easily incorporate AI functionalities into your programs.
 
 Then we move from being consumers that rely on existing APIs to implement our own so we can become producers.
 In [Module A.3](@/ai-system/api-server-fundamentals/index.md) we will get to know that APIs that we interact with in the previous two modules are also a type of software called API server. We can also implement one ourselves using an API server framework, with FastAPI being the prime example.

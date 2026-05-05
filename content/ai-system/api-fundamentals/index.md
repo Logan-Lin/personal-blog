@@ -1,6 +1,6 @@
 +++
 title = "API Fundamentals"
-date = 2026-10-02
+date = 2026-04-11
 description = ""
 weight = 11
 
@@ -40,7 +40,7 @@ A [**domain**](https://www.geeksforgeeks.org/computer-networks/introduction-to-d
 In the ChatGPT example above, `api.openai.com` is the domain name of the API, pointing to IP addresses like `162.159.140.245` and `172.66.0.243`.
 
 A [**URL**](https://www.geeksforgeeks.org/computer-networks/difference-between-domain-name-and-url/) always contains a domain but also adds the protocol that specifies how the communication should happen (such as HTTP, which we will discuss later), along with a path that narrows down to a specific resource or function hosted under that domain.
-An example URL is `https://api.openai.com/v1/chat/completions`, which specifies the communication protocol (`https`), the domain name (`api.openai.com`), the version of the API (v1), and the specific function (conversation completion).
+An example URL is `https://api.openai.com/v1/responses`, which specifies the communication protocol (`https`), the domain name (`api.openai.com`), the version of the API (v1), and the specific function (generating model responses).
 Think of the domain name `api.openai.com` as the building address like _Fredrik Bajers Vej 7K_ that usually corresponds to a certain group of hardware resources. The full URL is like an address with a floor and room number, such as _Fredrik Bajers Vej 7K, 3.2.50_, with a specified delivery company (like PostNord).
 
 Finally, we have ports.
@@ -77,7 +77,7 @@ This standard is in the form of several [**HTTP request components**](https://de
 
 The [**request line**](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Messages#request_line) is a single line that summarizes the intent of the request: what action the sender wants to perform, where to perform it, and which version of the protocol to use. It is similar to the first line on the front of a letter that states the purpose and destination, such as _Delivery - Fredrik Bajers Vej 7K, 3.2.50_. A request line will be something like this:
 ```http
-POST https://api.openai.com/v1/chat/completions HTTP/1.1
+POST https://api.openai.com/v1/responses HTTP/1.1
 ```
 It is divided into three parts by spaces.
 The first part is the [HTTP request method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods). Different methods correspond to different purposes of the request, and also mean the sender expects different behavior from the recipient.
@@ -100,12 +100,12 @@ While there are some common header fields you will frequently encounter in pract
 Finally, we have the **request body**, which is the content of the request. There are various data formats to use for the body. In the above example, notice that we specified the content format using one request header as `Content-Type: application/json`, which means we will be using the [JSON format](https://www.w3schools.com/whatis/whatis_json.asp) in the request body. In other words, our request body will look like this:
 ```json
 {
-    "model": "gpt-4",
-    "messages": [
+    "model": "gpt-5.5",
+    "input": [
         {"role": "user", "content": "Write a haiku about APIs"}
     ],
     "temperature": 0.7,
-    "max_tokens": 50
+    "max_output_tokens": 50
 }
 ```
 The key-value format of the JSON object is specific to the API we are sending our request to.
@@ -136,24 +136,29 @@ The key-value pairs expected to be included in a response are subject to the spe
 The **response body** contains the actual data the API provider sends back to you, i.e., the main content of the response letter. This is where you will find the information you requested or the result produced from the data you sent. Just like the request body, its format is specified by the corresponding header (`Content-Type`). A response body from the ChatGPT API in JSON format will look like this:
 ```json
 {
-  "id": "chatcmpl-6pHh8Cw1ZKcO45PiAavgbhZMz3YRs",
-  "object": "chat.completion",
-  "created": 1677649420,
-  "model": "gpt-3.5-turbo-0613",
-  "choices": [
+  "id": "resp_6820f382ee1c8191bc096bee70894d04",
+  "object": "response",
+  "created_at": 1746989954,
+  "model": "gpt-5.5",
+  "status": "completed",
+  "output": [
     {
-      "index": 0,
-      "message": {
-        "role": "assistant",
-        "content": "Hello! How can I help you today?"
-      },
-      "finish_reason": "stop"
+      "id": "msg_67cb3252cfac8190865744873aada79",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "Endpoints whisper soft / data flows on silent threads / answers softly bloom"
+        }
+      ]
     }
   ],
+  "output_text": "Endpoints whisper soft / data flows on silent threads / answers softly bloom",
   "usage": {
-    "prompt_tokens": 12,
-    "completion_tokens": 13,
-    "total_tokens": 25
+    "input_tokens": 12,
+    "output_tokens": 18,
+    "total_tokens": 30
   }
 }
 ```
