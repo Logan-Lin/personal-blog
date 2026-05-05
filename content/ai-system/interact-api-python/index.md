@@ -84,7 +84,7 @@ We will look at it more closely in the next section.
 ### Sending a `POST` Request
 
 `POST` requests look almost the same, except they also carry a request body.
-To ask an AI model a question through the chat completions API, we send a `POST` request with our message inside a JSON body:
+To ask an AI chatbot a question through the chat completions API, we send a `POST` request with our message inside a JSON body:
 ```python
 import requests
 
@@ -202,7 +202,7 @@ A timeout might be worth retrying, while a 401 from a bad API key is not.
 
 What we have covered so far is enough to send a single request and read back a single response.
 But integrating AI into a real program usually involves a few more patterns we have not touched yet.
-This section walks through three common ones: keeping API keys out of source code, sending images to AI models that accept them, and receiving streamed responses.
+This section walks through three common ones: keeping API keys out of source code, sending images to AI APIs that accept them, and receiving streamed responses.
 
 
 ### Storing Secrets in Environment Variables
@@ -247,7 +247,7 @@ Make sure to add `.env` to your `.gitignore` so it never gets committed.
 
 ### Sending Images in the Request Body
 
-Many modern AI models accept images in addition to text.
+Many modern AI chatbot APIs accept images in addition to text.
 To send an image to such a model, we need to fit the image into a JSON body.
 The catch is that JSON cannot directly hold binary data like raw image bytes.
 The standard workaround is to encode the image into a [Base64](https://docs.python.org/3/library/base64.html) string, which turns the binary bytes into a regular text string that fits inside JSON.
@@ -378,7 +378,7 @@ Other providers use slightly different markers, so check their documentation.
 
 ## Exercise: A Command Line Chatbot
 
-Build a Python program that takes a question from you, sends it to an AI model, and prints the model's reply.
+Build a Python program that takes a question from you, sends it to an AI API, and prints the model's reply.
 You can use any of the AI APIs we have been using in the previous module's exercise, and the program does not need to be fancy to count as done.
 
 A rough tip on how you can implement your program:

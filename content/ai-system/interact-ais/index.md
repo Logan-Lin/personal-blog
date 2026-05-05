@@ -3,6 +3,7 @@ title = "Interacting with AI Systems"
 date = 2026-04-12
 description = ""
 weight = 10
+aliases = [ "/ai-system/interact-with-ai-systems/" ]
 
 [extra]
 chapter = "Part A"

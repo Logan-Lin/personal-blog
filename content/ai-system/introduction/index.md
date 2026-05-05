@@ -21,7 +21,7 @@ If you have ever installed and set up Windows from scratch, you can tell that it
 And is it even possible for you to run an AI model yourself at home so that you can finally stop paying those corrupt and monopolistic companies?
 
 In this course, we will answer all those questions. Even better, you will learn industry-standard techniques to replicate what AI companies have been doing (well, at least the parts that do not involve burning millions of EURs on supercomputers).
-Specifically, we will discuss techniques that enable streamlined interaction between AI systems and all kinds of software in [Part A](@/ai-system/interacting-with-ai-systems/index.md) of the course.
+Specifically, we will discuss techniques that enable streamlined interaction between AI systems and all kinds of software in [Part A](@/ai-system/interact-ais/index.md) of the course.
 Then we will learn how to deploy AI systems on common real-world infrastructure in [Part B](@/ai-system/infrastructure-and-deployment-of-ai/index.md) of the course.
 One day you might become the one who is able to charge everyone hundreds of EURs every month just to have a conversation with AI models.
 
@@ -32,7 +32,7 @@ When you are on any page of this blog site, you can always click the "AIsys" lin
 
 The literature for each module is generally structured as follows: it starts with an introduction to bring out the topic of the module, followed by a "Table of Contents" block that makes navigating the sections of the literature easier, then the main content of the literature split into sections, and finally the exercise for this module.
 
-Throughout the literature, you will find internal links that will jump to other literature in this course for the convenience of reference, like the "[Part A](@/ai-system/interacting-with-ai-systems/index.md)" link above.
+Throughout the literature, you will find internal links that will jump to other literature in this course for the convenience of reference, like the "[Part A](@/ai-system/interact-ais/index.md)" link above.
 You will also find external links, usually leading you to other materials that will explain the corresponding terminologies or concepts in finer detail. For example, the "[IP address](https://www.geeksforgeeks.org/computer-science-fundamentals/what-is-an-ip-address/)" link will lead you to a blog post discussing this concept in detail. If you are not familiar with the concept or you are interested in learning more, you can read the materials behind these links; it is optional.
 
 There will also be extended reading blocks in the form of quote blocks, like the one below.
