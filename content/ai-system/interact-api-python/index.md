@@ -187,15 +187,15 @@ Here we catch `Timeout` and `HTTPError` separately because they often deserve di
 A timeout might be worth retrying, while a 401 from a bad API key is not.
 
 > Below are some additional resources to help you get more comfortable with `requests`.
-> - [Official `requests` quickstart](https://requests.readthedocs.io/en/latest/user/quickstart/), with a more thorough catalog of features
-> - [Real Python's deep dive on `requests`](https://realpython.com/python-requests/), good if you want to go deeper than what we covered here
-> - [Corey Schafer's video tutorial on `requests`](https://www.youtube.com/watch?v=tb8gHvYlCFs)
+> - [Official `requests` quickstart (docs)](https://requests.readthedocs.io/en/latest/user/quickstart/), with a more thorough catalog of features
+> - [Real Python's deep dive on `requests` (blog post)](https://realpython.com/python-requests/), good if you want to go deeper than what we covered here
+> - [Corey Schafer's tutorial on `requests` (video)](https://www.youtube.com/watch?v=tb8gHvYlCFs)
 >
 > If you happen to write applications in other languages, the HTTP libraries you would use look quite different on the surface but follow the same request-response pattern under the hood.
 > A few official references for popular languages:
-> - JavaScript: [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch), built into modern browsers and Node.js
-> - Go: [`net/http`](https://pkg.go.dev/net/http) in the standard library
-> - Rust: [`reqwest`](https://docs.rs/reqwest/latest/reqwest/), a popular community-maintained HTTP client
+> - JavaScript: [Fetch API (docs)](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch), built into modern browsers and Node.js
+> - Go: [`net/http` (docs)](https://pkg.go.dev/net/http) in the standard library
+> - Rust: [`reqwest` (docs)](https://docs.rs/reqwest/latest/reqwest/), a popular community-maintained HTTP client
 
 
 ## Beyond the Basics
@@ -372,8 +372,8 @@ Other providers use slightly different markers, so check their documentation.
 > SSE is far from the only protocol AI services use for streaming.
 > Protocols like WebSocket and WebRTC support two-way communication and are widely used in voice and video AI features, including [OpenAI's Realtime API](https://developers.openai.com/api/docs/guides/realtime) and [Google's Gemini Live](https://gemini.google/overview/gemini-live/).
 > For these protocols the `requests` package is no longer enough, and we need protocol-specific Python libraries:
-> - [`websockets`](https://websockets.readthedocs.io/en/stable/) for WebSocket clients and servers
-> - [`aiortc`](https://aiortc.readthedocs.io/en/latest/) for WebRTC clients
+> - [`websockets` (docs)](https://websockets.readthedocs.io/en/stable/) for WebSocket clients and servers
+> - [`aiortc` (docs)](https://aiortc.readthedocs.io/en/latest/) for WebRTC clients
 
 
 ## Exercise: A Command Line Chatbot
