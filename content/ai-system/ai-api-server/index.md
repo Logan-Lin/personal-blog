@@ -563,4 +563,4 @@ Once that works, try the following extensions:
    Update your Module A.2 streaming client to consume your endpoint and verify it feels just like talking to OpenAI or another provider.
 
 After this exercise, the system you have built is a small but complete AI API server: a real model behind a versioned, validated, authenticated, logged, and rate-limited HTTP API, with a Python client that uses it like any commercial AI service.
-With Part A complete, we are now ready to talk about how AI systems like this one actually run on real hardware in [Part B](@/ai-system/infrastructure-and-deployment-of-ai/index.md) of the course.
+With Part A complete, we are now ready to talk about how AI systems like this one actually run on real hardware in [Part B](@/ai-system/infra-deploy-ai/index.md) of the course.

@@ -22,7 +22,7 @@ And is it even possible for you to run an AI model yourself at home so that you 
 
 In this course, we will answer all those questions. Even better, you will learn industry-standard techniques to replicate what AI companies have been doing (well, at least the parts that do not involve burning millions of EURs on supercomputers).
 Specifically, we will discuss techniques that enable streamlined interaction between AI systems and all kinds of software in [Part A](@/ai-system/interact-ais/index.md) of the course.
-Then we will learn how to deploy AI systems on common real-world infrastructure in [Part B](@/ai-system/infrastructure-and-deployment-of-ai/index.md) of the course.
+Then we will learn how to deploy AI systems on common real-world infrastructure in [Part B](@/ai-system/infra-deploy-ai/index.md) of the course.
 One day you might become the one who is able to charge everyone hundreds of EURs every month just to have a conversation with AI models.
 
 ## How Each Post is Structured
