@@ -2,6 +2,7 @@
 title = "AI Systems & Infrastructure"
 sort_by = "weight"
 paginate_by = 10
+aliases = [ "/ai-system/production-ready-systems/", "/ai-system/high-availability/", "/ai-system/advanced-deployment/" ]
 
 [extra]
 abbr = "AIsys"
