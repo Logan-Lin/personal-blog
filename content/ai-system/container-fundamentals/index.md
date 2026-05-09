@@ -212,7 +212,7 @@ docker pull python:3.13
 ```
 The argument is in the form `<repository>:<tag>`.
 The repository name (`python`) tells the daemon which image to fetch, and the tag (`3.13`) picks a specific version.
-If we omit the tag, Docker defaults to `latest`, which is whatever the publisher most recently labelled as such.
+If we omit the tag, Docker defaults to `latest`, which is whatever the publisher most recently labeled as such.
 
 For larger projects we usually want to pin a specific tag rather than `latest`, since `latest` moves under our feet as the publisher pushes new versions.
 Many official images also publish smaller variants, like `python:3.13-slim` (a stripped-down Debian base) or `python:3.13-alpine` (built on the much smaller Alpine Linux base), which can save hundreds of megabytes per image:
@@ -387,7 +387,7 @@ The `.env` file uses the same format we used in [Module A.2](@/ai-system/interac
 
 ## Exercise: Run the Client in a Container
 
-Recall the command line chatbot from the [Module A.2 exercise](@/ai-system/interact-api-python/index.md#exercise-a-command-line-chatbot).
+Recall the command-line chatbot from the [Module A.2 exercise](@/ai-system/interact-api-python/index.md#exercise-a-command-line-chatbot).
 On our own machine we ran it directly with the system Python after installing the `requests` package.
 In this exercise we will run the same script inside a container based on an off-the-shelf Python image, without ever installing Python or `requests` on the host.
 

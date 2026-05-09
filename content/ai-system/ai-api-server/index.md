@@ -76,7 +76,7 @@ predictions = [
 `topk(5)` picks the five highest probabilities.
 The result is a list of label–confidence pairs ready to be returned as JSON.
 
-If you have a model that you trained yourself in another course, for example the Deep Learning course, you can load it the same way.
+If you have a model that you trained yourself in another course, for example, the Deep Learning course, you can load it the same way.
 Instead of asking `torchvision` for pre-trained weights, you point PyTorch at the saved weights file:
 ```python
 import torch
@@ -232,7 +232,7 @@ Without `async`, the waiter takes one order, walks to the kitchen, stands there 
 Most of the waiter's time is spent just standing around.
 Marking an endpoint as `async def` is like teaching the waiter a new habit.
 After handing the order to the kitchen, the waiter immediately moves on to take other tables' orders, and only comes back to deliver the food once the kitchen says it is ready.
-The keyword `await` is the moment the waiter steps aside and lets others use the same waiter.
+The keyword `await` is the moment the waiter steps aside and is free to serve other tables.
 A single waiter can serve many tables in parallel this way, as long as the slow part is something happening outside the waiter, like the kitchen cooking, a network request, or a database query.
 
 For our classification endpoint, the slow part is the model inference itself, which the function actually has to compute.
@@ -267,7 +267,7 @@ def run_inference(image: Image.Image):
 The endpoint itself is now `async def`, but the heavy work runs in a separate thread via `asyncio.to_thread`.
 While that thread runs the inference, the server is still free to accept other requests and start processing the next image.
 
-The benefit becomes more obvious if we imagine the endpoint also calling another remote AI API, for example to forward the image to a larger model in the cloud.
+The benefit becomes more obvious if we imagine the endpoint also calling another remote AI API, for example, to forward the image to a larger model in the cloud.
 Each call to that remote API takes several seconds, almost all of which is spent waiting on the network.
 With `async def` and `await`, a single server process can have hundreds of these waits going on at the same time without hiring hundreds of waiters.
 
@@ -306,7 +306,7 @@ def verify_api_key(creds: HTTPAuthorizationCredentials = Depends(bearer_scheme))
     return creds.credentials
 ```
 `HTTPBearer` reads the `Authorization` header, splits off the `Bearer ` prefix, and gives us the rest as `creds.credentials`.
-`verify_api_key` is a regular function we will use through FastAPI's [dependency injection](https://fastapi.tiangolo.com/tutorial/dependencies/) system: any endpoint that depends on it will only run if the key is valid, and will return `401 Unauthorized` otherwise.
+`verify_api_key` is a regular function we will use through FastAPI's [dependency injection](https://fastapi.tiangolo.com/tutorial/dependencies/) system. Any endpoint that depends on it will only run if the key is valid, and will return `401 Unauthorized` otherwise.
 
 To protect the classification endpoint, we add `verify_api_key` as a dependency:
 ```python

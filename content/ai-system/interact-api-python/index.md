@@ -9,7 +9,7 @@ aliases = [ "/ai-system/advanced-apis/" ]
 chapter = "Module A.2"
 +++
 
-In [Module A.1](@/ai-system/api-fundamentals/index.md) we treated APIs as something to poke at through browsers and API testing tools, which is great for getting a feel of what HTTP traffic looks like.
+In [Module A.1](@/ai-system/api-fundamentals/index.md) we treated APIs as something to poke at through browsers and API testing tools, which is great for getting a feel for what HTTP traffic looks like.
 But we don't usually ship software in the form of "open Postman and click send."
 Sooner or later, we want our own programs to talk to APIs on their own, especially when we want to bake AI capabilities into our applications.
 
@@ -41,7 +41,7 @@ Provider SDKs hide all the HTTP details we just spent the previous module gettin
 If something goes wrong, the error message will likely use the SDK's own wording instead of the HTTP terms we just learned.
 Worse, switching to a different provider's SDK can feel like learning a brand new tool, even though under the hood they all use the same protocol.
 Working with `requests` keeps the HTTP layer visible.
-Once we get comfortable with how an HTTP request is shaped in Python, picking up any provider's SDK is just a matter of reading their documentation, since you already understand what the SDK is doing under the hood.
+Once we get comfortable with how an HTTP request is shaped in Python, picking up any provider's SDK is just a matter of reading their documentation, since we already understand what the SDK is doing under the hood.
 
 
 ## Sending HTTP Requests
@@ -114,7 +114,7 @@ print(response.json())
 
 A few things worth noting.
 We pass the body as the `json` parameter, and `requests` automatically converts the Python dictionary into JSON and puts it into the request body.
-We don't actually have to set the `Content-Type` header ourselves when using `json=...`, since `requests` sets it to `application/json` for us, but it is good be explicit.
+We don't actually have to set the `Content-Type` header ourselves when using `json=...`, since `requests` sets it to `application/json` for us, but it is good to be explicit.
 The `timeout=30` parameter tells `requests` to give up if the server hasn't responded within 30 seconds.
 AI APIs occasionally hang for unknown reasons, and without a timeout your program could wait forever.
 The structure of the body (`model`, `messages`, `temperature`, etc.) is decided by the API provider.
@@ -213,7 +213,7 @@ API keys give whoever holds them access to your account and billing, so they sho
 
 The problem with hardcoding the key is that anyone who reads the code can see it.
 This sounds dramatic, but it happens all the time.
-People commit code to public Git repositories, paste snippets into Slack, or share screenshots in tutorial videos, and end up leaking API keys without realizing.
+People commit code to public Git repositories, paste snippets into Slack, or share screenshots in tutorial videos, and end up leaking API keys without realizing it.
 Bots scan public GitHub commits for exactly this kind of leak, and stolen keys can be running up bills on your account within minutes.
 
 The standard fix is to put secrets in [environment variables](https://www.geeksforgeeks.org/python/access-environment-variable-values-in-python/), which are key-value pairs that the operating system makes available to programs running on it, separate from the source code.
@@ -320,7 +320,7 @@ With streaming, the first words start appearing in a second or two.
 
 ![Streaming vs non-streaming response](streaming-comparison.webp)
 
-{% cap() %}A non-streaming response (left, in a API testing tool) lands all at once after a delay, while a streaming response (right, in a typical AI chatbot app) renders word by word as the model produces it.{% end %}
+{% cap() %}A non-streaming response (left, in an API testing tool) lands all at once after a delay, while a streaming response (right, in a typical AI chatbot app) renders word by word as the model produces it.{% end %}
 
 To enable SSE with `requests`, we have to do two things.
 First, we tell the API we want streaming.
@@ -381,13 +381,13 @@ Other providers use slightly different markers, so check their documentation.
 Build a Python program that takes a question from you, sends it to an AI API, and prints the model's reply.
 You can use any of the AI APIs we have been using in the previous module's exercise, and the program does not need to be fancy to count as done.
 
-A rough tip on how you can implement your program:
+A rough outline of how you can implement your program:
 
 1. Read the API key from an environment variable.
 2. Take a question from the user, either as a command line argument or by reading one line from `stdin`.
 3. Send a `POST` request to the AI provider's chat API with the question as the message.
 4. Parse the response and print the assistant's reply.
-5. Handle common error cases gracefully. The program should not crash when the network blips or your quota is exhausted; print a useful message instead.
+5. Handle common error cases gracefully. The program should not crash when the network blips or your quota is exhausted. Print a useful message instead.
 
 Once you have the basic version working, try the following extensions to deepen your understanding of the topics covered in this module:
 

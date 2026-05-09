@@ -63,7 +63,7 @@ A [**Dockerfile**](https://docs.docker.com/reference/dockerfile/) is a plain-tex
 Docker reads the file from top to bottom and produces an image whose contents are the result of applying each step.
 
 Putting the build steps in a file gives us everything that interactive building lacks.
-The steps are documented (the file _is_ the documentation), versioned (we can commit it to Git like any other source file), and reproducible: anyone with the Dockerfile can rebuild the same image with `docker build`, the same way anyone with the recipe can cook the same dish (maybe not exactly the same in real life, but in the context of containers it will be truely identical).
+The steps are documented (the file _is_ the documentation), versioned (we can commit it to Git like any other source file), and reproducible: anyone with the Dockerfile can rebuild the same image with `docker build`, the same way anyone with the recipe can cook the same dish (maybe not exactly the same in real life, but in the context of containers it will be truly identical).
 
 A minimal Dockerfile looks like this:
 ```dockerfile
@@ -114,7 +114,7 @@ Recall from [Module B.2](@/ai-system/container-fundamentals/index.md#layered-fil
 Docker caches layers between builds, so an instruction whose inputs have not changed reuses the cached layer instead of running again.
 This is what makes rebuilding an image fast.
 
-The cache rule has one important consequence: as soon as one layer's input changes, every layer below it has to be rebuilt as well, even if their own inputs did not change.
+The cache rule has one important consequence: as soon as one layer's input changes, every layer below it has to be rebuilt as well, even if its own inputs did not change.
 So we want layers that change rarely (like `pip install` for dependencies that we do not touch every day) above layers that change often (like our own application code).
 
 A common newcomer mistake looks like this:

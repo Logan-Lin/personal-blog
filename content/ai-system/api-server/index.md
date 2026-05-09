@@ -183,7 +183,7 @@ def repeat(message: str):
 ```
 A request to `http://127.0.0.1:8000/parrot/hello` returns `{"message": "hello"}`.
 The type hint `message: str` tells FastAPI to keep the value as a string.
-If we change it to `message: int`, FastAPI will automatically reject any request whose path part is not a valid integer with a `422 Unprocessable Entity` response.
+If we change it to `message: int`, FastAPI will automatically reject any request whose path part is not a valid integer, returning a `422 Unprocessable Entity` response.
 
 Multiple templates and fixed segments can be mixed in the same path:
 ```python
@@ -256,7 +256,7 @@ Inside the function we can access the fields as regular attributes (`data.user`,
 If a client sends a body with `user` as a string, an extra unknown field, or a missing required field, FastAPI rejects the request with a `422 Unprocessable Entity` response and a JSON body explaining exactly which field is wrong, all before our function is even called.
 
 Pydantic supports nested models, lists, optional fields, default values, and a long list of constraints (minimum length, regex pattern, numeric range, and so on).
-You can reference to the [Pydantic documentation](https://docs.pydantic.dev/latest/concepts/models/) once you need anything beyond the basics.
+You can refer to the [Pydantic documentation](https://docs.pydantic.dev/latest/concepts/models/) once you need anything beyond the basics.
 
 > Below are some additional resources for learning Pydantic more systematically.
 > - [Real Python's tutorial on Pydantic (blog post)](https://realpython.com/python-pydantic/), with hands-on examples of validation rules, custom validators, and settings management

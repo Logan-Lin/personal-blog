@@ -285,7 +285,7 @@ The implementation details vary, but the goal is the same: enough on-device AI t
 
 Specialized hardware is what makes most modern AI systems practical, but it has not replaced the Von Neumann architecture.
 Look at any modern computer, even a "real" AI computer in a data center, and you will find the same picture.
-A CPU sits at the center, GPUs, TPUs, or NPUs are attached as accelerators through the bus, and all of them share access to memory and are coordinated by the operating system running on the CPU.
+A CPU sits at the center, with GPUs, TPUs, or NPUs attached as accelerators through the bus, and all of them share access to memory and are coordinated by the operating system running on the CPU.
 The CPU is still the executive chef.
 The accelerators are highly skilled sous chefs hired for one specialty.
 
@@ -311,7 +311,7 @@ The point of this exercise is to feel the difference between CPU and GPU on the 
 We will use [**Google Colab**](https://colab.research.google.com/), a hosted Jupyter notebook service that gives anyone with a Google account a few free hours of CPU, GPU, and (sometimes) TPU runtime per day.
 No local setup is needed.
 
-You can also run this exercise on computing platform provided by the university (such as [**AI-LAB**](https://hpc.aau.dk/ai-lab/), the university's GPU cluster for student projects).
+You can also run this exercise on a computing platform provided by the university (such as [**AI-LAB**](https://hpc.aau.dk/ai-lab/), the university's GPU cluster for student projects).
 It uses a Slurm job scheduler instead of an interactive notebook, but the underlying code is the same, and you get access to dedicated GPUs without the time limits of Colab's free tier.
 
 Open a new Colab notebook (or an AI-LAB session) and try the following:
