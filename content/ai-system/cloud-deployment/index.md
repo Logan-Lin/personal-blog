@@ -213,6 +213,12 @@ Once the A record is created and given a few minutes to propagate, we can verify
 dig +short api.example.com
 ```
 
+> Below are some additional resources for getting comfortable with how DNS works.
+> - [Everything you need to know about DNS (video)](https://www.youtube.com/watch?v=27r4Bzuj5NQ) by ByteByteGo, part of the Crash Course System Design series, a short walkthrough of the lookup chain
+> - [How a DNS server works (video)](https://www.youtube.com/watch?v=mpQZVYPuDGU) by PowerCert Animated Videos, an animated tour of the same chain at a slower pace
+> - [What is DNS? Introduction to DNS (article)](https://aws.amazon.com/route53/what-is-dns/) by AWS, a written explanation that doubles as the intro to AWS's own DNS service
+> - [How does DNS work? (drawing)](https://drawings.jvns.ca/dns/) by Julia Evans, a one-page hand-drawn comic if a single picture is more your style
+
 
 ### Why HTTPS
 
@@ -231,6 +237,12 @@ It does two things at once: it encrypts the traffic so anyone watching the netwo
 For a long time, certificates from trusted CAs cost real money, which kept HTTPS out of small projects.
 That changed in 2016 when the nonprofit [**Let's Encrypt**](https://letsencrypt.org/) started issuing free, automated certificates, valid for 90 days and renewable indefinitely.
 Today Let's Encrypt has issued certificates for hundreds of millions of sites, and there is no good reason for any new public service to launch without HTTPS.
+
+> Below are some additional resources for getting comfortable with HTTPS, TLS, and Let's Encrypt.
+> - [SSL, TLS, HTTPS explained (video)](https://www.youtube.com/watch?v=j9QmMEWmcfo) by ByteByteGo, a short overview of how the three terms relate and what each one actually does
+> - [TLS handshake explained (video)](https://www.youtube.com/watch?v=86cQJ0MMses) by Computerphile, a deeper walkthrough of the messages exchanged when a browser opens an HTTPS connection
+> - [How HTTPS works (comic)](https://howhttps.works/) by DNSimple, an illustrated walkthrough of the TLS handshake and certificates
+> - [Let's Encrypt: how it works (article)](https://letsencrypt.org/how-it-works/), the canonical explanation of the protocol Certbot uses
 
 
 ### Reverse Proxy with Nginx
@@ -300,11 +312,9 @@ This is different from `systemctl restart nginx`, which fully stops and restarts
 Now `http://api.example.com` reaches our container through Nginx, and we can drop port 8000 from the public firewall (and from UFW), since traffic comes in on port 80 instead.
 
 > Below are some additional resources for learning Nginx more comprehensively.
+> - [How to set up an NGINX reverse proxy (video)](https://www.youtube.com/watch?v=B62QSbPhh1s) by Akamai Developer, a hands-on walkthrough of the same setup we just did
 > - [Nginx beginner's guide (official docs)](https://nginx.org/en/docs/beginners_guide.html), the canonical introduction by the project itself, covering directives, blocks, and a minimal proxy setup
-> - [Full Nginx documentation (reference)](https://nginx.org/en/docs/), the dense but authoritative reference for every directive and module
-> - [How Nginx processes a request (article)](https://nginx.org/en/docs/http/request_processing.html), the official explanation of how Nginx picks a `server` and `location` for an incoming request
-> - [DigitalOcean's Nginx tutorials (collection)](https://www.digitalocean.com/community/tags/nginx), a large set of practical walkthroughs for common Nginx setups
-> - [Understanding Nginx server and location block selection algorithms (article)](https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms) by DigitalOcean, a careful explanation of the matching rules that often catch beginners by surprise
+> - [DigitalOcean's Nginx tutorials (collection)](https://www.digitalocean.com/community/tags/nginx), a large set of practical walkthroughs for common Nginx setups beyond the basic reverse proxy
 > - [`nginxconfig.io` (interactive tool)](https://www.digitalocean.com/community/tools/nginx), a config generator that produces production-grade Nginx setups from a guided form, useful for seeing what a fuller real-world config looks like
 
 
@@ -354,11 +364,6 @@ Once that succeeds, certificate management takes care of itself.
 > For real fault tolerance we would run replicas across multiple [**availability zones**](https://en.wikipedia.org/wiki/Availability_zone), each a separate physical data center within a cloud region, so a single facility going down does not take the whole service offline.
 >
 > Container orchestration platforms automate placing many containers across many machines, restarting failures, rolling updates, and scaling with load. We mentioned [Kubernetes](https://kubernetes.io/) at the end of [Module B.3](@/ai-system/ai-container/index.md#distributing-images) as the most widely deployed of these.
-
-> Below are some additional resources for the topics in this section.
-> - [How HTTPS works (comic)](https://howhttps.works/) by DNSimple, an illustrated walkthrough of the TLS handshake and certificates
-> - [Everything you need to know about DNS (video)](https://www.youtube.com/watch?v=27r4Bzuj5NQ), part of the Crash Course System Design series, a short walkthrough of the lookup chain
-> - [Let's Encrypt: how it works (article)](https://letsencrypt.org/how-it-works/), the canonical explanation of the protocol Certbot uses
 
 
 ## Exercise: Deploy Your AI API Server to the Cloud
