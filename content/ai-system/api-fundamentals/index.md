@@ -48,14 +48,14 @@ Just as some people run several businesses in the same location and have multipl
 Typically we don't have to specify a port when calling an API, since there are default ports assigned to certain services, protocols, and applications. For example, HTTPS-based APIs usually run on port 443.
 
 > Below are some videos explaining computer network concepts to aid your study.
-> - [IP address explained (video)](https://www.youtube.com/watch?v=7_-qWlvQQtY)
-> - [Network ports explained (video)](https://www.youtube.com/watch?v=h5vq9hFROEA)
-> - [Understanding URLs (video)](https://www.youtube.com/watch?v=5Jr-_Za5yQM)
+> - [IP address explained (video)](https://www.youtube.com/watch?v=7_-qWlvQQtY) by George Nisbet, a short conceptual walkthrough
+> - [Network ports explained (video)](https://www.youtube.com/watch?v=h5vq9hFROEA) by CBT Nuggets, a clear IT-training-style explainer
+> - [Understanding URLs (video)](https://www.youtube.com/watch?v=5Jr-_Za5yQM) by LearnFree, a slow-paced introduction for beginners
 > 
 > We also skipped more advanced computer networking concepts, like the OSI model of computer networks, and how computers process network addresses. But if you are interested in digging deeper, below are links for extended study:
-> - [The OSI model of computer networks (blog post)](https://www.geeksforgeeks.org/computer-networks/open-systems-interconnection-model-osi/)
-> - [The OSI model explained (video)](https://www.youtube.com/watch?v=keeqnciDVOo)
-> - [How domains are mapped to IP addresses (video)](https://www.youtube.com/watch?v=mpQZVYPuDGU)
+> - [The OSI model of computer networks (blog post)](https://www.geeksforgeeks.org/computer-networks/open-systems-interconnection-model-osi/) by GeeksforGeeks, an in-depth walkthrough of all seven layers with examples
+> - [The OSI model explained (video)](https://www.youtube.com/watch?v=keeqnciDVOo) by Fireship, a dense, fast-paced 100-second overview of computer networking
+> - [How domains are mapped to IP addresses (video)](https://www.youtube.com/watch?v=mpQZVYPuDGU) by PowerCert Animated Videos, an animated explainer of how DNS resolves domains
 
 
 ## HTTP Protocol
@@ -165,15 +165,15 @@ The **response body** contains the actual data the API provider sends back to yo
 Again, the format of this JSON object is specific to the API you requested.
 
 > Below are some videos explaining HTTP to aid your study.
-> - [HTTP explained (video)](https://www.youtube.com/watch?v=KvGi-UDfy00)
-> - [HTTP request explained (video)](https://www.youtube.com/watch?v=DBhEFG7zjFU)
+> - [HTTP explained (video)](https://www.youtube.com/watch?v=KvGi-UDfy00) by Connected Cookie, a quick 3-minute primer
+> - [HTTP request explained (video)](https://www.youtube.com/watch?v=DBhEFG7zjFU) by Kinsta, a short explainer on the structure of HTTP requests
 > 
 > You might have noticed that most modern APIs state `https` as the protocol in their URLs, but we have been discussing the HTTP protocol throughout the section. So where is the "s" part? Just as a brief spoiler, HTTPS is an extension of HTTP that additionally encrypts messages. Think of it as writing letters in a way that only you and the recipient can understand.
 > We will come back to HTTP and HTTPS when we discuss serving our own APIs to the world over the internet in a later module [Cloud Deployment](@/ai-system/cloud-deployment/index.md), since the importance of HTTPS will be much more relatable in that context.
 >
 > While HTTP is the predominant API protocol, it is not the only one, and there are other protocols that can achieve different functionalities or are more suitable than HTTP in certain scenarios. For example, WebSocket is a protocol that, instead of using the request-response model like HTTP does, establishes a continuous, bidirectional (full-duplex) communication tunnel between two applications. It is widely used in video conferencing platforms, and by some AI systems like [OpenAI's Realtime API](https://openai.com/index/introducing-the-realtime-api/) and [Google's Gemini Live](https://gemini.google/overview/gemini-live/).
 > You can learn more about alternative protocols to HTTP that are relevant in the AI context if you are interested:
-> - [WebSocket Protocol (blog post)](https://www.geeksforgeeks.org/web-tech/what-is-web-socket-and-how-it-is-different-from-the-http/)
+> - [WebSocket Protocol (blog post)](https://www.geeksforgeeks.org/web-tech/what-is-web-socket-and-how-it-is-different-from-the-http/) by GeeksforGeeks, a beginner-friendly comparison between WebSocket and HTTP
 > - [WebRTC Protocol (blog post)](https://www.geeksforgeeks.org/techtips/introduction-to-webrtc/), another protocol for full-duplex communication
 > - [Model Context Protocol (MCP) (docs)](https://modelcontextprotocol.io/docs/getting-started/intro) that streamlines interaction between AI chat models and external tools. Personally I think calling it a protocol is a stretch, since it uses HTTP under the hood. Nonetheless, it is very relevant in the context of AI
 > - [Message Queuing Telemetry Transport (MQTT) Protocol (blog post)](https://www.emqx.com/en/blog/the-easiest-guide-to-getting-started-with-mqtt), a protocol that operates on the publish-subscribe pattern, suitable for efficiently distributing data to lots of applications at once
@@ -265,8 +265,8 @@ Since AI systems cost these companies (a lot of) money to run, you might be char
 Many platforms will give you a small amount of free quota to play with if you are a newly registered user. Google is also relatively generous with their free quota. As of this writing, you can use some of their lighter models completely free as stated in their [pricing policy](https://ai.google.dev/gemini-api/docs/pricing) (with limits or asterisks, of course).
 
 > Here are some text and video tutorials for Postman if you want to learn it more systematically.
-> - [Postman tutorial (blog post)](https://www.geeksforgeeks.org/software-testing/postman-tutorial/)
-> - [Postman API Testing Tutorial for beginners (video)](https://www.youtube.com/watch?v=MFxk5BZulVU)
+> - [Postman tutorial (blog post)](https://www.geeksforgeeks.org/software-testing/postman-tutorial/) by GeeksforGeeks, a comprehensive guide spanning basics to advanced features
+> - [Postman API Testing Tutorial for beginners (video)](https://www.youtube.com/watch?v=MFxk5BZulVU) by Codemify, a hands-on walkthrough for first-time users
 >
 > Here are some alternative API testing tools to Postman, if you do not enjoy Postman for any reason.
 > - [curl](https://www.geeksforgeeks.org/linux-unix/curl-command-in-linux-with-examples/), the classic Unix command line program that can be used to test APIs
