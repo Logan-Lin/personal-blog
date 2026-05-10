@@ -43,7 +43,7 @@ You should also prepare a simple **client program** for validating that the serv
 These are not strict requirements, but are aspects that you can consider to demonstrate your understanding of the knowledge covered in this course:
 - Integration with databases for API key management, per-API-key usage tracking, and rate-limiting-protected endpoints ([Module A.4](@/ai-system/ai-api-server/index.md#protecting-and-tracking-the-endpoints))
 - Leverage specialized AI computing hardware to accelerate the AI model used in the server, if the machine running the server has any ([Module B.1](@/ai-system/ai-hardware/index.md#specialized-hardware-for-ai))
-- Make the server publicly accessible and enable HTTPS ([Module B.4](@/ai-system/cloud-deployment/index.md#going-public-domains-and-https) and [Module B.5](@/ai-system/edge-deployment/index.md#network-getting-past-nat))
+- Make the server publicly accessible and enable HTTPS ([Module B.4](@/ai-system/cloud-deployment/index.md#going-public-with-domains-and-https) and [Module B.5](@/ai-system/edge-deployment/index.md#getting-past-nat))
 
 Do note that incorporating these optional achievements in the project does not directly grant you a higher score than those who don't.
 The purpose of the project is to reflect your understanding of the knowledge we covered in this course, and the course is scored based on the oral exam, not the project outcome directly.

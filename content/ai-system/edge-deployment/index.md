@@ -46,7 +46,7 @@ Privacy improves because sensitive data never has to leave the device.
 And the system keeps working when the internet goes down.
 
 And there is a variety of edge hardware that can be found in the wild.
-The [Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/) we already met in [Module B.1](@/ai-system/ai-hardware/index.md#a-real-board-raspberry-pi-5) is a perfectly capable edge device for hobby and small commercial projects.
+The [Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/) we already met before is a perfectly capable edge device for hobby and small commercial projects.
 NVIDIA's [Jetson family](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/) offers boards with on-board GPUs for harder AI workloads.
 Industrial PCs designed to sit in factories and survive vibration, dust, and temperature swings handle the higher end.
 And the smartphone in our pocket is an edge device too, with one of the [NPUs](@/ai-system/ai-hardware/index.md#neural-processing-unit-npu) we discussed in [Module B.1](@/ai-system/ai-hardware/index.md) doing the AI work.
@@ -157,7 +157,7 @@ Anyone pulling the image gets the variant matching their hardware.
 > - [Multi-platform builds (official docs)](https://docs.docker.com/build/building/multi-platform/), Docker's full documentation on building images that target several CPU architectures from one machine
 
 
-## Network: Getting Past NAT
+## Getting Past NAT
 
 The cloud VM in [Module B.4](@/ai-system/cloud-deployment/index.md) came with a public IP address.
 Anyone on the internet could type that IP into their browser and reach our server (subject to the cloud firewall we configured).
@@ -212,7 +212,7 @@ Some ISPs also offer a static public IP as a paid add-on, which removes the need
 > - [What is dynamic DNS? (article)](https://www.cloudflare.com/learning/dns/glossary/dynamic-dns/) by Cloudflare, a short written explanation of the same idea
 
 
-### Hybrid: A Cloud VM as Reverse Proxy
+### A Cloud VM as Reverse Proxy
 
 If we cannot get a public IP because of CGNAT, or simply do not want to expose our home network at all, we can borrow a public IP by renting a small cloud VM.
 The reverse proxy we built in [Module B.4](@/ai-system/cloud-deployment/index.md#reverse-proxy-with-nginx) is exactly the right shape for this.

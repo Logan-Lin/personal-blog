@@ -141,7 +141,7 @@ Every provider has a slightly different web console, but the deployment flow is 
 The mechanics of SSH, `apt`, and `docker run` are the same as on any other Linux box (such as the AAU servers you may have used in earlier courses), so we will only highlight the cloud-specific bits here.
 
 When creating the VM, [Ubuntu LTS](https://ubuntu.com/about/release-cycle) (`24.04` at the time of writing) is the safe default operating system, and 2 vCPUs with 4 GB of RAM and 20 to 30 GB of disk is enough for our CPU-only classifier.
-Two settings deserve attention because they are the most common cause of "I deployed it but it does not respond": make sure the VM is assigned a public IP address, and open ports 22 (SSH), 8000 (our API), and the default HTTP and HTTPS ports 80 and 443 in the cloud firewall (called *security groups* on AWS, *firewall rules* on GCP, *network security groups* on Azure). We will come back to why ports 80 and 443 matter in the [next section](#going-public-domains-and-https).
+Two settings deserve attention because they are the most common cause of "I deployed it but it does not respond": make sure the VM is assigned a public IP address, and open ports 22 (SSH), 8000 (our API), and the default HTTP and HTTPS ports 80 and 443 in the cloud firewall (called *security groups* on AWS, *firewall rules* on GCP, *network security groups* on Azure). We will come back to why ports 80 and 443 matter in the [next section](#going-public-with-domains-and-https).
 Cloud firewalls deny everything by default, so anything we do not explicitly allow will be unreachable from outside, regardless of what the VM itself is doing.
 Finally, paste in an SSH public key so we can log in without a password; if you do not have one yet, [DigitalOcean's tutorial](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server) walks through generating and installing one.
 
@@ -171,7 +171,7 @@ If the request hangs, the culprit is almost always a closed port: either the clo
 > All of these matter once the number of servers grows past what we can keep track of by hand. For one or two VMs, plain SSH is fine.
 
 
-## Going Public: Domains and HTTPS
+## Going Public with Domains and HTTPS
 
 The container is now reachable at `http://<vm-ip>:8000`, which is technically a working public AI service but not one most people would actually use.
 Two things are missing.

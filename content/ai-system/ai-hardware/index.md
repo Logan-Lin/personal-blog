@@ -142,10 +142,6 @@ The remaining two instructions store that result back into memory and hand it of
 Every step goes through the same machinery in some combination: the control unit decides what to do next, the ALU does the arithmetic, memory holds instructions and intermediate values, the I/O system shuttles things across the computer's boundary, and the bus carries everything between them.
 The Von Neumann architecture is essentially this loop, repeated billions of times per second.
 
-
-### A Real Board: Raspberry Pi 5
-
-Walking through the components in the abstract makes it easy to forget that they really are physical things on a board.
 As a small but complete example, here is a [Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/), a credit-card-sized computer often used for hobby projects and prototypes.
 
 ![Raspberry Pi 5 board](raspberry-pi.webp)
