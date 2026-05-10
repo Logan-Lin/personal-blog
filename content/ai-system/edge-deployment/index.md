@@ -124,7 +124,7 @@ A Docker image built for x86-64 will not run on a Raspberry Pi with an ARM64 CPU
 
 The following three CPU architectures should cover almost everything we will run into.
 [**x86-64**](https://en.wikipedia.org/wiki/X86-64) (also called *amd64*) is the architecture inside almost every desktop, laptop, and cloud server you have used.
-Designed by Intel and AMD, it has been the dominant general-purpose architecture since the 1990s, and almost any image we find on Docker Hub will have an x86-64 build.
+Designed by AMD as a 64-bit extension to Intel's x86, it has been the dominant general-purpose architecture in PCs and servers since the 1990s, and almost any image we find on Docker Hub will have an x86-64 build.
 [**ARM64**](https://en.wikipedia.org/wiki/AArch64) (also called *aarch64*) is the architecture inside almost every smartphone, the Raspberry Pi, NVIDIA Jetson, [Apple silicon](https://en.wikipedia.org/wiki/Apple_silicon) Macs, and an increasing share of cloud servers like AWS [Graviton](https://aws.amazon.com/ec2/graviton/).
 It is more power-efficient than x86 at comparable performance, which is why it dominates devices that care about battery, and why edge devices are mostly ARM today.
 [**RISC-V**](https://en.wikipedia.org/wiki/RISC-V) is a newer, open-source architecture not controlled by any single company.

@@ -34,7 +34,7 @@ In [Module B.3](@/ai-system/ai-container/index.md) we will go a step further and
 Before there were software containers, there were [shipping containers](https://en.wikipedia.org/wiki/Containerization), the steel boxes you have seen on cargo ships, freight trains, and trucks.
 The story of those is worth a quick detour, since software containers borrow both their idea and their name.
 
-Before shipping containers were standardized in the 1950s, freight was loaded onto ships piece by piece.
+Before shipping containers were standardized in the 1960s, freight was loaded onto ships piece by piece.
 Each shipment had its own size, shape, and packing, and dock workers had to figure out where everything went by hand.
 Loading a single ship could take days, and goods often got damaged, lost, or stolen along the way.
 The fix was embarrassingly simple: agree on a standard box that any ship, train, or truck can carry, and pack everything into those boxes once at the source.

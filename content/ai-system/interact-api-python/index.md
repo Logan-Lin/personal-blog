@@ -130,7 +130,7 @@ The status code is on `response.status_code`:
 ```python
 print(response.status_code)  # e.g., 200
 ```
-There are also shortcuts like `response.ok` (true for any 2xx status) and `response.reason` (the reason phrase like `"OK"` or `"Not Found"`).
+There are also shortcuts like `response.ok` (true for any status code below 400) and `response.reason` (the reason phrase like `"OK"` or `"Not Found"`).
 
 Response headers are exposed as a dictionary-like object on `response.headers`:
 ```python
@@ -373,7 +373,7 @@ Other providers use slightly different markers, so check their documentation.
 > Protocols like WebSocket and WebRTC support two-way communication and are widely used in voice and video AI features, including [OpenAI's Realtime API](https://developers.openai.com/api/docs/guides/realtime) and [Google's Gemini Live](https://gemini.google/overview/gemini-live/).
 > For these protocols the `requests` package is no longer enough, and we need protocol-specific Python libraries:
 > - [`websockets` (docs)](https://websockets.readthedocs.io/en/stable/) for WebSocket clients and servers
-> - [`aiortc` (docs)](https://aiortc.readthedocs.io/en/latest/) for WebRTC clients
+> - [`aiortc` (docs)](https://aiortc.readthedocs.io/en/latest/) for WebRTC clients and servers
 
 
 ## Exercise: A Command Line Chatbot

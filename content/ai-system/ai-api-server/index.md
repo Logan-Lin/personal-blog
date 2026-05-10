@@ -91,7 +91,7 @@ The rest of the inference code stays the same, except you may need to write your
 ### Off-the-Shelf Models from Hugging Face
 
 `torchvision` is great for classic vision models, but most state-of-the-art models live on the [Hugging Face Hub](https://huggingface.co/models) instead.
-The Hub hosts hundreds of thousands of models contributed by the community, including image classifiers, language models, speech models, and more.
+The Hub hosts millions of models contributed by the community, including image classifiers, language models, speech models, and more.
 The [`transformers`](https://huggingface.co/docs/transformers/) library provides a uniform interface to download and run any of them with very little code.
 
 Install:

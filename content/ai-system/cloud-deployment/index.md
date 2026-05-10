@@ -235,7 +235,7 @@ On top of that, modern browsers warn or outright block users from interacting wi
 It does two things at once: it encrypts the traffic so anyone watching the network sees only scrambled data instead of the real request and response, and it lets the client verify that it is actually talking to the real `api.example.com` (not an impostor) using a [**certificate**](https://en.wikipedia.org/wiki/Public_key_certificate) issued by a trusted [**certificate authority (CA)**](https://en.wikipedia.org/wiki/Certificate_authority).
 
 For a long time, certificates from trusted CAs cost real money, which kept HTTPS out of small projects.
-That changed in 2016 when the nonprofit [**Let's Encrypt**](https://letsencrypt.org/) started issuing free, automated certificates, valid for 90 days and renewable indefinitely.
+That changed in 2015 when the nonprofit [**Let's Encrypt**](https://letsencrypt.org/) started issuing free, automated certificates, valid for 90 days and renewable indefinitely.
 Today Let's Encrypt has issued certificates for hundreds of millions of sites, and there is no good reason for any new public service to launch without HTTPS.
 
 > Below are some additional resources for getting comfortable with HTTPS, TLS, and Let's Encrypt.

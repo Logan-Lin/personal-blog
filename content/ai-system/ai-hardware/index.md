@@ -181,7 +181,7 @@ Two limitations of CPUs show up clearly the moment we try to use them for seriou
 CPUs are tuned for [sequential execution](https://www.starburst.io/blog/parallel-vs-sequential-processing/).
 Given any one instruction, a CPU core wants to finish it as quickly as possible before moving on to the next one.
 This is the right trade-off for tasks where each step depends on the previous one, like parsing a file or following the logic of a complex program.
-Modern CPUs do have multiple cores so they can run several such sequences in parallel, but the count is small: usually around 8 cores in a consumer laptop and up to a [few dozen](https://www.amd.com/en/products/processors/desktops/ryzen/9000-series/amd-ryzen-9-9950x3d.html) in a high-end server CPU.
+Modern CPUs do have multiple cores so they can run several such sequences in parallel, but the count is small: usually around 8 cores in a consumer laptop and up to a [few dozen](https://www.amd.com/en/products/processors/desktops/ryzen/9000-series/amd-ryzen-9-9950x3d.html) in a high-end desktop CPU.
 
 AI models, especially neural networks, are a very different shape of work.
 Most of the math inside a transformer or convolutional network is matrix multiplication, where each output element is the result of an independent weighted sum.
@@ -232,7 +232,7 @@ Combined, they can power through highly parallel workloads far faster than any C
 {% cap() %}A CPU has a few powerful cores, while a GPU has thousands of weaker ones.{% end %}
 
 GPU memory is also built differently from CPU memory.
-Instead of [DDR5](https://en.wikipedia.org/wiki/DDR5_SDRAM), high-end gaming GPUs use [GDDR7](https://en.wikipedia.org/wiki/GDDR7_SDRAM) memory, which is built for bandwidth and can deliver around 1.5 TB/s.
+Instead of [DDR5](https://en.wikipedia.org/wiki/DDR5_SDRAM), high-end gaming GPUs use [GDDR7](https://en.wikipedia.org/wiki/GDDR7_SDRAM) memory, which is built for bandwidth and can deliver around 1.8 TB/s.
 Data center GPUs go further with [High Bandwidth Memory (HBM)](https://en.wikipedia.org/wiki/High_Bandwidth_Memory), reaching above 2 TB/s in current generations.
 
 What turned GPUs into the default hardware for AI is that the operations behind 3D graphics and the operations behind neural networks are essentially the same kind of math: lots of independent matrix and vector arithmetic on large blocks of data.

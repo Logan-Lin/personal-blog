@@ -228,7 +228,7 @@ They go inside the image, since every instance should run the same code with the
 
 Model weights usually go inside the image too.
 The model is part of what defines the server's behavior, and we want every instance to behave identically.
-The downside is image size; `torchvision`'s ResNet-18 weights are about 50 MB, but bigger models can easily push images past several gigabytes.
+The downside is image size; `torchvision`'s ResNet-18 weights are about 45 MB, but bigger models can easily push images past several gigabytes.
 For our small server, baking them in is fine. We can update the Dockerfile to download them at build time:
 ```dockerfile
 COPY requirements.txt .
