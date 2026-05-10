@@ -1,6 +1,6 @@
 +++
 title = "Edge Deployment"
-date = 2026-05-24
+date = 2026-05-10
 description = ""
 weight = 25
 aliases = [ "/ai-system/edge-self-hosted-deployment/" ]

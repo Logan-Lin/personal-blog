@@ -1,6 +1,6 @@
 +++
 title = "Infrastructure & Deployment of AI"
-date = 2026-05-05
+date = 2026-04-27
 description = ""
 weight = 20
 aliases = [ "/ai-system/infrastructure-deployment/" ]

@@ -1,6 +1,6 @@
 +++
 title = "API Server Fundamentals"
-date = 2026-04-27
+date = 2026-04-22
 description = ""
 weight = 13
 aliases = [ "/ai-system/wrap-ai-with-api/" ]

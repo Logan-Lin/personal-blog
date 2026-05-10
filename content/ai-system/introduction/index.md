@@ -1,6 +1,6 @@
 +++
 title = "Introduction to AI Systems & Infrastructure"
-date = 2026-04-11
+date = 2026-04-12
 description = ""
 weight = 1
 

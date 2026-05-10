@@ -1,6 +1,6 @@
 +++
 title = "Exam Information"
-date = 2026-06-01
+date = 2026-05-15
 description = ""
 weight = 32
 

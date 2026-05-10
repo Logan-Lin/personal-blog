@@ -1,6 +1,6 @@
 +++
 title = "Mini Project"
-date = 2026-05-28
+date = 2026-05-12
 description = ""
 weight = 31
 

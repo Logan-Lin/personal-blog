@@ -1,6 +1,6 @@
 +++
 title = "Building AI-enabled Containers"
-date = 2026-05-16
+date = 2026-05-05
 description = ""
 weight = 23
 

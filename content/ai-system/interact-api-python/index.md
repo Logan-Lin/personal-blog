@@ -1,6 +1,6 @@
 +++
 title = "Interacting with APIs in Python"
-date = 2026-04-23
+date = 2026-04-20
 description = ""
 weight = 12
 aliases = [ "/ai-system/advanced-apis/" ]

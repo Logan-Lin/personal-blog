@@ -1,6 +1,6 @@
 +++
 title = "Cloud Deployment"
-date = 2026-05-20
+date = 2026-05-07
 description = ""
 weight = 24
 
