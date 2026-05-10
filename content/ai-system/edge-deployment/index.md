@@ -150,6 +150,12 @@ docker buildx build --platform linux/amd64,linux/arm64 \
 This builds the same Dockerfile for both architectures (using emulation for whichever architecture is not the host's) and pushes both variants to a registry under the same tag.
 Anyone pulling the image gets the variant matching their hardware.
 
+> Below are some additional resources for getting more comfortable with CPU architectures and multi-platform container images.
+> - [ARM vs x86 - key differences explained (video)](https://www.youtube.com/watch?v=AADZo73yrq4) by Gary Explains, a clear walkthrough of where the two architectures diverge in design and where they end up
+> - [Explaining RISC-V: an x86 & ARM alternative (video)](https://www.youtube.com/watch?v=Ps0JFsyX2fU) by ExplainingComputers, a friendly tour of why RISC-V exists and where it might fit
+> - [ARM vs x86: what's the difference? (article)](https://www.redhat.com/en/topics/linux/ARM-vs-x86) by Red Hat, a short written comparison of the two dominant general-purpose architectures
+> - [Multi-platform builds (official docs)](https://docs.docker.com/build/building/multi-platform/), Docker's full documentation on building images that target several CPU architectures from one machine
+
 
 ## Network: Getting Past NAT
 
@@ -181,6 +187,11 @@ With CGNAT, the ISP itself does another layer of NAT in front of many customers,
 Mobile networks almost always use CGNAT, and an increasing number of fixed broadband ISPs do too as IPv4 addresses run out.
 Behind CGNAT, no amount of router configuration on our side will help, because the bottleneck sits at the ISP.
 
+> Below are some additional resources for understanding NAT and the IPv4 address shortage.
+> - [NAT explained (video)](https://www.youtube.com/watch?v=FTUV0t6JaDA) by PowerCert Animated Videos, a short animation walking through what the router actually does to outgoing and incoming packets
+> - [What is CGNAT? (article)](https://www.a10networks.com/glossary/what-is-carrier-grade-nat-cgn-cgnat/) by A10 Networks, an overview of why ISPs added a second layer of NAT and what that breaks for end users
+> - [How NAT traversal works (article)](https://tailscale.com/blog/how-nat-traversal-works) by Tailscale, a careful look at how a service can still reach a device behind NAT, useful background for the tunnel section below
+
 
 ### Public IP and Port Forwarding
 
@@ -191,12 +202,14 @@ This is essentially the inverse of the NAT bookkeeping we just described, and mo
 The remaining problem is that home public IPs are usually *dynamic*: they change every few weeks or whenever the router reconnects.
 We cannot put a changing IP into DNS by hand.
 The fix is [**dynamic DNS (DDNS)**](https://en.wikipedia.org/wiki/Dynamic_DNS), where a small daemon on our device periodically tells a DDNS provider what our current public IP is, and the provider updates the DNS record.
-We already saw [DuckDNS](https://www.duckdns.org/) in [Module B.4](@/ai-system/cloud-deployment/index.md#domains-and-dns) as a free domain provider; it doubles as a DDNS provider.
 
 Some ISPs also offer a static public IP as a paid add-on, which removes the need for DDNS. Whether this is available, and at what price, varies by country and provider.
 
-Note that this approach gives us the most direct setup, but also exposes our entire home network to the wider internet.
-This means we are now responsible for keeping our home network safe from external attacks: a firewall on the device itself (e.g., [UFW](https://help.ubuntu.com/community/UFW) on Ubuntu), automatic security updates, strong authentication, and only the ports we actually need open.
+> Below are some additional resources for setting up port forwarding and dynamic DNS.
+> - [Beginners guide to port forwarding (video)](https://www.youtube.com/watch?v=jfSLxs40sIw) by Tinkernut, a hands-on walkthrough of port forwarding on a typical home router
+> - [DDNS - Dynamic DNS explained (video)](https://www.youtube.com/watch?v=rOLGvZagdC0) by PowerCert Animated Videos, a short animation showing how DDNS keeps a name pointed at a changing IP
+> - [How to port forward on your router (article)](https://www.howtogeek.com/66214/how-to-forward-ports-on-your-router/) by How-To Geek, a friendly written walkthrough of the typical router admin page
+> - [What is dynamic DNS? (article)](https://www.cloudflare.com/learning/dns/glossary/dynamic-dns/) by Cloudflare, a short written explanation of the same idea
 
 
 ### Hybrid: A Cloud VM as Reverse Proxy
@@ -236,6 +249,13 @@ docker run -d --name ai-server --restart unless-stopped \
 ```
 The leading `10.0.0.2:` in the port mapping tells Docker to publish the port on the WireGuard interface alone, so even if the edge device is later attached to a less trusted network, the AI server stays reachable only from inside the tunnel.
 
+
+> Below are some additional resources for getting comfortable with WireGuard and the surrounding VPN landscape.
+> - [Build your OWN WireGuard VPN! (video)](https://www.youtube.com/watch?v=5NJ6V8i1Xd8) by Jeff Geerling, a short hands-on tutorial spinning up a WireGuard server on a small VM
+> - [How to easily configure WireGuard (article)](https://www.stavros.io/posts/how-to-configure-wireguard/) by Stavros Korokithakis, a popular hands-on walkthrough with the minimum config files for both ends
+> - [WireGuard whitepaper (paper)](https://www.wireguard.com/papers/wireguard.pdf) by Jason Donenfeld, the original technical paper for the protocol if you want the cryptography behind the `wg0.conf`
+> - [How Tailscale works (article)](https://tailscale.com/blog/how-tailscale-works), an explanation of the mesh model that builds on top of WireGuard, useful for understanding what Tailscale is doing under the hood
+
 > A few managed services sidestep most of the work above by handling the tunnel for us.
 >
 > [**Tailscale**](https://tailscale.com/) is a popular layer on top of WireGuard that handles key exchange, NAT traversal, and routing automatically, so setting up the tunnel becomes "install Tailscale on both the VM and the edge device, sign in with the same account, done", with no keys or `wg0.conf` to manage by hand.
@@ -267,11 +287,17 @@ If a single disk dies and takes one copy, the other two survive.
 If a fire or theft takes everything in the building, the offsite copy survives.
 With this rule properly applied, we can lower the probability of completely losing our data to a very small number, close to mathematically impossible.
 
-A few practical pieces sit on top of that rule.
-The whole thing should be automated rather than something we rely on remembering, whether through a daily `cron` job, a [systemd timer](https://www.freedesktop.org/software/systemd/man/systemd.timer.html), or a scheduler built into the backup tool itself, since a backup we have to run manually will be a backup we will not run.
-The tool itself should do incremental, deduplicated backups instead of copying everything every time, so each backup (except for the first one) is relatively fast. [Borg](https://www.borgbackup.org/) and [Restic](https://restic.net/) are the two most popular open-source choices for that.
-Databases need database-aware tools rather than a plain file copy out from under a running database to avoid backing up a non-functional state of the database. For SQLite the [`sqlite3 .backup`](https://www.sqlite.org/cli.html) command takes a consistent snapshot even while writes are in progress, with PostgreSQL, MySQL, and the rest all shipping similar tools.
-The offsite copy can be cheap object storage like [Backblaze B2](https://www.backblaze.com/cloud-storage) or AWS S3 [Glacier](https://aws.amazon.com/s3/storage-classes/glacier/), which holds a terabyte of backup data for a few EUR per month.
+> Below are some additional resources for backup strategy and tooling.
+> - [The 3-2-1 backup rule explained (video)](https://www.youtube.com/watch?v=62oi_G8exC8) by LabCyber, a short video on why the rule is shaped the way it is
+> - [Backups done right! A beginner's guide to Restic (video)](https://www.youtube.com/watch?v=Br-h-fjwzYM) by DeAndre Wilson, a hands-on tour of one of the two backup tools we mentioned
+> - [Borg vs Restic (article)](https://dataswamp.org/~solene/2021-05-21-borg-vs-restic.html) by Solène Rapenne, a careful side-by-side comparison of the two open-source backup tools we mentioned
+> - [`restic/others` (list)](https://github.com/restic/others), an exhaustive list of self-hostable backup tools maintained by the Restic project, useful if neither Borg nor Restic fits
+
+> A few practical pieces sit on top of that rule.
+> The whole thing should be automated rather than something we rely on remembering, whether through a daily `cron` job, a [systemd timer](https://www.freedesktop.org/software/systemd/man/systemd.timer.html), or a scheduler built into the backup tool itself, since a backup we have to run manually will be a backup we will not run.
+> The tool itself should do incremental, deduplicated backups instead of copying everything every time, so each backup (except for the first one) is relatively fast. [Borg](https://www.borgbackup.org/) and [Restic](https://restic.net/) are the two most popular open-source choices for that.
+> Databases need database-aware tools rather than a plain file copy out from under a running database to avoid backing up a non-functional state of the database. For SQLite the [`sqlite3 .backup`](https://www.sqlite.org/cli.html) command takes a consistent snapshot even while writes are in progress, with PostgreSQL, MySQL, and the rest all shipping similar tools.
+> The offsite copy can be cheap object storage like [Backblaze B2](https://www.backblaze.com/cloud-storage) or AWS S3 [Glacier](https://aws.amazon.com/s3/storage-classes/glacier/), which holds a terabyte of backup data for a few EUR per month.
 
 
 ## Exercise: Self-Host Your AI API Server
