@@ -71,6 +71,7 @@ Stopping or removing a container does not destroy the image it was started from,
 > The key difference is what gets shared with the host: a VM brings its own kernel and core utilities on top of a hypervisor, while a container shares the host's kernel and only ships the application and its userspace files.
 > That makes containers light enough to start in seconds, at the cost of weaker isolation than a VM.
 > VMs remain preferred when strong isolation is the priority (for example running untrusted code from many customers on the same hardware), but containers hit the sweet spot for most application deployment, including AI.
+> We will come back to VMs and the technology behind them in [Module B.4](@/ai-system/cloud-deployment/index.md#virtualization), since they are also what cloud providers rent out as the building block of cloud infrastructure.
 
 
 ### Layered Filesystems
