@@ -28,7 +28,7 @@ Once the server is running publicly, we will also cover what it takes to make it
 
 "The cloud" is not a new kind of computing or a special technology.
 It is just other people's computers that you can rent over the internet.
-The name comes from old network diagrams, where engineers would draw a fluffy cloud whenever they wanted to mean "and somewhere out there is the network, but the details do not matter for this picture".
+The name comes from old network diagrams, where engineers would draw a fluffy cloud whenever they wanted to convey "and somewhere out there is the network, but the details do not matter for this picture".
 Over time the symbol got attached to the computing resources sitting on the other side of that cloud, and the name stuck.
 
 The reason cloud computing exists at the scale it does today is fundamentally an economic argument.
@@ -96,7 +96,7 @@ Examples are AWS [P-series and G-series](https://aws.amazon.com/ec2/instance-typ
 
 > A few more service categories are worth knowing about, even though we will not use them directly in this course:
 >
-> [**Managed AI platforms**](https://aws.amazon.com/sagemaker/) (like SageMaker on AWS, [Vertex AI](https://cloud.google.com/vertex-ai) on GCP, or [Azure Machine Learning](https://azure.microsoft.com/en-us/products/machine-learning) on Azure) sit one more abstraction above container services and are tailored for ML workflows: training jobs, model registries, A/B testing different model versions, and one-click deployment. They are the easiest path from "I have a model" to "I have an HTTPS endpoint serving it", at the cost of writing code against the provider's APIs.
+> [**Managed AI platforms**](https://aws.amazon.com/sagemaker/) (like SageMaker on AWS, [Vertex AI](https://cloud.google.com/vertex-ai) on GCP, or [Azure Machine Learning](https://azure.microsoft.com/en-us/products/machine-learning) on Azure) sit one more layer of abstraction above container services and are tailored for ML workflows: training jobs, model registries, A/B testing different model versions, and one-click deployment. They are the easiest path from "I have a model" to "I have an HTTPS endpoint serving it", at the cost of writing code against the provider's APIs.
 >
 > [**Object storage**](https://aws.amazon.com/s3/) (like S3 on AWS, [Cloud Storage](https://cloud.google.com/storage) on GCP, or [Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) on Azure) is a separate category for storing large blobs of data: training datasets, model checkpoints, user uploads. It is not designed for low-latency access, so we do not serve API requests directly from it, but it is extremely cheap and durable, with files automatically replicated across data centers.
 >
@@ -202,13 +202,13 @@ api.example.com.   A   <vm-ip>
 With this in place, anyone resolving `api.example.com` gets back our VM's IP, and the server they reach is the one we just deployed.
 
 To get a domain, we have two paths.
-The free option is a service like [**DuckDNS**](https://www.duckdns.org/), which gives anyone a free subdomain like `myaiapi.duckdns.org` for pointing it at any IP.
+The free option is a service like [**DuckDNS**](https://www.duckdns.org/), which gives anyone a free subdomain like `myaiapi.duckdns.org` that they can point at any IP.
 This is perfect for a learning exercise.
 The paid option is buying our own domain from a registrar like [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/), [Porkbun](https://porkbun.com/), or [Namecheap](https://www.namecheap.com/).
 A long, ordinary `.com` is in the 10 to 15 USD per year range, but the price has effectively no upper limit: short and common names are sold as "premium" domains and can cost hundreds, thousands, or even millions of USD.
 With our own domain we can choose any name we like (and can afford), and control the DNS through the registrar's dashboard.
 
-Once the A record is created, after waiting for a few minutes for it to propagate, we can verify it from our laptop:
+Once the A record is created and given a few minutes to propagate, we can verify it from our laptop:
 ```bash
 dig +short api.example.com
 ```
@@ -239,13 +239,23 @@ Our containerized server speaks plain HTTP on port 8000 and we are not going to 
 Instead, the standard pattern is to put a [**reverse proxy**](https://en.wikipedia.org/wiki/Reverse_proxy) in front: a separate program that listens on the public ports 80 and 443, terminates the HTTPS connection, and forwards the decrypted request to our container on port 8000.
 The container does not know HTTPS exists, which keeps the image identical between local development and production deployment.
 
+The word "reverse" distinguishes this kind of proxy from a [**forward proxy**](https://en.wikipedia.org/wiki/Proxy_server), which a client's outgoing traffic passes through on its way to the internet (like a school or workplace filter that blocks certain websites).
+A reverse proxy works the other way around: it stands in front of a server and incoming requests from the internet pass through it on their way to that server, so from the client's perspective the reverse proxy is the server.
+That indirection is useful for many things beyond HTTPS termination, including writing access logs, limiting how many requests per second a client may send, caching responses so repeated requests do not hit the application, compressing what is sent back to the browser, splitting incoming traffic across several copies of the same application running on different machines, and serving fixed files like images and HTML directly so the application is not bothered with them.
+
 The most common reverse proxy is [**Nginx**](https://nginx.org/), a small and fast web server that has been around since 2004 and powers a large fraction of the internet.
-Install it with apt:
+It became popular because a single Nginx instance can handle tens of thousands of simultaneous connections on modest hardware, which is far more than what earlier web servers like [Apache HTTP Server](https://httpd.apache.org/) could manage at the time, and that made Nginx a default choice for high-traffic sites.
+
+On Ubuntu or other Debian-based Linux systems, install Nginx with apt:
 ```bash
 sudo apt install -y nginx
 ```
 Nginx starts automatically and serves a default welcome page on port 80.
 We replace that with a configuration that proxies our domain to the container.
+
+On Ubuntu, Nginx loads its main configuration from `/etc/nginx/nginx.conf`, which in turn pulls in every file under `/etc/nginx/conf.d/` and every [symbolic link](https://en.wikipedia.org/wiki/Symbolic_link) (a small file that just points to another file) under `/etc/nginx/sites-enabled/`.
+The convention is to write each site as a separate file under `/etc/nginx/sites-available/` and create a link to it in `sites-enabled/` to activate it, which makes it easy to turn individual sites on and off without deleting the config file itself.
+
 Create a file at `/etc/nginx/sites-available/api.example.com` with:
 ```nginx
 server {
@@ -261,14 +271,41 @@ server {
     }
 }
 ```
-This tells Nginx to listen on port 80 for requests addressed to `api.example.com` and forward each one to `http://127.0.0.1:8000`, while passing along headers that let our application see the original client's IP and protocol.
+
+Nginx configuration is built out of nested **blocks** (the parts wrapped in curly braces) and **directives** (the `name value;` lines).
+A `server` block describes the rules for one site (called a *virtual host* in web server jargon), and a `location` block inside it describes what to do for a particular set of URL paths.
+Here we declare one site listening on port 80 for the hostname `api.example.com`, with a single `location /` that matches every path and forwards it to our container at `127.0.0.1:8000`.
+
+The four `proxy_set_header` lines are the small piece of glue that lets the application behind a reverse proxy still see who its real users are.
+The first, `Host $host`, forwards the original `Host` header (the domain name the client typed into the URL bar) to the application, instead of letting Nginx replace it with the application's local address `127.0.0.1:8000`.
+This matters whenever the application generates URLs or behaves differently per hostname.
+
+The other three put back details about the client that would otherwise be lost when Nginx forwards the request to the application locally.
+`X-Real-IP $remote_addr` tells the application the client's real IP address, since Nginx and the application are on the same machine and the application would otherwise only see Nginx's address `127.0.0.1`.
+`X-Forwarded-For $proxy_add_x_forwarded_for` does the same thing using a more widely recognized [standard header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Forwarded-For).
+If the request had already passed through other proxies before reaching Nginx, each one would have added its IP to a list in this header, and Nginx appends its own at the end of that list.
+Finally, `X-Forwarded-Proto $scheme` tells the application whether the original request came in over HTTP or HTTPS, since the application could not otherwise tell because Nginx forwards everything to it over plain HTTP regardless of what the client used.
+
 Enable the site, test the configuration, and reload Nginx:
 ```bash
 sudo ln -s /etc/nginx/sites-available/api.example.com /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl reload nginx
 ```
+`nginx -t` reads every config file and reports any typo or unknown directive without applying any changes.
+Always run it before reloading, since a mistake that brings Nginx down in production is much more painful than one caught a step earlier.
+`systemctl reload nginx` then applies the new config without interrupting any active connections: it starts a fresh set of Nginx worker processes using the new config, and lets the old ones finish whatever requests they were already serving before they exit.
+This is different from `systemctl restart nginx`, which fully stops and restarts Nginx and briefly drops every connection in the middle, so for ordinary config changes `reload` is almost always what we want.
+
 Now `http://api.example.com` reaches our container through Nginx, and we can drop port 8000 from the public firewall (and from UFW), since traffic comes in on port 80 instead.
+
+> Below are some additional resources for learning Nginx more comprehensively.
+> - [Nginx beginner's guide (official docs)](https://nginx.org/en/docs/beginners_guide.html), the canonical introduction by the project itself, covering directives, blocks, and a minimal proxy setup
+> - [Full Nginx documentation (reference)](https://nginx.org/en/docs/), the dense but authoritative reference for every directive and module
+> - [How Nginx processes a request (article)](https://nginx.org/en/docs/http/request_processing.html), the official explanation of how Nginx picks a `server` and `location` for an incoming request
+> - [DigitalOcean's Nginx tutorials (collection)](https://www.digitalocean.com/community/tags/nginx), a large set of practical walkthroughs for common Nginx setups
+> - [Understanding Nginx server and location block selection algorithms (article)](https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms) by DigitalOcean, a careful explanation of the matching rules that often catch beginners by surprise
+> - [`nginxconfig.io` (interactive tool)](https://www.digitalocean.com/community/tools/nginx), a config generator that produces production-grade Nginx setups from a guided form, useful for seeing what a fuller real-world config looks like
 
 
 ### HTTPS Certificates with Certbot
@@ -289,7 +326,7 @@ Then run Certbot:
 ```bash
 sudo certbot --nginx -d api.example.com
 ```
-Certbot will ask for an email address (used for renewal warnings), have us accept the Let's Encrypt terms, and then complete a domain validation challenge: it places a small file under `/.well-known/acme-challenge/` on the server, asks Let's Encrypt to fetch it over HTTP, and proves we control the domain because we are the one serving it.
+Certbot will ask for an email address (used for renewal warnings), ask us to accept the Let's Encrypt terms, and then complete a domain validation challenge: it places a small file under `/.well-known/acme-challenge/` on the server, asks Let's Encrypt to fetch it over HTTP, and proves we control the domain because we are the ones serving it.
 Once validated, Certbot installs the issued certificate, edits the Nginx config to add a `listen 443 ssl;` block with the right paths, and (optionally but recommended) sets up an HTTP-to-HTTPS redirect.
 
 Visit `https://api.example.com` in a browser and the padlock icon should appear, with the certificate details showing it was issued by Let's Encrypt.
@@ -304,7 +341,7 @@ Once that succeeds, certificate management takes care of itself.
 
 > An alternative worth knowing about is [**Traefik**](https://traefik.io/), a reverse proxy designed for container environments.
 > Traefik watches Docker for new containers, reads routing rules from container labels, and can request and renew Let's Encrypt certificates automatically with no separate Certbot step.
-> The trade-off is that the configuration lives spread across container labels rather than in a single Nginx file, which is harder to read for a small one-container deployment but very convenient once you are running ten or twenty services on the same VM.
+> The trade-off is that the configuration is spread across container labels rather than in a single Nginx file, which is harder to read for a small one-container deployment but very convenient once you are running ten or twenty services on the same VM.
 > The [Traefik getting-started guide for Docker](https://doc.traefik.io/traefik/getting-started/docker/) is a good starting point if you want to try this approach.
 
 
