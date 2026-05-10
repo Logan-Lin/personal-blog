@@ -75,10 +75,6 @@ INFO:     Application startup complete.
 Recall from [Module A.1](@/ai-system/api-fundamentals/index.md#network-fundamentals) that `127.0.0.1` is the loopback IP address, meaning the server only accepts requests from the same machine, and `8000` is the port the server listens on.
 Now if we open `http://127.0.0.1:8000` in a browser or send a `GET` request to it from the Python program we built in [Module A.2](@/ai-system/interact-api-python/index.md), we should see the welcome message come back.
 
-![FastAPI hello world in browser](fastapi-browser.webp)
-
-{% cap() %}A `GET` request to our local FastAPI server, viewed in the browser.{% end %}
-
 The server will also log every request it handles, which is handy for debugging:
 ```
 INFO:     127.0.0.1:56835 - "GET / HTTP/1.1" 200 OK
