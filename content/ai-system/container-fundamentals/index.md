@@ -1,6 +1,6 @@
 +++
 title = "Container Fundamentals"
-date = 2026-05-09
+date = 2026-05-12
 description = ""
 weight = 22
 aliases = [ "/ai-system/packaging-containerization/" ]

@@ -1,6 +1,6 @@
 +++
 title = "Interacting with AI Systems"
-date = 2026-04-12
+date = 2026-04-15
 description = ""
 weight = 10
 aliases = [ "/ai-system/interact-with-ai-systems/" ]
