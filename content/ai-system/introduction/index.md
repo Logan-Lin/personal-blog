@@ -38,7 +38,7 @@ You will also find external links, usually leading you to other materials that w
 There will also be extended reading blocks in the form of quote blocks, like the one below.
 They include additional learning materials to suit different learning styles, as well as discussions of related topics that are not mandatory to learn for the course, so check them out as you wish.
 
-> Here is an example extended reading block, with a link to video material explaining computer network concepts to aid your study:
+> Here is an example extended reading block, with links to video materials explaining computer network concepts to aid your study:
 > - [IP address explained (video)](https://www.youtube.com/watch?v=7_-qWlvQQtY) by George Nisbet, a short conceptual walkthrough
 > - [Network ports explained (video)](https://www.youtube.com/watch?v=h5vq9hFROEA) by CBT Nuggets, a clear IT-training-style explainer
 
