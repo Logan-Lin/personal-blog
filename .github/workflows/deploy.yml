@@ -30,7 +30,3 @@ jobs:
           npx wrangler pages deploy public/ \
             --project-name=${{ secrets.CF_PAGES_PROJECT_NAME }} \
             --commit-dirty=true
-
-      - name: Send notification
-        if: always()
-        run: curl -s -d "Blog site deploy ${{ job.status }}" https://ntfy.sh/yanlincs-homelab
