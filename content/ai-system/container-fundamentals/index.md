@@ -37,7 +37,7 @@ The story of those is worth a quick detour, since software containers borrow bot
 Before shipping containers were standardized in the 1960s, freight was loaded onto ships piece by piece.
 Each shipment had its own size, shape, and packing, and dock workers had to figure out where everything went by hand.
 Loading a single ship could take days, and goods often got damaged, lost, or stolen along the way.
-The fix was embarrassingly simple: agree on a standard box that any ship, train, or truck can carry, and pack everything into those boxes once at the source.
+The fix was embarrassingly simple. Agree on a standard box that any ship, train, or truck can carry, and pack everything into those boxes once at the source.
 Cranes can move them mechanically, the inside of the box does not matter to the ship, and the same box can be transferred between modes of transport without ever being opened.
 
 Software containers solve a very similar problem.
@@ -54,10 +54,10 @@ Containers have become so standard that the majority of software deployed in the
 
 Two terms in the container world get used interchangeably in everyday speech but actually mean different things, and it is worth getting them straight from the start.
 
-A [**container image**](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/) is the package itself: a static, read-only blueprint of everything needed to run a program.
+A [**container image**](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/) is the package itself, a static, read-only blueprint of everything needed to run a program.
 It sits on disk and does nothing on its own, much like a recipe written on paper.
 
-A [**container**](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/) (sometimes called a container instance) is a running program created from an image.
+A [**container**](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/), sometimes called a container instance, is a running program created from an image.
 When the runtime starts a container from an image, it allocates CPU and memory, sets up an isolated environment, and runs the program inside it.
 The container is the dish you cooked from the recipe.
 You can cook the same recipe many times, and each cooked dish lives its own life.
@@ -66,23 +66,23 @@ The same image can be used to start many containers, all of which begin in the s
 Stopping or removing a container does not destroy the image it was started from, so we can spin up more containers from the same image later.
 
 
-> A natural question at this point is: how is a container different from a [virtual machine (VM)](https://en.wikipedia.org/wiki/Virtual_machine)?
+> A natural question at this point is how a container differs from a [virtual machine (VM)](https://en.wikipedia.org/wiki/Virtual_machine).
 > VMs are the older approach to the same problem, simulating an entire computer in software (including its operating system) and running programs inside that simulated computer.
-> The key difference is what gets shared with the host: a VM brings its own kernel and core utilities on top of a hypervisor, while a container shares the host's kernel and only ships the application and its userspace files.
+> The key difference is what gets shared with the host. A VM brings its own kernel and core utilities on top of a hypervisor, while a container shares the host's kernel and only ships the application and its userspace files.
 > That makes containers light enough to start in seconds, at the cost of weaker isolation than a VM.
-> VMs remain preferred when strong isolation is the priority (for example running untrusted code from many customers on the same hardware), but containers hit the sweet spot for most application deployment, including AI.
+> VMs remain preferred when strong isolation is the priority, like running untrusted code from many customers on the same hardware, but containers work well for most application deployment, including AI.
 > We will come back to VMs and the technology behind them in [Module B.4](@/ai-system/cloud-deployment/index.md#virtualization), since they are also what cloud providers rent out as the building block of cloud infrastructure.
 
 
 ### Layered Filesystems
 
-The "everything the program needs" inside an image is essentially a complete filesystem snapshot: a Linux directory tree with the binaries, libraries, and config files the program expects.
+The "everything the program needs" inside an image is essentially a complete filesystem snapshot, a Linux directory tree with the binaries, libraries, and config files the program expects.
 Storing each image as one giant blob would be wasteful, since most images share a lot of common ground.
 For example, an image for a Python program and an image for a Java program might both start from the same base Debian Linux. There is no reason to keep two copies of `/usr/bin/ls`.
 
 What containers actually use is a [**layered filesystem**](https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/).
 Think of building burgers in a fast-food restaurant.
-The bottom bun and the beef patty are the same across most of the menu; a cheeseburger only adds a slice of cheese, and a deluxe burger adds lettuce, tomato, and sauce.
+The bottom bun and the beef patty are the same across most of the menu. A cheeseburger only adds a slice of cheese, and a deluxe burger adds lettuce, tomato, and sauce.
 The kitchen does not assemble each burger from scratch, but stacks the variable parts on top of a shared base.
 A container image is built the same way, as a stack of read-only layers, each describing a small set of changes from the layer below it.
 A typical image for a Python application might look like this:
@@ -93,11 +93,11 @@ A typical image for a Python application might look like this:
 1. Debian base           <- /, /bin, /lib, etc.
 ```
 Each layer is a self-contained, content-addressed chunk on disk.
-Two images that share the same base Debian layer (which most of them do) only store that layer once on disk, even though their upper layers may be completely different.
+Two images that share the same base Debian layer, which most of them do, only store that layer once on disk, even though their upper layers may be completely different.
 When we download a new image, the runtime only has to fetch the layers we do not already have, which is why pulling the second image from the same base feels much faster than the first.
 
 When a container starts from an image, the runtime adds one extra writable layer on top of the read-only stack.
-Anything the running program writes (temporary files, log lines, cached data) ends up in that layer, leaving the image untouched.
+Anything the running program writes, like temporary files, log lines, or cached data, ends up in that layer, leaving the image untouched.
 When the container is removed, the writable layer is discarded, so the next container started from the same image gets a clean slate.
 
 ![Layered structure of a running container](container-layers.webp)
@@ -122,7 +122,7 @@ The [**Open Container Initiative (OCI)**](https://opencontainers.org/) is an ind
 As long as a tool follows the OCI specs, the images and containers it produces are interoperable with everyone else's tools.
 We can build an image with one tool, push it to a registry hosted by another, and run it on a third without any conversion step in between.
 
-This is exactly what made shipping containers explode in the real world: not the steel boxes alone, but the agreement that all steel boxes have the same dimensions and the same locking corners.
+This is exactly what made shipping containers explode in the real world, not the steel boxes alone but the agreement that all steel boxes have the same dimensions and the same locking corners.
 Software containers had a few competing formats early on, but the industry has since converged on OCI, and most modern container tools are OCI-compliant.
 Docker is the most well-known of those tools and the one we will use in this course, but the concepts and most of the commands transfer almost unchanged to the alternatives.
 
@@ -143,7 +143,7 @@ It does the heavy lifting: pulling images from registries, unpacking them into t
 Docker Engine is built around a client-server design.
 The server side, called the **Docker daemon** (`dockerd`), is a long-running background process that listens for instructions and carries them out.
 We rarely talk to the daemon directly. Instead, we use a client tool that sends our instructions to the daemon over a local socket or a network connection.
-This split is the same client-server pattern we used in [Part A](@/ai-system/interact-ais/index.md): the daemon is essentially an API server for managing containers, and we are its client.
+This split is the same client-server pattern we used in [Part A](@/ai-system/interact-ais/index.md). The daemon is essentially an API server for managing containers, and we are its client.
 
 A handy consequence is that the client and the daemon do not have to live on the same machine.
 We can have a client on our laptop talk to a daemon running on a remote server and manage containers there as if they were local.
@@ -160,7 +160,7 @@ Each command turns into a request to the daemon, which does the actual work and 
 
 [**Docker Desktop**](https://www.docker.com/products/docker-desktop/) bundles the daemon, the CLI, and a graphical user interface into a single installer for macOS, Windows, and Linux.
 The GUI is mainly for browsing images, inspecting running containers, and tweaking settings.
-On Windows and macOS, Docker Desktop also takes care of running the Linux kernel that the daemon needs (since the daemon really wants Linux), behind the scenes through a small virtual machine.
+On Windows and macOS, Docker Desktop also takes care of running the Linux kernel that the daemon needs, behind the scenes through a small virtual machine.
 On Linux, Docker Engine can be installed directly without Desktop, since the host kernel can be used as-is.
 
 For most of this course, we only need the CLI.
@@ -170,7 +170,7 @@ The GUI is helpful when first getting set up, but everything that matters is one
 ### Dockerfile
 
 A [**Dockerfile**](https://docs.docker.com/reference/dockerfile/) is a plain-text file that describes how to build a container image.
-Each line is one instruction (e.g., "start from this base image", "install these packages", "copy these files in"), and each instruction roughly corresponds to one layer of the resulting image.
+Each line is one instruction, like "start from this base image", "install these packages", or "copy these files in", and each instruction roughly corresponds to one layer of the resulting image.
 
 We will spend much more time on Dockerfiles in [Module B.3](@/ai-system/ai-container/index.md), since that is where we package our own AI server.
 For this module we focus on using existing images, so most of the time someone else has already written the Dockerfile for us.
@@ -179,9 +179,9 @@ For this module we focus on using existing images, so most of the time someone e
 ### Docker Hub
 
 [**Docker Hub**](https://hub.docker.com/) is a public registry where developers can publish and download container images.
-It is the GitHub of container images: the place we go to fetch existing images, and the place we push our own when we want to share them.
+It is the GitHub of container images, the place we go to fetch existing images, and the place we push our own when we want to share them.
 
-The Hub hosts both **official images** (curated by Docker, often by the project maintainers themselves) for popular software like [Python](https://hub.docker.com/_/python), [PostgreSQL](https://hub.docker.com/_/postgres), and [Nginx](https://hub.docker.com/_/nginx), and a much larger collection of community images for everything else.
+The Hub hosts both **official images**, curated by Docker and often by the project maintainers themselves, for popular software like [Python](https://hub.docker.com/_/python), [PostgreSQL](https://hub.docker.com/_/postgres), and [Nginx](https://hub.docker.com/_/nginx), and a much larger collection of community images for everything else.
 For most of the off-the-shelf software we want to run, there is already a ready-to-go image on the Hub, often maintained by the same team that develops the software.
 
 > A couple of videos that go over the same Docker basics in a different style:
@@ -193,7 +193,7 @@ For most of the off-the-shelf software we want to run, there is already a ready-
 > They all speak the same OCI protocol, so the only thing that changes between registries is the URL prefix in the image name.
 >
 > Docker is also not the only OCI-compliant container ecosystem. Below are a few alternatives you might run into.
-> - [**Podman**](https://podman.io/) is a daemonless drop-in replacement for Docker, with a CLI that mirrors Docker's almost command for command. Without a long-running daemon, Podman containers run as ordinary user processes, which can be a security advantage in shared environments.
+> - [**Podman**](https://podman.io/) is a daemonless drop-in replacement for Docker, with a CLI that nearly matches Docker's command for command. Without a long-running daemon, Podman containers run as ordinary user processes, which can be a security advantage in shared environments.
 > - [**containerd**](https://containerd.io/) is a minimal container runtime that focuses purely on running containers. It is what Docker Engine uses internally for the actual container execution, and it is also the default runtime in [Kubernetes](https://kubernetes.io/), the most popular system for orchestrating large numbers of containers.
 > - [**Apptainer**](https://apptainer.org/) (formerly Singularity) is popular in scientific computing and HPC environments, where rootless execution and easy GPU access matter more than the developer ergonomics Docker is built around.
 
@@ -201,7 +201,7 @@ For most of the off-the-shelf software we want to run, there is already a ready-
 ## Using Off-the-Shelf Containers
 
 With the concepts in place, we can put them to work.
-The first step is to [install Docker](https://docs.docker.com/get-started/get-docker/) (Docker Desktop on Mac and Windows, Docker Engine or Docker Desktop on Linux), and then walk through the most common commands for using existing images.
+The first step is to [install Docker](https://docs.docker.com/get-started/get-docker/). On Mac and Windows we install Docker Desktop, and on Linux we can use either Docker Engine or Docker Desktop. We then walk through the most common commands for using existing images.
 The examples below all use the official Python image as a stand-in, but the same commands work for any other image.
 
 
@@ -215,8 +215,8 @@ The argument is in the form `<repository>:<tag>`.
 The repository name (`python`) tells the daemon which image to fetch, and the tag (`3.13`) picks a specific version.
 If we omit the tag, Docker defaults to `latest`, which is whatever the publisher most recently labeled as such.
 
-For larger projects we usually want to pin a specific tag rather than `latest`, since `latest` moves under our feet as the publisher pushes new versions.
-Many official images also publish smaller variants, like `python:3.13-slim` (a stripped-down Debian base) or `python:3.13-alpine` (built on the much smaller Alpine Linux base), which can save hundreds of megabytes per image:
+For larger projects we usually want to pin a specific tag rather than `latest`, since `latest` changes whenever the publisher pushes new versions.
+Many official images also publish smaller variants that can save hundreds of megabytes per image. For example, `python:3.13-slim` uses a stripped-down Debian base, and `python:3.13-alpine` is built on the much smaller Alpine Linux base:
 ```bash
 docker pull python:3.13-slim
 docker pull python:3.13-alpine
@@ -269,13 +269,13 @@ This returns immediately with the container's ID while the container itself keep
 
 ### Naming, Listing, and Stopping Containers
 
-Each container has both an autogenerated ID (a long hex string) and an autogenerated name (a slightly silly two-word combination like `eager_tesla`).
+Each container has both an autogenerated ID, which is a long hex string, and an autogenerated name, which is a slightly silly two-word combination like `eager_tesla`.
 For long-running containers it is much easier to give them a name we choose, with the `--name` flag:
 ```bash
 docker run --name my-app -d python:3.13 python -c "import time; time.sleep(3600)"
 ```
 
-We can list, stop, restart, and inspect containers by their name (or by the first few characters of their ID, which is enough as long as it is unique):
+We can list, stop, restart, and inspect containers by their name, or by the first few characters of their ID as long as those characters are unique:
 ```bash
 docker ps                # running containers
 docker ps -a             # all containers, including stopped ones
@@ -317,7 +317,7 @@ The `-p` flag does this:
 docker run -p 8000:8000 python:3.13 python -m http.server 8000
 ```
 The format is `-p <host_port>:<container_port>`.
-Here the container is running Python's built-in HTTP server on port 8000 inside the container, and we expose that as port 8000 on the host.
+Here the container runs Python's built-in HTTP server on port 8000, and we expose that as port 8000 on the host.
 We can now visit `http://127.0.0.1:8000` from our browser and reach the server inside the container.
 
 The two ports do not have to be the same:
@@ -325,7 +325,7 @@ The two ports do not have to be the same:
 docker run -p 3000:8000 python:3.13 python -m http.server 8000
 ```
 Here the server still listens on 8000 inside the container, but it shows up as port 3000 on the host.
-This is useful when we have several containers that all want the same internal port; we can map each one to a different host port.
+This is useful when we have several containers that all want the same internal port. We can map each one to a different host port.
 
 
 #### Volume Mapping
@@ -340,7 +340,7 @@ docker run -v $(pwd):/app python:3.13 ls /app
 The format is `-v <host_path>:<container_path>`.
 After this command, the current directory on our host appears as `/app` inside the container, and any change either side makes is visible to the other.
 
-Mounting host paths into containers is how we feed in code or configuration without baking it into an image, and how we let containers persist files (like a database) past their lifetime.
+Mounting host paths into containers is how we feed in code or configuration without baking it into an image, and how we let containers persist files, like a database, past their lifetime.
 We will see both patterns in action shortly.
 
 > Mounting a host directory like this is technically a [**bind mount**](https://docs.docker.com/engine/storage/bind-mounts/).
@@ -362,7 +362,7 @@ When there are several variables, it is more convenient to keep them in a file a
 ```bash
 docker run --env-file .env python:3.13 python -c "import os; print(dict(os.environ))"
 ```
-The `.env` file uses the same format we used in [Module A.2](@/ai-system/interact-api-python/index.md#storing-secrets-in-environment-variables): one `KEY=value` pair per line.
+The `.env` file uses the same format we used in [Module A.2](@/ai-system/interact-api-python/index.md#storing-secrets-in-environment-variables), one `KEY=value` pair per line.
 
 > Below are some additional resources for getting more comfortable with Docker.
 > - [Docker Crash Course for Absolute Beginners (video)](https://www.youtube.com/watch?v=pg19Z8LL06w) by TechWorld with Nana, a longer hands-on tutorial covering the same commands at a slower pace
@@ -394,7 +394,7 @@ In this exercise we will run the same script inside a container based on an off-
 
 A reasonable starting point:
 
-1. Open a terminal in the directory containing your Module A.2 program (let us call the file `chatbot.py`).
+1. Open a terminal in the directory containing your Module A.2 program. We will call the file `chatbot.py`.
 2. Pull the official Python image with `docker pull python:3.13-slim`. Confirm with `docker images` that it now appears on your machine.
 3. Run a container with three flags: `-it` so we can interact with it, `-v` to mount the current directory at, say, `/app` inside the container, and `-e` to pass your AI provider's API key in.
 4. Inside the running container, install `requests` (`pip install requests`) and then run your script (`python /app/chatbot.py`). Verify that the chatbot replies as before.
@@ -402,7 +402,7 @@ A reasonable starting point:
 Once that works, try the following extensions:
 
 1. Replace the interactive `pip install` step with a one-shot `docker run` command that installs the dependency and runs your script in a single line. Look up the `--rm` flag and use it so containers do not pile up after each run.
-2. Run the same script through a different image, for example `python:3.13-alpine`, and notice that everything still works while the image is much smaller. This is the portability promise from the start of the module: the same container-based command runs on any compatible image.
+2. Run the same script through a different image, for example `python:3.13-alpine`, and notice that everything still works while the image is much smaller. This is the portability promise from the start of the module. The same container-based command runs on any compatible image.
 3. Try `docker stats` while a container is running to watch its CPU and memory usage in real time, and `docker inspect <container>` to see the full configuration that Docker applied to it. Both commands give you a feel for what the daemon is actually managing on your behalf.
 
 If you finish all the extensions, you should have a feel for how containers run programs without any per-machine setup, and a working command you can reuse on any other machine that has Docker installed.

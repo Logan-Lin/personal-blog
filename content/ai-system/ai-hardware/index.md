@@ -82,7 +82,7 @@ The [**Central Processing Unit (CPU)**](https://www.geeksforgeeks.org/computer-s
 Modern CPUs are built from many sub-components, but for this course we will focus on the two essential ones: the control unit and the arithmetic logic unit.
 
 The [**control unit (CU)**](https://www.geeksforgeeks.org/computer-organization-architecture/introduction-of-control-unit-and-its-design/) is like the executive chef who reads the orders and recipes, figures out what needs to happen next, and tells everyone else what to do.
-In CPU terms it fetches the next instruction from memory, decodes it into an [operation code](https://en.wikipedia.org/wiki/Opcode) (what to do) and [operands](https://en.wikipedia.org/wiki/Operand#Computer_science) (what to do it on), and signals the rest of the CPU to actually carry it out.
+In CPU terms it fetches the next instruction from memory, decodes it into an [operation code](https://en.wikipedia.org/wiki/Opcode) that says what to do and [operands](https://en.wikipedia.org/wiki/Operand#Computer_science) that say what to do it on, and signals the rest of the CPU to actually carry it out.
 
 The [**arithmetic logic unit (ALU)**](https://www.learncomputerscienceonline.com/arithmetic-logic-unit/) is like the cooks who do the actual cooking, working off whatever the executive chef tells them.
 It performs the elementary operations that make up every program: arithmetic (addition, subtraction, multiplication, division), logical operations (AND, OR, NOT, XOR), comparisons (equal, greater than, less than), and bit manipulation (shifts, rotations, and so on).
@@ -97,7 +97,7 @@ Every cell in memory has a numerical address, similar to having labeled slots in
 Two characteristics of memory matter for the rest of the discussion.
 First, memory is *random-access*, meaning any address can be reached in roughly the same time, so the CPU does not pay extra to jump around.
 Second, the memory we are talking about here is *volatile*, meaning turning the power off wipes the contents.
-That is why your work disappears when the computer crashes if you have not saved it to disk.
+That is why your unsaved work disappears when the computer crashes.
 
 
 ### Input/Output
@@ -132,14 +132,14 @@ We will use the small DKK-to-USD program from earlier as a running example.
 Before anything else, the program (the instructions) and the input value `dkk_price = 599` have to be in memory.
 A CPU cannot work directly with information sitting on a disk or arriving from a keyboard.
 It can only operate on what is already in memory and reachable through the bus.
-Getting things into memory is the I/O system's job: the program is loaded from storage when we launch it, and the input value comes in from a keyboard, a file, or a network request, all of which travel through I/O.
+Getting things into memory is the I/O system's job. The program is loaded from storage when we launch it, and the input value comes in from a keyboard, a file, or a network request, all of which travel through I/O.
 
 Once both are in memory, the CPU starts the actual work.
 The control unit fetches the first instruction (`LOAD dkk_price`) from memory over the bus, decodes what it is asking for, and tells the CPU to load the value 599 from memory into itself.
-The next instruction (`MULTIPLY dkk_price by conversion_factor`) follows the same fetch-decode-execute loop: the ALU takes 599 and 0.1570 and produces 94.04.
+The next instruction (`MULTIPLY dkk_price by conversion_factor`) follows the same fetch-decode-execute loop. The ALU takes 599 and 0.1570 and produces 94.04.
 The remaining two instructions store that result back into memory and hand it off to the I/O system, which displays the number on the monitor.
 
-Every step goes through the same machinery in some combination: the control unit decides what to do next, the ALU does the arithmetic, memory holds instructions and intermediate values, the I/O system shuttles things across the computer's boundary, and the bus carries everything between them.
+Every step goes through the same machinery in some combination. The control unit decides what to do next, the ALU does the arithmetic, memory holds instructions and intermediate values, the I/O system shuttles things across the computer's boundary, and the bus carries everything between them.
 The Von Neumann architecture is essentially this loop, repeated billions of times per second.
 
 As a small but complete example, here is a [Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/), a credit-card-sized computer often used for hobby projects and prototypes.
@@ -167,7 +167,7 @@ Those traces are the bus, in physical form.
 
 The architecture above describes a *general-purpose* machine.
 It can run web browsers, video games, spreadsheets, compilers, and AI models, all on the same hardware.
-That generality is the reason CPUs are so dominant: one design covers nearly every workload we throw at it.
+That generality is the reason CPUs are so dominant. One design covers nearly every workload we throw at it.
 Generality has a price, though, and AI workloads are where the price is most visible.
 Two limitations of CPUs show up clearly the moment we try to use them for serious AI work.
 
@@ -177,7 +177,7 @@ Two limitations of CPUs show up clearly the moment we try to use them for seriou
 CPUs are tuned for [sequential execution](https://www.starburst.io/blog/parallel-vs-sequential-processing/).
 Given any one instruction, a CPU core wants to finish it as quickly as possible before moving on to the next one.
 This is the right trade-off for tasks where each step depends on the previous one, like parsing a file or following the logic of a complex program.
-Modern CPUs do have multiple cores so they can run several such sequences in parallel, but the count is small: usually around 8 cores in a consumer laptop and up to a [few dozen](https://www.amd.com/en/products/processors/desktops/ryzen/9000-series/amd-ryzen-9-9950x3d.html) in a high-end desktop CPU.
+Modern CPUs do have multiple cores so they can run several such sequences in parallel, but the count is small, usually around 8 cores in a consumer laptop and up to a [few dozen](https://www.amd.com/en/products/processors/desktops/ryzen/9000-series/amd-ryzen-9-9950x3d.html) in a high-end desktop CPU.
 
 AI models, especially neural networks, are a very different shape of work.
 Most of the math inside a transformer or convolutional network is matrix multiplication, where each output element is the result of an independent weighted sum.
@@ -191,7 +191,7 @@ A whole class of primary school students, each only able to do basic arithmetic,
 
 Speed is not the only issue.
 Even when the CPU is fast enough to compute, it often spends most of its time waiting for data to arrive from memory.
-This is what people often call the [**memory wall**](https://medium.com/riselab/ai-and-memory-wall-2cb4265cb0b8): processor speed has improved much faster than memory speed over the last few decades, and the gap keeps growing.
+This is what people often call the [**memory wall**](https://medium.com/riselab/ai-and-memory-wall-2cb4265cb0b8). Processor speed has improved much faster than memory speed over the last few decades, and the gap keeps growing.
 
 There are two related but different things to track here.
 *Latency* is how long a single piece of data takes to arrive once requested.
@@ -199,13 +199,13 @@ There are two related but different things to track here.
 A CPU's memory is built around low latency, since programs typically jump around memory reading small values, and any wait directly slows down the next instruction.
 AI workloads are the opposite.
 The matrices used in a neural network are large and stored in contiguous blocks, and the CPU often wants to bring in millions of values one after another.
-What matters here is bandwidth, and CPU memory hits a ceiling pretty quickly: typical [DDR5](https://en.wikipedia.org/wiki/DDR5_SDRAM) memory peaks at around 50 to 100 GB/s.
+What matters here is bandwidth, and CPU memory hits a ceiling pretty quickly. Typical [DDR5](https://en.wikipedia.org/wiki/DDR5_SDRAM) memory peaks at around 50 to 100 GB/s.
 For modern AI models, that ceiling becomes the bottleneck long before the CPU itself runs out of compute.
 
 
 ## Specialized Hardware for AI
 
-The two limitations above point to the same conclusion: AI workloads need hardware that does many simple operations in parallel and feeds them with high-bandwidth memory.
+The two limitations above point to the same conclusion. AI workloads need hardware that does many simple operations in parallel and feeds them with high-bandwidth memory.
 Several families of chips have been built around this idea, each at a different sweet spot of generality and efficiency.
 
 
@@ -231,7 +231,7 @@ GPU memory is also built differently from CPU memory.
 Instead of [DDR5](https://en.wikipedia.org/wiki/DDR5_SDRAM), high-end gaming GPUs use [GDDR7](https://en.wikipedia.org/wiki/GDDR7_SDRAM) memory, which is built for bandwidth and can deliver around 1.8 TB/s.
 Data center GPUs go further with [High Bandwidth Memory (HBM)](https://en.wikipedia.org/wiki/High_Bandwidth_Memory), reaching above 2 TB/s in current generations.
 
-What turned GPUs into the default hardware for AI is that the operations behind 3D graphics and the operations behind neural networks are essentially the same kind of math: lots of independent matrix and vector arithmetic on large blocks of data.
+What turned GPUs into the default hardware for AI is that the operations behind 3D graphics and the operations behind neural networks are essentially the same kind of math. Both come down to lots of independent matrix and vector arithmetic on large blocks of data.
 Game developers spent decades pushing GPU vendors to make these operations faster, and AI researchers eventually realized they could ride on top of all that work.
 The unfortunate side effect is that today, GPU vendors care much more about AI customers than gamers, and the price tags reflect it.
 
@@ -243,7 +243,7 @@ The unfortunate side effect is that today, GPU vendors care much more about AI c
 ### Tensor Processing Unit (TPU)
 
 GPUs are still general-purpose enough to handle graphics, scientific simulation, video encoding, and a long list of other tasks.
-That generality leaves performance on the table for AI specifically.
+That generality limits how efficient GPUs can be on AI workloads specifically.
 So as the AI industry grew, hardware vendors started designing chips that target only AI workloads.
 
 [**Tensor Processing Units (TPUs)**](https://cloud.google.com/tpu) are Google's family of such chips.
@@ -274,7 +274,7 @@ Different vendors brand their NPUs differently.
 Apple calls theirs the [Neural Engine](https://en.wikipedia.org/wiki/Neural_Engine), integrated into iPhones since the A11 chip and into Macs starting with the [M-series chips](https://en.wikipedia.org/wiki/Apple_M4#NPU).
 Qualcomm calls theirs the [AI Engine](https://www.qualcomm.com/products/technology/processors/ai-engine), shipped in their mobile and laptop chips like the [Snapdragon X Elite](https://www.qualcomm.com/products/mobile/snapdragon/laptops-and-tablets/snapdragon-x-elite).
 AMD ships [Ryzen AI](https://www.amd.com/en/partner/articles/ryzen-ai-300-series-processors.html) NPUs in their newer laptop processors.
-The implementation details vary, but the goal is the same: enough on-device AI to run features like dictation, image enhancement, and small language models without offloading to a cloud.
+The implementation details vary, but the goal is the same. All of them aim to provide enough on-device AI to run features like dictation, image enhancement, and small language models without offloading to a cloud.
 
 
 ### Coming Back to Von Neumann
@@ -291,7 +291,7 @@ Even with all the specialized acceleration involved, the hyperscalers building m
 The accelerators may handle the actual AI math, but a Von Neumann computer is still what hosts them.
 
 The genius of the Von Neumann design is not in any single component but in this modular shape.
-Each new generation of hardware can plug in as just another component on the bus, and software running on the CPU still drives the show.
+Each new generation of hardware can plug in as just another component on the bus, and software running on the CPU still coordinates everything.
 Going back to the Factorio analogy, even when an update adds new types of machines, you still feed them off the same main bus you already had.
 The factory grows, but the recipe for building factories does not change.
 
@@ -304,16 +304,16 @@ The factory grows, but the recipe for building factories does not change.
 ## Exercise: Run a Model on Different Hardware
 
 The point of this exercise is to feel the difference between CPU and GPU on the same model.
-We will use [**Google Colab**](https://colab.research.google.com/), a hosted Jupyter notebook service that gives anyone with a Google account a few free hours of CPU, GPU, and (sometimes) TPU runtime per day.
+We will use [**Google Colab**](https://colab.research.google.com/), a hosted Jupyter notebook service that gives anyone with a Google account a few free hours of CPU, GPU, and sometimes TPU runtime per day.
 No local setup is needed.
 
-You can also run this exercise on a computing platform provided by the university (such as [**AI-LAB**](https://hpc.aau.dk/ai-lab/), the university's GPU cluster for student projects).
+You can also run this exercise on a computing platform provided by the university, such as [**AI-LAB**](https://hpc.aau.dk/ai-lab/), the university's GPU cluster for student projects.
 It uses a Slurm job scheduler instead of an interactive notebook, but the underlying code is the same, and you get access to dedicated GPUs without the time limits of Colab's free tier.
 
-Open a new Colab notebook (or an AI-LAB session) and try the following:
+Open a new Colab notebook or an AI-LAB session and try the following:
 
-1. Reuse the image classification setup from [Module A.4](@/ai-system/ai-api-server/index.md#plugging-ai-models-into-endpoints): a `torchvision` ResNet-18 with its preprocessing transforms and ImageNet labels.
-   Move the model and the input batch onto whichever device the runtime exposes (`"cuda"` for GPU, `"cpu"` otherwise) using `.to(device)`.
+1. Reuse the image classification setup from [Module A.4](@/ai-system/ai-api-server/index.md#plugging-ai-models-into-endpoints), which is a `torchvision` ResNet-18 with its preprocessing transforms and ImageNet labels.
+   Move the model and the input batch onto whichever device the runtime exposes using `.to(device)`, where `device` is `"cuda"` for GPU and `"cpu"` otherwise.
 2. From the Colab `Runtime` menu, switch the runtime hardware between `CPU` and `GPU`.
    After each switch, restart the runtime and rerun the notebook so the model is reloaded onto the new device.
 3. Time how long the model takes to classify one image on each device.
@@ -322,7 +322,7 @@ Open a new Colab notebook (or an AI-LAB session) and try the following:
 A few extensions to deepen the experience:
 
 1. Print the number of parameters in the model with `sum(p.numel() for p in model.parameters())`.
-   Multiply that by the size of one parameter (4 bytes for 32-bit floats) to estimate how much memory the model occupies.
+   Multiply that by the size of one parameter, which is 4 bytes for 32-bit floats, to estimate how much memory the model occupies.
 2. Switch to a heavier model, such as ResNet-152 or a small Hugging Face vision transformer, and repeat the timing comparison.
    The gap between CPU and GPU should grow noticeably as the model gets larger.
 3. Try classifying a small batch of images at once instead of one at a time.

@@ -8,9 +8,9 @@ weight = 11
 chapter = "Module A.1"
 +++
 
-Interactions are common in both human society and the digital world. We as humans interact with each other through language so that our thoughts and purposes are communicated. In the digital world, a food delivery application interacts with restaurants to process your order and interacts with banks to ensure payment for the meal. Interactions between applications (AI or not) are what build the digital world we cannot live without. But how do applications interact with each other?
+Interactions are common in both human society and the digital world. We as humans interact with each other through language to communicate our thoughts and purposes. In the digital world, a food delivery application interacts with restaurants to process your order and interacts with banks to ensure payment for the meal. Interactions between applications (AI or not) are what build the digital world we cannot live without. But how do applications interact with each other?
 In the [Introduction to Part A](@/ai-system/interact-ais/index.md), we mentioned that there is a standardized method for streamlined interaction between applications, and that method is what we call **Application Programming Interfaces (APIs)**.
-If applications need to communicate like humans do but face barriers like different programming languages and different deployment infrastructure, APIs are like having a universal postal office that knows where everyone lives and how they prefer to receive and send messages.
+If applications need to communicate like humans do but face barriers like different programming languages and different deployment infrastructure, APIs are like having a universal post office that knows where everyone lives and how they prefer to receive and send messages.
 
 APIs are how most of the existing AI systems handle interactions with other types of programs.
 For a real-world example, ChatGPT can be accessed through OpenAI's official website, their mobile/desktop apps, other AI-based applications (such as Perplexity), Python scripts, or even command line scripts, all through the same family of APIs OpenAI has published.
@@ -21,7 +21,7 @@ OpenAI itself also does not have to write any specific code for a certain type o
 {% cap() %}Various types of programs interact with ChatGPT through OpenAI's family of APIs.{% end %}
 
 In this module, we will cover fundamental concepts for understanding and using APIs.
-We will also get to interact with an existing AI system's family of APIs to gain hands-on experience of how APIs work in practice.
+We will also get to interact with an existing AI system's family of APIs to gain hands-on experience with how APIs work in practice.
 
 {{ toc() }}
 
@@ -29,7 +29,7 @@ We will also get to interact with an existing AI system's family of APIs to gain
 ## Network Fundamentals
 
 Let's think about how humans communicate through letters. When we send a letter to one of our friends, we first need to know where to send the letter, and that's usually done through a geographical address system. We will write the recipient's home address on the letter, which corresponds to a physical location, and the post office will route the letter to that location.
-When applications communicate through APIs, it is usually done through the computer network, also with an address system that works on the network. Conceptually it is similar: since applications and their corresponding APIs usually live at different locations of the network, each communication needs to specify a network address to reach the recipient.
+When applications communicate through APIs, it is usually done through the computer network, also with an address system that works on the network. Conceptually it is similar. Since applications and their corresponding APIs usually live at different locations of the network, each communication needs to specify a network address to reach the recipient.
 Without going too deep into computer networking, we will focus on four core concepts: IP addresses, domains, URLs, and ports.
 
 An [**IP address**](https://www.geeksforgeeks.org/computer-science-fundamentals/what-is-an-ip-address/) is a unique identifier assigned to each device connected to a network, telling applications where to find each other. Think of it as a street address such as _Fredrik Bajers Vej 7K, 9220 Aalborg East, Denmark_. An IPv4 address looks something like `65.108.210.169`.
@@ -68,7 +68,7 @@ When you choose postal services, you have some flexibility, and you will usually
 For APIs, you might also get to decide which protocol to use based on your specific needs.
 For now, we will focus on the one protocol used in most APIs called [**HTTP (HyperText Transfer Protocol)**](https://www.geeksforgeeks.org/html/what-is-http/).
 
-HTTP works as a so-called request-response model. That means an HTTP-based communication will always start with a sender application sending an HTTP request to a recipient. After the recipient receives and processes the request, it will send the sender back an HTTP response, and the communication ends there.
+HTTP follows the request-response model. That means an HTTP-based communication will always start with a sender application sending an HTTP request to a recipient. After the recipient receives and processes the request, it will send an HTTP response back to the sender, and the communication ends there.
 
 ### HTTP Request
 
@@ -83,11 +83,11 @@ It is divided into three parts by spaces.
 The first part is the [HTTP request method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods). Different methods correspond to different purposes of the request, and also mean the sender expects different behavior from the recipient.
 Two methods that you will frequently encounter when using AI service APIs are `GET` and `POST`.
 `GET` means the sender wants to retrieve information, for example, checking OpenAI's available AI models by sending a `GET` request to `https://api.openai.com/v1/models`. It is similar to sending an inquiry letter to your landlord asking for information.
-`POST` is for sending data and expecting a response corresponding to that data. This will be the primary method we use to send data to AI services and retrieve their response. It is similar to sending a blueprint to a manufacturer expecting them to send you back a prototype.
+`POST` is for sending data and expecting a response corresponding to that data. This will be the primary method we use to send data to AI services and retrieve their response. It is similar to sending a blueprint to a manufacturer expecting them to send a prototype back to you.
 
-The second part is the URL of the recipient API, and the third part is the protocol version, which, similar to the port, we can ignore and stick to the default one in most cases.
+The second part is the URL of the recipient API, and the third part is the protocol version, which we can leave at the default in most cases, similar to the port.
 
-The [**request headers**](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields) are a set of key-value pairs that carry metadata about the request, such as who is sending it, what format the data is in, and what the sender expects back. They do not contain the main content of the request, but provide additional context that helps the recipient understand how to handle it. Think of them as the information you write on the envelope of a letter: not the letter itself, but essential details for proper delivery and processing. A typical set of request headers will be something like this:
+The [**request headers**](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields) are a set of key-value pairs that carry metadata about the request, such as who is sending it, what format the data is in, and what the sender expects back. They do not contain the main content of the request, but provide additional context that helps the recipient understand how to handle it. Think of them as the information you write on the envelope of a letter, not the letter itself, but essential details for proper delivery and processing. A typical set of request headers will be something like this:
 ```http
 Authorization: Bearer sk-abc1234567890qwerty
 Content-Type: application/json
@@ -95,7 +95,7 @@ Accept: application/json
 User-Agent: SomeAIApp/1.0
 ```
 Here, `Authorization` identifies the user and protects the API. This is usually where we specify our API keys. `Content-Type` and `Accept` specify the format of data we're sending and the expected response, respectively. `User-Agent` identifies the type of application or client we are using to interact with the API.
-While there are some common header fields you will frequently encounter in practice, there is not really a standardized list of header fields that will always be included in any HTTP request. What fields to include in each HTTP request largely depends on what the specific API we are trying to communicate with wants, which we will see when we start to interact with real-world APIs.
+While there are some common header fields you will frequently encounter in practice, there is not really a standardized list of header fields that will always be included in any HTTP request. What fields to include in each HTTP request largely depends on what the specific API we are trying to communicate with requires, which we will see when we start to interact with real-world APIs.
 
 Finally, we have the **request body**, which is the content of the request. There are various data formats to use for the body. In the above example, notice that we specified the content format in one request header as `Content-Type: application/json`, which means we will be using the [JSON format](https://www.w3schools.com/whatis/whatis_json.asp) in the request body. In other words, our request body will look like this:
 ```json
@@ -131,7 +131,7 @@ The **response headers** are, similar to request headers, a set of key-value pai
 Content-Type: application/json
 Content-Length: 1247
 ```
-The key-value pairs expected to be included in a response are subject to the specific API you requested.
+The key-value pairs expected to be included in a response depend on the specific API you requested.
 
 The **response body** contains the actual data the API provider sends back to you, i.e., the main content of the response letter. This is where you will find the information you requested or the result produced from the data you sent. Just like the request body, its format is specified by the corresponding header (`Content-Type`). A response body from the ChatGPT API in JSON format will look like this:
 ```json
@@ -175,7 +175,7 @@ Again, the format of this JSON object is specific to the API you requested.
 > You can learn more about alternative protocols to HTTP that are relevant in the AI context if you are interested:
 > - [WebSocket Protocol (blog post)](https://www.geeksforgeeks.org/web-tech/what-is-web-socket-and-how-it-is-different-from-the-http/) by GeeksforGeeks, a beginner-friendly comparison between WebSocket and HTTP
 > - [WebRTC Protocol (blog post)](https://www.geeksforgeeks.org/techtips/introduction-to-webrtc/), another protocol for full-duplex communication
-> - [Model Context Protocol (MCP) (docs)](https://modelcontextprotocol.io/docs/getting-started/intro) that streamlines interaction between AI chat models and external tools. Personally I think calling it a protocol is a stretch, since it uses HTTP under the hood. Nonetheless, it is very relevant in the context of AI
+> - [Model Context Protocol (MCP) (docs)](https://modelcontextprotocol.io/docs/getting-started/intro), which streamlines interaction between AI chat models and external tools. I think calling it a protocol is questionable, since it uses HTTP internally. Nonetheless, it is very relevant in the context of AI
 > - [Message Queuing Telemetry Transport (MQTT) Protocol (blog post)](https://www.emqx.com/en/blog/the-easiest-guide-to-getting-started-with-mqtt), a protocol that operates on the publish-subscribe pattern, suitable for efficiently distributing data to lots of applications at once
 
 
@@ -228,7 +228,7 @@ You cannot send `POST` requests to APIs that accept them, since there is no plac
 
 ### API Testing Tools
 
-Introducing HTTP API testing tools, which are proprietary development tools for testing HTTP APIs. They let us control every nitty-gritty detail of HTTP API-based interaction, and get a better idea of the behavior of HTTP APIs.
+This is where HTTP API testing tools come in. They are dedicated development tools for testing HTTP APIs. They let us control every detail of HTTP API-based interaction, and get a better idea of the behavior of HTTP APIs.
 
 There are lots of API testing tools on the market.
 Here I will use [Postman](https://www.postman.com/) as an example, which is the most widely used and intuitive one.
@@ -255,17 +255,17 @@ We also include the request body containing our question to the AI model. Then w
 {% cap() %}Request body sent to and response body received from OpenAI's chat API.{% end %}
 
 You can easily test and play with all kinds of APIs to interact with existing AI systems following the above method.
-Before you go wild and play with APIs yourself, there are two practical prerequisites to look out for.
+Before you start playing with APIs yourself, there are two practical prerequisites to look out for.
 
 First, different APIs usually have vastly different specifications for mandatory request headers and the format of the request body. So it is a good idea to first check the documentation of the family of APIs you are going to interact with.
 If you want to interact with APIs served by Google, OpenAI, or Anthropic, you can find their API documentation in [Google Gemini API Doc](https://ai.google.dev/gemini-api/docs), [OpenAI API Platform](https://developers.openai.com/api/docs), and [Claude API Docs](https://platform.claude.com/docs/en/home), respectively.
 
 Second, when sending requests to APIs for AI systems served by most of the big AI companies, you are expected to register an account under their developer platforms, and identify yourself with an API key when sending HTTP requests. This topic is also covered in the above documentation.
-Since AI systems cost these companies (a lot of) money to run, you might be charged to use their APIs, and they might reject your requests if you don't have any quota left.
+Since AI systems cost these companies a lot of money to run, you might be charged to use their APIs, and they might reject your requests if you don't have any quota left.
 Many platforms will give you a small amount of free quota to play with if you are a newly registered user. Google is also relatively generous with their free quota. As of this writing, you can use some of their lighter models completely free as stated in their [pricing policy](https://ai.google.dev/gemini-api/docs/pricing) (with limits or asterisks, of course).
 
 > Here are some text and video tutorials for Postman if you want to learn it more systematically.
-> - [Postman tutorial (blog post)](https://www.geeksforgeeks.org/software-testing/postman-tutorial/) by GeeksforGeeks, a comprehensive guide spanning basics to advanced features
+> - [Postman tutorial (blog post)](https://www.geeksforgeeks.org/software-testing/postman-tutorial/) by GeeksforGeeks, a comprehensive guide spanning from basics to advanced features
 > - [Postman API Testing Tutorial for beginners (video)](https://www.youtube.com/watch?v=MFxk5BZulVU) by Codemify, a hands-on walkthrough for first-time users
 >
 > Here are some alternative API testing tools to Postman, if you do not enjoy Postman for any reason.
@@ -276,7 +276,7 @@ Many platforms will give you a small amount of free quota to play with if you ar
 
 ## Exercise: Interact with APIs of AI Chatbots
 
-While you probably have interacted with AI chatbots through their handy GUI applications like phone apps or web interfaces, in this exercise we want to get a better idea of what's actually happening under the hood by directly interacting with the APIs of those AI chatbots, using the API testing tool of your choice.
+While you probably have interacted with AI chatbots through their handy GUI applications like phone apps or web interfaces, in this exercise we want to get a better idea of what's actually happening internally by directly interacting with the APIs of those AI chatbots, using the API testing tool of your choice.
 
 Before you start, make sure you have the following ready:
 1. Register a developer account under the AI platform of your choice. As discussed, Google with their Gemini platform might be the better choice, since some of their lighter models can be used free of charge.
@@ -297,5 +297,5 @@ Now that you have a working request, try the following experiments and observe w
 2. Replace your API key with something like `invalid-key` and send the request again. What status code do you get? What does the response body say?
 3. Remove a required field or send a malformed JSON object. What does the error response look like?
 
-These experiments should give you a feel for how APIs communicate success and failure through HTTP status codes and response bodies, and how the same API can behave differently depending on the input it receives.
+These experiments should give you a sense of how APIs communicate success and failure through HTTP status codes and response bodies, and how the same API can behave differently depending on the input it receives.
 

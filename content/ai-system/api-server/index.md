@@ -116,7 +116,7 @@ def get_secret():
     return {"message": "You found my secret!"}
 ```
 A `GET` request to `http://127.0.0.1:8000/secret` now returns the new message, while `/` still returns the original welcome message.
-The function name is up to us; FastAPI only cares about the decorator and the path.
+The function name is up to us. FastAPI only cares about the decorator and the path.
 
 ### Reading Request Headers
 
@@ -130,7 +130,7 @@ from fastapi import Header
 def whoami(user_agent: str | None = Header(default=None)):
     return {"user_agent": user_agent}
 ```
-The parameter name `user_agent` is automatically mapped to the `User-Agent` header (FastAPI converts underscores to dashes and is case-insensitive).
+The parameter name `user_agent` is automatically mapped to the `User-Agent` header. FastAPI converts underscores to dashes and is case-insensitive.
 If the header is missing, the default value `None` is used.
 
 If we send a `GET` request to `http://127.0.0.1:8000/whoami` from a browser, we will see the browser's User-Agent string in the response.
@@ -140,7 +140,7 @@ Sending the same request from our Python program in [Module A.2](@/ai-system/int
 
 Once an API is in use, changing the response format is risky.
 Existing clients might still expect the old format, and shipping a breaking change overnight will quietly break their software.
-A common solution is **API versioning**: we keep the old version running while the new version lives at a different path.
+A common solution is **API versioning**, where we keep the old version running while the new version lives at a different path.
 Clients can switch to the new version when they are ready, instead of being forced to migrate immediately.
 This is exactly what providers like OpenAI do with the `/v1/` prefix on their endpoints.
 
@@ -163,7 +163,7 @@ app.include_router(v1_router)
 app.include_router(v2_router)
 ```
 Now `GET /v1/secret` returns the original response, while `GET /v2/secret` returns the new format with an extra `version` field.
-Old clients can keep hitting `/v1/secret` and remain functional; new clients that want the extra information can switch to `/v2/secret` whenever they are ready.
+Old clients can keep hitting `/v1/secret` and remain functional. New clients that want the extra information can switch to `/v2/secret` whenever they are ready.
 
 ### URL Templates
 
@@ -290,7 +290,7 @@ def inspect(req: ImageRequest):
     return {"format": image.format, "size": image.size, "mode": image.mode}
 ```
 Here we use [Pillow](https://pillow.readthedocs.io/en/stable/) to open the decoded bytes as an image, then return some basic metadata so the client can tell the request worked.
-`HTTPException` is FastAPI's built-in helper for returning an error status code with a custom message; here we return `400 Bad Request` if the body cannot be decoded as a valid image.
+`HTTPException` is FastAPI's built-in helper for returning an error status code with a custom message. Here we return `400 Bad Request` if the body cannot be decoded as a valid image.
 
 > Base64 in a JSON body is the most common pattern for sending images to AI APIs, but it is not the only one.
 > An alternative is [multipart form upload](https://fastapi.tiangolo.com/tutorial/request-files/), which sends the file as raw bytes alongside other form fields.

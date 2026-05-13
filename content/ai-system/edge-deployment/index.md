@@ -17,10 +17,10 @@ Or an app processing medical scans we are not allowed to send to a third party.
 Maybe a long-running service we have run for years where the cumulative cloud bill has crossed the price of just buying a small server.
 
 These cases fall under two related ideas.
-**Edge computing** runs computation near where data is created or where users interact with the system, instead of in a faraway data center.
+**Edge computing** runs computation near where data is generated or where users interact with the system, instead of in a faraway data center.
 **Self-hosting** runs services on hardware we own and control, instead of renting capacity from a cloud provider.
 
-In this module we cover both, because despite the different motivations they share most of the practical concerns.
+In this module we cover both, because despite the different motivations, they share most of the practical concerns.
 The hardware and operating system are now ours to manage, the network sits behind a home or office router rather than in a data center, and we are the only ones responsible for keeping the data alive.
 Once we have those covered, the actual deploying-a-container part is identical to what we already did in [Module B.4](@/ai-system/cloud-deployment/index.md).
 
@@ -29,7 +29,7 @@ Once we have those covered, the actual deploying-a-container part is identical t
 
 ## Edge and Self-Hosting
 
-To start, we will discuss what each term actually means.
+To start, we will discuss what each term means.
 
 
 ### What Is Edge Computing?
@@ -46,7 +46,7 @@ Privacy improves because sensitive data never has to leave the device.
 And the system keeps working when the internet goes down.
 
 And there is a variety of edge hardware that can be found in the wild.
-The [Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/) we already met before is a perfectly capable edge device for hobby and small commercial projects.
+The [Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/) we already met is a perfectly capable edge device for hobby and small commercial projects.
 NVIDIA's [Jetson family](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/) offers boards with on-board GPUs for harder AI workloads.
 Industrial PCs designed to sit in factories and survive vibration, dust, and temperature swings handle the higher end.
 And the smartphone in our pocket is an edge device too, with one of the [NPUs](@/ai-system/ai-hardware/index.md#neural-processing-unit-npu) we discussed in [Module B.1](@/ai-system/ai-hardware/index.md) doing the AI work.
@@ -56,7 +56,7 @@ And the smartphone in our pocket is an edge device too, with one of the [NPUs](@
 
 [**Self-hosting**](https://en.wikipedia.org/wiki/Self-hosting_(web_services)) is the practice of running services on hardware we own and control, rather than paying a cloud provider to do it for us.
 
-By definition, we have actually been self-hosting throughout this course.
+By definition, we have been self-hosting throughout this course.
 Every time we ran our AI server on our laptop in [Part A](@/ai-system/interact-ais/index.md), that was a self-hosted service.
 The only difference between that and a "real" self-hosted setup is that we did not put the laptop on a shelf and leave it running 24/7.
 
@@ -87,10 +87,10 @@ At the larger end, people put together small racks with proper server hardware a
 > - [selfh.st](https://selfh.st/), a weekly newsletter and aggregator that tracks new and updated self-hosted projects.
 
 
-It should be noted that edge computing and self-hosting are different terminologies, and come from different motivations.
-Edge is motivated by *where* data and users are: we put the computer near them.
-Self-hosting is motivated by *who* owns the hardware: we own it.
-At the same time, they often overlap. Most edge devices are self-hosted since we own the devices, and most self-hosting is using edge devices since the devices sit on the edge of the network.
+Edge computing and self-hosting are different concepts that come from different motivations.
+Edge is motivated by *where* data and users are. We put the computer near them.
+Self-hosting is motivated by *who* owns the hardware. We own it.
+At the same time, they often overlap. Most edge devices are self-hosted since we own the devices, and most self-hosting uses edge devices since the devices sit on the edge of the network.
 For example, a Raspberry Pi running on the corner of our desk is both.
 
 
@@ -105,21 +105,21 @@ What changes is everything that happens before installing Docker: picking the ha
 The right choice depends on what we are running and what we already have around.
 
 For learning, light AI workloads, and most hobby projects, a [**Raspberry Pi 5**](https://www.raspberrypi.com/products/raspberry-pi-5/) is a great choice.
-It is small, sips power (around 3 to 5 W idle, 10 to 15 W under full load), and runs a full Linux distribution. Also, Raspberry Pi might be the most popular family of edge devices in the world. That means it is usually easier to solve a problem we run into when tinkering with them, since there is a very high chance that someone on the internet has run into the same problem, and we can just copy the solution.
+It is small, sips power (around 3 to 5 W idle, 10 to 15 W under full load), and runs a full Linux distribution. Also, Raspberry Pi might be the most popular family of edge devices in the world. That means it is usually easier to solve a problem we run into when tinkering with one, since there is a very high chance that someone on the internet has run into the same problem, and we can just copy the solution.
 For heavier on-device AI, NVIDIA's [**Jetson Orin Nano Super Developer Kit**](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/nano-super-developer-kit/) packs a small GPU into a board not much bigger than a Raspberry Pi.
 The Jetson family scales up to much more powerful boards intended for robotics and autonomous vehicles, at correspondingly higher prices.
 We can also save money and reduce e-waste by using an old laptop or desktop computer sitting unused in a closet.
 It typically has more RAM and storage than any single-board computer, costs nothing, and (if it is a laptop) comes with a built-in battery that doubles as an [uninterruptible power supply](https://en.wikipedia.org/wiki/Uninterruptible_power_supply) when the power flickers.
 For more ambitious setups, purpose-built home servers assembled from PC parts give us flexibility on CPU, RAM, storage, and GPU at any budget level we choose.
 
-Unlike a cloud VM, our device usually does not arrive with a fresh OS already booted, but each common platform has an official guide that walks through the installation process: the [Raspberry Pi Imager](https://www.raspberrypi.com/software/) writes a preconfigured SD card for the Pi, NVIDIA's [JetPack SDK](https://developer.nvidia.com/embedded/jetpack) ships a Jetson image with the GPU drivers preinstalled, and an x86 laptop or desktop takes [Ubuntu Server](https://ubuntu.com/download/server) on a USB stick made with [balenaEtcher](https://etcher.balena.io/).
+Unlike a cloud VM, our device usually does not arrive with a fresh OS already booted, but each common platform has an official guide that walks through the installation process. The [Raspberry Pi Imager](https://www.raspberrypi.com/software/) writes a preconfigured SD card for the Pi, NVIDIA's [JetPack SDK](https://developer.nvidia.com/embedded/jetpack) ships a Jetson image with the GPU drivers preinstalled, and an x86 laptop or desktop takes [Ubuntu Server](https://ubuntu.com/download/server) on a USB stick made with [balenaEtcher](https://etcher.balena.io/).
 Once the operating system is up, our device is at the same starting line as the VM in [Module B.4](@/ai-system/cloud-deployment/index.md), and the rest of the workflow is identical.
 
 
 ### CPU Architecture
 
 In [Module B.2](@/ai-system/container-fundamentals/index.md) we said that a container image runs anywhere a container runtime is installed.
-We glossed over a small caveat that becomes important the moment we move outside cloud x86 servers: a container image is built for a specific CPU architecture, and only runs on a CPU that speaks that architecture's machine code.
+We glossed over a small caveat that becomes important the moment we move outside cloud x86 servers. A container image is built for a specific CPU architecture, and only runs on a CPU that speaks that architecture's machine code.
 A Docker image built for x86-64 will not run on a Raspberry Pi with an ARM64 CPU.
 
 The following three CPU architectures should cover almost everything we will run into.
@@ -169,7 +169,7 @@ Our edge or self-hosted device sits on a home or office network, and that pictur
 [**Network Address Translation (NAT)**](https://en.wikipedia.org/wiki/Network_address_translation) is the trick that lets every device on a home network share a single public IP address.
 
 When we connect a laptop to home WiFi, the router gives it a *private* IP like `192.168.1.42`.
-That address only has meaning inside our home network; it is one of a few ranges reserved by [RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918) for private use, and routers on the wider internet refuse to forward packets to or from it.
+That address only has meaning inside our home network. It is one of a few ranges reserved by [RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918) for private use, and routers on the wider internet refuse to forward packets to or from it.
 The router itself has a *public* IP given to it by the ISP, and that one address is shared by every device on the home network.
 
 When the laptop makes an outgoing request, say to `example.com`, the router rewrites the packet so it looks like it came from the router's public IP, and remembers in a table that this connection belongs to the laptop.
@@ -179,7 +179,7 @@ Outgoing connections work fine, but incoming connections do not.
 If someone on the public internet sends a packet to our public IP on port 8000, the router has no idea which device behind it (if any) should receive that packet, so by default it drops the packet.
 From the outside, the router looks like a closed door, and our edge device looks like it does not exist on the public internet at all.
 
-For most home uses (browsing, streaming, email) this is not a problem; everything we initiate from inside works.
+For most home uses (browsing, streaming, email), this is not a problem. Everything we initiate from inside works.
 But the moment we want our edge device to *accept* incoming connections from anywhere on the internet, which is exactly what an AI API server has to do, NAT is in our way.
 
 [**Carrier-grade NAT (CGNAT)**](https://en.wikipedia.org/wiki/Carrier-grade_NAT) makes this worse.
@@ -199,7 +199,7 @@ If our ISP gives us a real public IP (no CGNAT), the most direct solution is [**
 A port forwarding rule tells the router that incoming traffic on a given port (say, 80 and 443) should be sent to a specific device on the local network (say, `192.168.1.42`).
 This is essentially the inverse of the NAT bookkeeping we just described, and most routers have a settings page for it.
 
-The remaining problem is that home public IPs are usually *dynamic*: they change every few weeks or whenever the router reconnects.
+The remaining problem is that home public IPs are usually *dynamic*. They change every few weeks or whenever the router reconnects.
 We cannot put a changing IP into DNS by hand.
 The fix is [**dynamic DNS (DDNS)**](https://en.wikipedia.org/wiki/Dynamic_DNS), where a small daemon on our device periodically tells a DDNS provider what our current public IP is, and the provider updates the DNS record.
 
@@ -278,14 +278,14 @@ The leading `10.0.0.2:` in the port mapping tells Docker to publish the port on 
 On a cloud VM we usually get a baseline of reliability for free.
 Most providers replicate the underlying disks, swap failed hardware, and let us snapshot the entire VM with a click of a button.
 None of that is true on our own hardware.
-SD cards commonly used on edge devices have a high failure rate after a few years of heavy writes, hard drives will die eventually, laptops get spilled on often, and the only person responsible for any of it is us.
+SD cards commonly used on edge devices have a high failure rate after a few years of heavy writes, hard drives will die eventually, laptops often get spilled on, and the only person responsible for any of it is us.
 If we are going to put real data on a self-hosted system (user accounts, request logs, training data, anything we cannot regenerate), backups are part of our job.
 
-The most quoted rule of thumb is the [**3-2-1 rule**](https://www.backblaze.com/blog/the-3-2-1-backup-strategy/): keep at least 3 copies of important data, on 2 different storage media, with 1 copy stored offsite.
+The most quoted rule of thumb is the [**3-2-1 rule**](https://www.backblaze.com/blog/the-3-2-1-backup-strategy/), which says to keep at least 3 copies of important data, on 2 different storage media, with 1 copy stored offsite.
 The point is to protect against different failures simultaneously.
 If a single disk dies and takes one copy, the other two survive.
 If a fire or theft takes everything in the building, the offsite copy survives.
-With this rule properly applied, we can lower the probability of completely losing our data to a very small number, close to mathematically impossible.
+With this rule properly applied, we can lower the probability of completely losing our data to a very small number, effectively zero.
 
 > Below are some additional resources for backup strategy and tooling.
 > - [The 3-2-1 backup rule explained (video)](https://www.youtube.com/watch?v=62oi_G8exC8) by LabCyber, a short video on why the rule is shaped the way it is

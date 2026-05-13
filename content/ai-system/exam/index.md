@@ -17,8 +17,8 @@ The agenda for each student is as follows.
 
 - The student gives a 5-minute presentation of their completed mini-project
 - We have a 10-minute discussion around topics and questions about the course and the mini-project
-  - Start by randomly drawing a topic (from the 6 topics listed below), using the [random number generator](https://www.random.org/)
-  - Should the student wish to, they may discuss their understanding of that topic; otherwise, the examiner will start the conversation with questions related to that topic
+  - Start by randomly drawing a topic from the 6 topics listed below, using the [random number generator](https://www.random.org/)
+  - Should the student wish to, they may discuss their understanding of that topic. Otherwise, the examiner will start the conversation with questions related to that topic
   - The examiner and censor ask follow-up questions, which may relate to the student's mini-project report or other topics of the course
 - Deliberation will take place within 5 minutes, followed by the delivery of the assessment
   - The student will be asked to leave the exam room while the examiner and censor reach an agreement on the assessment
@@ -27,7 +27,7 @@ The agenda for each student is as follows.
 
 Students are not required to write code during the exam, nor to remember any specific commands or code syntax.
 Students may be asked to draw diagrams or solve small tasks manually.
-The grade will be based on an overall assessment of both the oral performance and the mini-project, and in accordance with the 7-point grading scale.
+The grade will be based on an overall assessment of both the oral performance and the mini-project, following the 7-point grading scale.
 
 Notes, for example, a concise outline of the literature, important terminology abbreviations and their full names, or documentation of the mini-project, are permitted.
 Do note that if a student reads directly from notes or copies them verbatim during the exam, they may be asked to put the notes away. Answers based solely on reading from notes will result in failure.
@@ -36,7 +36,7 @@ Timely hand-in of the mini-project is the prerequisite for participation in the 
 
 > The core spirit of the exam is to assess students' level of understanding of the knowledge covered in this course.
 > Specific to the context of this course, "understanding" means being able to look at a real-world AI system engineering or deployment scenario, recognize the pieces involved and how they fit together, and reason about what to do and why.
-> The goal is to see whether students have built up enough such understanding (within the scope indicated by this literature, or the example questions below) to confidently engage with these scenarios in practice.
+> The goal is to see whether students have built up enough such understanding, within the scope indicated by this literature or the example questions below, to confidently engage with these scenarios in practice.
 > 
 > So, the exam is not about reproducing exact command flags, library function signatures, or code syntax from memory, since we will have access to documentation when actually doing the work.
 > Rather, it is about whether students know what to do in a scenario covered in this course, understand the rationale behind it, and can reason about how the techniques across modules relate to each other.
@@ -50,11 +50,11 @@ Note that the questions listed below may be formulated differently during the ex
 Students are not expected to answer all questions under each topic.
 Ideally, students should be able to discuss every topic covered in the course, but this is not required to pass the exam.
 
-While this literature (the blog post for each module, excluding the extended reading blocks) itself is the best indicator of the scope of this course, the questions under each topic also indicate the scope of each topic.
+While this literature, the blog post for each module excluding the extended reading blocks, is itself the best indicator of the scope of this course, the questions under each topic also indicate the scope of each topic.
 Additionally, the number and formulation of questions indicate the importance and expected level of knowledge for each topic.
 
 
-### 1. Interacting with AI Systems (Module [A.1](@/ai-system/api-fundamentals/index.md)-[A.2]((@/ai-system/interact-api-python/index.md)))
+### 1. Interacting with AI Systems (Module [A.1](@/ai-system/api-fundamentals/index.md)-[A.2](@/ai-system/interact-api-python/index.md))
 
 - What is an API, and what problem does it solve when different applications need to communicate?
 - What is an IP address, and what role does it play in network communication?

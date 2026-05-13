@@ -143,7 +143,7 @@ The mechanics of SSH, `apt`, and `docker run` are the same as on any other Linux
 When creating the VM, [Ubuntu LTS](https://ubuntu.com/about/release-cycle) (`24.04` at the time of writing) is the safe default operating system, and 2 vCPUs with 4 GB of RAM and 20 to 30 GB of disk is enough for our CPU-only classifier.
 Two settings deserve attention because they are the most common cause of "I deployed it but it does not respond": make sure the VM is assigned a public IP address, and open ports 22 (SSH), 8000 (our API), and the default HTTP and HTTPS ports 80 and 443 in the cloud firewall (called *security groups* on AWS, *firewall rules* on GCP, *network security groups* on Azure). We will come back to why ports 80 and 443 matter in the [next section](#going-public-with-domains-and-https).
 Cloud firewalls deny everything by default, so anything we do not explicitly allow will be unreachable from outside, regardless of what the VM itself is doing.
-Finally, paste in an SSH public key so we can log in without a password; if you do not have one yet, [DigitalOcean's tutorial](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server) walks through generating and installing one.
+Finally, paste in an SSH public key so we can log in without a password. If you do not have one yet, [DigitalOcean's tutorial](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server) walks through generating and installing one.
 
 ![Creating a VM in the Hetzner Cloud console](vm-creation.webp)
 
@@ -190,7 +190,7 @@ We saw in [Module A.1](@/ai-system/api-fundamentals/index.md#network-fundamental
 The system that translates domain names into IP addresses is called the [**Domain Name System (DNS)**](https://www.cloudflare.com/learning/dns/what-is-dns/), and it is one of the oldest pieces of internet infrastructure still in active use.
 
 DNS works as a globally distributed lookup service.
-When a browser visits `api.example.com`, it asks a DNS resolver "what IP is this?", the resolver works through a chain of DNS servers (root servers, top-level domain servers for `.com`, then the authoritative servers for `example.com`), and eventually returns an IP address.
+When a browser visits `api.example.com`, it asks a DNS resolver "what IP is this?" The resolver works through a chain of DNS servers (root servers, top-level domain servers for `.com`, then the authoritative servers for `example.com`) and eventually returns an IP address.
 
 Out of the whole chain, the only part a domain owner controls is what their own authoritative servers respond with, and we configure that through the [**DNS records**](https://www.cloudflare.com/learning/dns/dns-records/) we publish for the domain.
 Each record is a small piece of data that maps a name to an address or other resource.
@@ -295,7 +295,7 @@ This matters whenever the application generates URLs or behaves differently per 
 The other three put back details about the client that would otherwise be lost when Nginx forwards the request to the application locally.
 `X-Real-IP $remote_addr` tells the application the client's real IP address, since Nginx and the application are on the same machine and the application would otherwise only see Nginx's address `127.0.0.1`.
 `X-Forwarded-For $proxy_add_x_forwarded_for` does the same thing using a more widely recognized [standard header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Forwarded-For).
-If the request had already passed through other proxies before reaching Nginx, each one would have added its IP to a list in this header, and Nginx appends its own at the end of that list.
+If the request has already passed through other proxies before reaching Nginx, each one has added its IP to a list in this header, and Nginx appends its own at the end of that list.
 Finally, `X-Forwarded-Proto $scheme` tells the application whether the original request came in over HTTP or HTTPS, since the application could not otherwise tell because Nginx forwards everything to it over plain HTTP regardless of what the client used.
 
 Enable the site, test the configuration, and reload Nginx:
@@ -337,7 +337,7 @@ Then run Certbot:
 sudo certbot --nginx -d api.example.com
 ```
 Certbot will ask for an email address (used for renewal warnings), ask us to accept the Let's Encrypt terms, and then complete a domain validation challenge: it places a small file under `/.well-known/acme-challenge/` on the server, asks Let's Encrypt to fetch it over HTTP, and proves we control the domain because we are the ones serving it.
-Once validated, Certbot installs the issued certificate, edits the Nginx config to add a `listen 443 ssl;` block with the right paths, and (optionally but recommended) sets up an HTTP-to-HTTPS redirect.
+Once the domain is validated, Certbot installs the issued certificate, edits the Nginx config to add a `listen 443 ssl;` block with the right paths, and (optionally but recommended) sets up an HTTP-to-HTTPS redirect.
 
 Visit `https://api.example.com` in a browser and the padlock icon should appear, with the certificate details showing it was issued by Let's Encrypt.
 HTTP requests to the same hostname should automatically redirect to HTTPS.
@@ -373,7 +373,7 @@ Then point your [Module A.2](@/ai-system/interact-api-python/index.md) client at
 
 A reasonable starting point:
 
-1. Pick a provider with a free tier or a cheap small VM. AWS, GCP, and Azure all offer trial credits; Hetzner, DigitalOcean, and Vultr have small VMs around 5 USD per month with straightforward signup. Create a Linux VM (Ubuntu LTS), allow SSH (port 22) and your API port (8000) in the cloud firewall, and add your SSH public key.
+1. Pick a provider with a free tier or a cheap small VM. AWS, GCP, and Azure all offer trial credits. Hetzner, DigitalOcean, and Vultr have small VMs around 5 USD per month with straightforward signup. Create a Linux VM (Ubuntu LTS), allow SSH (port 22) and your API port (8000) in the cloud firewall, and add your SSH public key.
 2. SSH into the VM, run the system update, install Docker following [the official Ubuntu guide](https://docs.docker.com/engine/install/ubuntu/), and add your user to the `docker` group.
 3. Pull your image from the registry (or transfer the project with `scp` and build it on the VM), run it with `docker run -d --restart unless-stopped -p 8000:8000`, and verify with `docker ps` and `docker logs` that it is up.
 4. From your laptop, change the API base URL in your Module A.2 client to `http://<VM_IP>:8000` and run a few requests. They should look exactly like they did against your local server in Module A.4.

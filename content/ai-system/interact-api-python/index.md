@@ -33,7 +33,7 @@ pip install requests
 > If you are not familiar with managing Python packages, it is a good idea to install `requests` and other third-party packages we will use later inside a [virtual environment](https://docs.python.org/3/library/venv.html), instead of polluting your system Python.
 > Otherwise tracking down version conflicts later becomes a nightmare.
 
-You might be wondering: AI providers like OpenAI and Anthropic publish their own Python packages that wrap their APIs into clean Python classes.
+AI providers like OpenAI and Anthropic publish their own Python packages that wrap their APIs into clean Python classes.
 Wouldn't it be easier to just `pip install openai` and never worry about HTTP?
 
 The answer is yes for shipping production code, but not for learning.
@@ -97,7 +97,7 @@ headers = {
     "User-Agent": "SomeAIApp/1.0",
 }
 
-# Body fields are decided by the API provider; check their documentation
+# Body fields are decided by the API provider. Check their documentation
 body = {
     "model": "gpt-5.4-mini",
     "messages": [
@@ -107,7 +107,7 @@ body = {
     "max_completion_tokens": 100,
 }
 
-# json= serializes the dict into JSON; timeout gives up after 30 seconds
+# json= serializes the dict into JSON, and timeout gives up after 30 seconds
 response = requests.post(url, headers=headers, json=body, timeout=30)
 print(response.json())
 ```
@@ -130,7 +130,7 @@ The status code is on `response.status_code`:
 ```python
 print(response.status_code)  # e.g., 200
 ```
-There are also shortcuts like `response.ok` (true for any status code below 400) and `response.reason` (the reason phrase like `"OK"` or `"Not Found"`).
+There are also shortcuts like `response.ok`, which is true for any status code below 400, and `response.reason`, which is the reason phrase like `"OK"` or `"Not Found"`.
 
 Response headers are exposed as a dictionary-like object on `response.headers`:
 ```python
@@ -391,7 +391,7 @@ A rough outline of how you can implement your program:
 
 Once you have the basic version working, try the following extensions to deepen your understanding of the topics covered in this module:
 
-1. Intentionally trigger errors. Try an invalid API key, a malformed body, or unplugging your network cable mid-request. Verify that each branch of your error handling actually fires, and the user-facing messages are useful.
+1. Intentionally trigger errors. Try an invalid API key, a malformed body, or unplugging your network cable mid-request. Verify that each branch of your error handling actually fires, and that the user-facing messages are useful.
 2. Add a `--image <path>` flag that lets the user attach a local image to the question. Use Pillow and Base64 to embed the image into the message.
 3. Replace the regular `POST` with a streaming version that prints the assistant's reply word by word using SSE. Once it works, you should feel a noticeable difference compared to waiting for the full reply.
 

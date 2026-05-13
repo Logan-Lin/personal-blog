@@ -168,7 +168,7 @@ def classify(req: ImageRequest):
     }
 ```
 We can send a real image to this endpoint from our [Module A.2](@/ai-system/interact-api-python/index.md) program, and watch real predictions come back.
-For example, here is a Spanish-style seafood casserole I cooked the other day (it was delicious, by the way):
+For example, here is a Spanish-style seafood casserole I cooked the other day, and it was delicious:
 
 ![Seafood casserole](seafood-casserole.webp)
 
@@ -238,7 +238,7 @@ A single waiter can serve many tables in parallel this way, as long as the slow 
 For our classification endpoint, the slow part is the model inference itself, which the function actually has to compute.
 There is no kitchen to wait on, so marking the endpoint `async def` alone does not help.
 The waiter is now busy cooking, and cannot take other orders while doing it.
-The fix is to actually hire a separate cook.
+The fix is to hire a separate cook.
 We hand the inference call to another thread using `asyncio.to_thread`, so the waiter can go back to taking orders while the cook prepares the food:
 ```python
 import asyncio
@@ -272,8 +272,8 @@ Each call to that remote API takes several seconds, almost all of which is spent
 With `async def` and `await`, a single server process can have hundreds of these waits going on at the same time without hiring hundreds of waiters.
 
 > The [official FastAPI docs on concurrency](https://fastapi.tiangolo.com/async/) have a much longer explanation of when `async def` helps and when it does not.
-> The short version: use `async def` for endpoints that mostly wait on something outside the function (a network reply, a database response, another API), and use `asyncio.to_thread` to push heavy in-process computation onto a separate thread so the server stays responsive.
-> If we just use plain `def` (synchronous) for an endpoint, FastAPI will run it in its own pool of threads, which is usually fine for low traffic but does not scale to many parallel requests as gracefully as a properly async endpoint does.
+> In short, use `async def` for endpoints that mostly wait on something outside the function, like a network reply, a database response, or another API, and use `asyncio.to_thread` to push heavy in-process computation onto a separate thread so the server stays responsive.
+> If we just use plain synchronous `def` for an endpoint, FastAPI will run it in its own pool of threads, which is usually fine for low traffic but does not scale to many parallel requests as gracefully as a properly async endpoint does.
 
 
 ## Protecting and Tracking the Endpoints
@@ -334,7 +334,7 @@ Install:
 pip install sqlalchemy
 ```
 
-Define two tables: one for users (each with a unique API key), and one for the requests they make:
+Define two tables: one for users, each with a unique API key, and one for the requests they make:
 ```python
 # db.py
 from datetime import datetime
@@ -378,7 +378,7 @@ Calling `Base.metadata.create_all(engine)` creates the tables on the first run i
 
 Each `User` row holds an API key plus some metadata.
 Each `APIRequest` row records one call to our server, linked back to the user who made it.
-The `relationship` calls let us navigate from a user to their requests (`user.requests`) or from a request to its user (`request.user`) as Python attributes, without writing a `JOIN`.
+The `relationship` calls let us navigate from a user to their requests via `user.requests`, or from a request to its user via `request.user`, as Python attributes, without writing a `JOIN`.
 
 Now we change `verify_api_key` to look the key up in the database instead of in a hardcoded set:
 ```python
@@ -403,7 +403,7 @@ def get_current_user(
         )
     return user
 ```
-`db.scalar(select(...))` is the SQLAlchemy 2.0 way of running a query that returns a single object (or `None` if there is no match).
+`db.scalar(select(...))` is the SQLAlchemy 2.0 way of running a query that returns a single object, or `None` if there is no match.
 The endpoint now receives a real `User` object whenever the key is valid, which we will use in a moment to record usage:
 ```python
 @app.post("/v1/classify")
@@ -424,7 +424,7 @@ Adding or revoking a key now means inserting or deleting a row in the database, 
 > SQLite is convenient for development and small-scale deployments, but it does not handle many concurrent writers well, and it lives on a single machine.
 > Production AI APIs typically use a more capable database.
 > Two common choices are [PostgreSQL](https://www.postgresql.org/), a powerful general-purpose relational database, and [Redis](https://redis.io/), an in-memory key-value store often used for caching and rate limiting.
-> Thanks to SQLAlchemy, switching from SQLite to PostgreSQL is usually a one-line change to the connection URL: `create_engine("postgresql://user:pass@host/dbname")`, and most of the code we wrote stays the same.
+> Thanks to SQLAlchemy, switching from SQLite to PostgreSQL is usually a one-line change to the connection URL, such as `create_engine("postgresql://user:pass@host/dbname")`, and most of the code we wrote stays the same.
 > - [SQLite vs MySQL vs PostgreSQL (blog post)](https://www.digitalocean.com/community/conceptual-articles/sqlite-vs-mysql-vs-postgresql-a-comparison-of-relational-database-management-systems), a side-by-side look at three popular relational databases
 > - [Introduction to Redis (docs)](https://redis.io/about/), the official summary of what Redis is and what it is good for
 
@@ -487,7 +487,7 @@ A rate limit caps the number of requests each user can make in a given time wind
 
 There are two algorithms commonly used for rate limiting.
 
-The **fixed window** approach divides time into fixed intervals (say, every minute on the minute).
+The **fixed window** approach divides time into fixed intervals, say, every minute on the minute.
 Each interval has a counter that resets to zero at the boundary.
 This is simple to implement, but it lets a client send a burst of `2 * limit` requests around the boundary by squeezing in `limit` requests just before the window flips and another `limit` immediately after.
 
@@ -521,7 +521,7 @@ async def classify(req: ImageRequest, user: User = Depends(get_current_user), db
     # ...rest of the endpoint
 ```
 Once a user crosses the threshold, every additional request within the next minute returns `429 Too Many Requests` until enough time has passed.
-The status code `429` is the standard one for rate limiting, and well-behaved clients (including ours from Module A.2) can pick it up and back off accordingly.
+The status code `429` is the standard one for rate limiting, and well-behaved clients, including ours from Module A.2, can pick it up and back off accordingly.
 
 In a real deployment we would also want to store the rate limit on the `User` row itself, so different users can have different limits, and probably move the counter into a faster store like Redis to avoid hitting the database on every request.
 But the principle stays the same.
@@ -546,7 +546,7 @@ A reasonable starting point:
    If you have a GPU and want to play with something larger, an off-the-shelf Hugging Face model is fine too.
 2. Load the model once at startup using a `lifespan` context manager.
    Verify in the server logs that the model is loaded only once, even when you edit and save `main.py` repeatedly.
-3. Replace the hardcoded response in your `/v1/classify` (or equivalent) endpoint with a real inference call.
+3. Replace the hardcoded response in your `/v1/classify` or equivalent endpoint with a real inference call.
    Run the model in a separate thread via `asyncio.to_thread` so the server can keep accepting other requests while one is being processed.
 4. Send a real image from your Module A.2 program and confirm that the server returns sensible predictions.
 
@@ -556,9 +556,9 @@ Once that works, try the following extensions:
    Create a couple of users by hand, log every request to the `api_requests` table, and add a `/v1/usage` endpoint that lets each user query their own request count.
    Then send a request without a key, with a wrong key, and with a valid key, and confirm each gets the response you expect.
 2. Add a sliding-window rate limit on top of the database-backed auth.
-   Set the limit low (for example, 5 requests per minute) so it is easy to trigger.
+   Set the limit low, for example, 5 requests per minute, so it is easy to trigger.
    Send a flurry of requests from your Module A.2 program and watch the server start returning `429`.
-3. If you have access to a real LLM (running locally or via an API you trust), build a `/v1/chat/stream` endpoint that calls the LLM and forwards the stream as SSE events.
+3. If you have access to a real LLM, running locally or via an API you trust, build a `/v1/chat/stream` endpoint that calls the LLM and forwards the stream as SSE events.
    This is where `async def` really helps, since the endpoint spends almost all of its time waiting on the upstream model.
    Update your Module A.2 streaming client to consume your endpoint and verify it feels just like talking to OpenAI or another provider.
 
