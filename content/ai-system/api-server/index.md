@@ -100,7 +100,7 @@ The line tells us a client at `127.0.0.1:56835` sent a `GET / HTTP/1.1` request,
 ## Creating `GET` Endpoints
 
 A real API usually has more than one endpoint.
-OpenAI's API alone has dozens of them under the same domain, like `https://api.openai.com/v1/models` and `https://api.openai.com/v1/chat/completions`.
+OpenAI's API alone has dozens of them under the same domain, like `/v1/models` and `/v1/chat/completions`.
 Each one corresponds to a different action.
 In FastAPI, each endpoint is a Python function decorated with the HTTP method we want to support and the path we want to expose.
 

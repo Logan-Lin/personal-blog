@@ -424,7 +424,7 @@ Adding or revoking a key now means inserting or deleting a row in the database, 
 > SQLite is convenient for development and small-scale deployments, but it does not handle many concurrent writers well, and it lives on a single machine.
 > Production AI APIs typically use a more capable database.
 > Two common choices are [PostgreSQL](https://www.postgresql.org/), a powerful general-purpose relational database, and [Redis](https://redis.io/), an in-memory key-value store often used for caching and rate limiting.
-> Thanks to SQLAlchemy, switching from SQLite to PostgreSQL is usually a one-line change to the connection URL, such as `create_engine("postgresql://user:pass@host/dbname")`, and most of the code we wrote stays the same.
+> Thanks to SQLAlchemy, switching from SQLite to PostgreSQL is usually a one-line change to the connection URL, and most of the code we wrote stays the same.
 > - [SQLite vs MySQL vs PostgreSQL (blog post)](https://www.digitalocean.com/community/conceptual-articles/sqlite-vs-mysql-vs-postgresql-a-comparison-of-relational-database-management-systems), a side-by-side look at three popular relational databases
 > - [Introduction to Redis (docs)](https://redis.io/about/), the official summary of what Redis is and what it is good for
 
