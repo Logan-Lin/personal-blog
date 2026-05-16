@@ -369,7 +369,7 @@ Other providers use slightly different markers, so check their documentation.
 
 > Both [OpenAI](https://developers.openai.com/api/docs/guides/streaming-responses) and [Anthropic](https://platform.claude.com/docs/en/build-with-claude/streaming) have detailed documentation on streaming, including the full set of event types they emit.
 >
-> SSE is far from the only protocol AI services use for streaming.
+> SSE is not the only protocol AI services use for streaming.
 > Protocols like WebSocket and WebRTC support two-way communication and are widely used in voice and video AI features, including [OpenAI's Realtime API](https://developers.openai.com/api/docs/guides/realtime) and [Google's Gemini Live](https://gemini.google/overview/gemini-live/).
 > For these protocols the `requests` package is no longer enough, and we need protocol-specific Python libraries:
 > - [`websockets` (docs)](https://websockets.readthedocs.io/en/stable/) for WebSocket clients and servers

@@ -87,7 +87,7 @@ The line tells us a client at `127.0.0.1:56835` sent a `GET / HTTP/1.1` request,
 > - [FastAPI tutorial in 15 minutes (video)](https://www.youtube.com/watch?v=iWS9ogMPOI0), a quick hands-on overview
 > - [FastAPI course for beginners (video)](https://www.youtube.com/watch?v=tLKKmouUams), a longer free course covering more features
 
-> FastAPI is far from the only choice for building API servers in Python.
+> FastAPI is not the only choice for building API servers in Python.
 > Two other widely used Python frameworks are [Flask](https://flask.palletsprojects.com/) and [Django](https://www.djangoproject.com/).
 > Flask is a lightweight, minimal framework that has been a community favorite for years, while Django is a much larger framework aimed at full websites with built-in templates, admin panels, and database tools.
 > FastAPI is the youngest of the three but has grown rapidly thanks to its type-hint-driven validation and async support, both of which fit AI workloads well.
