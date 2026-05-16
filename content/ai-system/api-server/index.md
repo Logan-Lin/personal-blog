@@ -19,6 +19,10 @@ They are served by a kind of program called an **API server**, which sits at som
 The provider runs the API server on their own hardware, exposes it under a domain name, and the rest of the world reaches it over HTTP.
 We can do exactly the same thing on our own machine, just at a smaller scale.
 
+![OpenAI API server and its clients](api-server.webp)
+
+{% cap() %}OpenAI's API server exposes many endpoints under the same domain, and various clients like the ChatGPT phone and web apps reach them over HTTP.{% end %}
+
 In this module we will build a small API server with [**FastAPI**](https://fastapi.tiangolo.com/), one of the most popular Python frameworks for writing APIs.
 We will start from a hello-world server, then walk through how to define `GET` and `POST` endpoints, how to validate incoming data, and how to format the response, including the streaming responses we received as a client in the previous module.
 
