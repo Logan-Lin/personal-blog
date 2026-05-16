@@ -216,16 +216,8 @@ As the name suggests, GPUs were originally designed for computer graphics, not A
 Rendering a 3D scene means computing the color of millions of pixels every frame, where each pixel can be processed independently from the rest.
 To do that quickly, GPUs were built around two ideas: lots of small cores running in parallel, and memory designed for moving large chunks of data fast.
 
-![GPU rendering](gpu-rendering.webp)
-
-{% cap() %}A simple example of 3D rendering: combining a texture map and a light map per pixel to produce the final image. Modern GPUs run many such per-pixel calculations in parallel for every frame.{% end %}
-
 While a modern CPU has on the order of 10 to 100 cores, a modern GPU contains thousands of much smaller cores, each capable of only simple instructions.
 Combined, they can power through highly parallel workloads far faster than any CPU.
-
-![CPU vs GPU](cpu-vs-gpu.webp)
-
-{% cap() %}A CPU has a few powerful cores, while a GPU has thousands of weaker ones.{% end %}
 
 GPU memory is also built differently from CPU memory.
 Instead of [DDR5](https://en.wikipedia.org/wiki/DDR5_SDRAM), high-end gaming GPUs use [GDDR7](https://en.wikipedia.org/wiki/GDDR7_SDRAM) memory, which is built for bandwidth and can deliver around 1.8 TB/s.
@@ -233,11 +225,7 @@ Data center GPUs go further with [High Bandwidth Memory (HBM)](https://en.wikipe
 
 What turned GPUs into the default hardware for AI is that the operations behind 3D graphics and the operations behind neural networks are essentially the same kind of math. Both come down to lots of independent matrix and vector arithmetic on large blocks of data.
 Game developers spent decades pushing GPU vendors to make these operations faster, and AI researchers eventually realized they could ride on top of all that work.
-The unfortunate side effect is that today, GPU vendors care much more about AI customers than gamers, and the price tags reflect it.
-
-![NVIDIA Q1 FY26 income statement](nvidia-revenue.webp)
-
-{% cap() %}NVIDIA's Q1 FY26 revenue breakdown: data center sales (39.1B USD) now dwarf gaming sales (3.8B USD), a fairly clear picture of where the customer base sits today.{% end %}
+The unfortunate side effect is that today, GPU vendors care much more about AI customers than gamers, reflected in the price tags of modern GPUs.
 
 
 ### Tensor Processing Unit (TPU)
@@ -249,10 +237,6 @@ So as the AI industry grew, hardware vendors started designing chips that target
 [**Tensor Processing Units (TPUs)**](https://cloud.google.com/tpu) are Google's family of such chips.
 The core idea is to lay out a grid of very simple processors, called a *systolic array*, where each processor receives data from its neighbor, multiplies and adds it, and passes the result on.
 Data flows through the grid like a wave, and the whole array completes a matrix multiplication in one coordinated pass.
-
-![TPU systolic array](tpu-architecture.webp)
-
-{% cap() %}A TPU's systolic array: data and weights flow through a grid of small processors, each doing a multiply-and-add and passing the result along.{% end %}
 
 Because the design only needs to support a small set of operations, a TPU can squeeze out more performance per watt and per dollar than a GPU on the same workload.
 The trade-off is that it is useless for anything else.
