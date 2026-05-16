@@ -42,6 +42,44 @@ Once you use a local file sync service to sync the vault folder of Obsidian, it 
 
 {% cap() %}Obsidian desktop UI.{% end %}
 
+### Browser Bookmarks: Cloud Sync vs. Local YAML File
+
+Browsers typically sync bookmarks through their own cloud service, like Firefox Sync or Chrome Sync.
+This has the usual problems of the cloud, and also ties your bookmark list to a specific browser.
+
+I keep all my bookmarks in a single YAML file inside the folder synced by Syncthing. Each entry has a name, a URL, and an optional list of tags.
+
+```yaml
+- name: NixOS Manual
+  url: https://nixos.org/manual/nixos/stable/
+  tags: [nix, docs]
+- name: Hacker News
+  url: https://news.ycombinator.com/
+```
+
+A keyboard shortcut then runs a small shell pipeline that reads the YAML with `yq`, shows the entries through a fuzzy picker, and opens the selected URL in Firefox, or any browser of your choice.
+The macOS version uses `choose-gui` as the picker, bound to `Alt+B` through Aerospace:
+
+```sh
+yq -r '[.[] | {"line": (.name + (.tags | select(. != null) | " [" + join(", ") + "]") + " | " + .url), "sort": ((.tags // [] | join(",")) + "|" + .name)}] | sort_by(.sort) | .[].line' \
+  ~/Documents/app-state/bookmarks.yaml \
+  | choose \
+  | cut -d'|' -f2 \
+  | xargs -r open -a Firefox.app
+```
+
+The Hyprland version uses `wofi` in dmenu mode, bound to `Super+B`:
+
+```sh
+yq -r '[.[] | {"line": (.name + (.tags | select(. != null) | " [" + join(", ") + "]") + " | " + .url), "sort": ((.tags // [] | join(",")) + "|" + .name)}] | sort_by(.sort) | .[].line' \
+  ~/Documents/app-state/bookmarks.yaml \
+  | wofi --dmenu --prompt "bookmark" \
+  | cut -d'|' -f2 \
+  | xargs -r firefox
+```
+
+Adding, removing, or editing a bookmark is just a change to the YAML file.
+
 ### Reference Management: Zotero
 
 [Zotero](https://www.zotero.org/) is a reference management software that can be used in a variety of scenarios. For me, I largely use it to manage academic papers I need to read.
