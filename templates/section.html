@@ -41,10 +41,10 @@
 {% if paginator %}
 <nav class="pagination">
     {% if paginator.previous %}
-        <a href="{{ paginator.previous }}">&larr; {% if section.extra.display_chapter %}Previous{% else %}Newer{% endif %}</a>
+        <a href="{{ paginator.previous }}">&larr; {% if section.extra.display_chapter %}Previous Page{% else %}Newer Posts{% endif %}</a>
     {% endif %}
     {% if paginator.next %}
-        <a href="{{ paginator.next }}">{% if section.extra.display_chapter %}Next{% else %}Older{% endif %} &rarr;</a>
+        <a href="{{ paginator.next }}">{% if section.extra.display_chapter %}Next Page{% else %}Older Posts{% endif %} &rarr;</a>
     {% endif %}
 </nav>
 {% endif %}

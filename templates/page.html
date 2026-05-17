@@ -46,4 +46,37 @@
         {% endif %}
     </div>
 </article>
+
+{% set parent_section = get_section(path=page.ancestors | last) %}
+{% set siblings = parent_section.pages %}
+{% set total = siblings | length %}
+{% set_global before_page = false %}
+{% set_global after_page = false %}
+{% for p in siblings %}
+    {% if p.permalink == page.permalink %}
+        {% if loop.index0 > 0 %}
+            {% set before_idx = loop.index0 - 1 %}
+            {% set_global before_page = siblings | nth(n=before_idx) %}
+        {% endif %}
+        {% if loop.index < total %}
+            {% set_global after_page = siblings | nth(n=loop.index) %}
+        {% endif %}
+    {% endif %}
+{% endfor %}
+{% if before_page or after_page %}
+<nav class="post-nav">
+    <div class="prev">
+        {% if before_page %}
+        <span class="label">{% if parent_section.extra.display_chapter %}Previous Post:{% else %}Newer Post:{% endif %}</span>
+        <a href="{{ before_page.permalink }}">{{ before_page.title }}</a>
+        {% endif %}
+    </div>
+    <div class="next">
+        {% if after_page %}
+        <span class="label">{% if parent_section.extra.display_chapter %}Next Post:{% else %}Older Post:{% endif %}</span>
+        <a href="{{ after_page.permalink }}">{{ after_page.title }}</a>
+        {% endif %}
+    </div>
+</nav>
+{% endif %}
 {% endblock content %}

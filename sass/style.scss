@@ -233,6 +233,28 @@ table {
   border-top: 1px solid var(--border);
 }
 
+.post-nav {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+
+  .prev, .next {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .next {
+    text-align: right;
+  }
+
+  .label {
+    display: block;
+    color: var(--muted);
+  }
+}
+
 .not-found {
   text-align: center;
   padding: 3rem 0;
