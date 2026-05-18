@@ -76,7 +76,9 @@ Both are just sequences of bits.
 What makes one a program and the other a value is how the processor uses them.
 
 
-### Central Processing Unit (CPU)
+### Architecture Components
+
+#### Central Processing Unit (CPU)
 
 The [**Central Processing Unit (CPU)**](https://www.geeksforgeeks.org/computer-science-fundamentals/central-processing-unit-cpu/) is the part that actually executes instructions on data, like the chefs in the kitchen who follow recipes to turn ingredients into dishes.
 Modern CPUs are built from many sub-components, but for this course we will focus on the two essential ones: the control unit and the arithmetic logic unit.
@@ -88,8 +90,7 @@ The [**arithmetic logic unit (ALU)**](https://www.learncomputerscienceonline.com
 It performs the elementary operations that make up every program: arithmetic (addition, subtraction, multiplication, division), logical operations (AND, OR, NOT, XOR), comparisons (equal, greater than, less than), and bit manipulation (shifts, rotations, and so on).
 A modern CPU usually contains more than one ALU, so the same core can run several of these operations at once.
 
-
-### Memory
+#### Memory
 
 The [**memory**](https://www.geeksforgeeks.org/computer-science-fundamentals/computer-memory/) holds both instructions and data, like a pantry that stores both recipe books and ingredients on the same shelves.
 Every cell in memory has a numerical address, similar to having labeled slots in the pantry, so the CPU can ask for any specific instruction or value directly without rummaging through the rest.
@@ -100,7 +101,7 @@ Second, the memory we are talking about here is *volatile*, meaning turning the 
 That is why your unsaved work disappears when the computer crashes.
 
 
-### Input/Output
+#### Input/Output
 
 The [**input/output (I/O) system**](https://www.geeksforgeeks.org/operating-systems/i-o-hardware-in-operating-system/) is how data and programs come into the computer from the outside world, and how results go back out, like the waiters who carry orders into the kitchen and dishes out to the customers.
 On the input side we have devices like keyboards, mice, microphones, and cameras.
@@ -110,7 +111,7 @@ Some devices, such as network cards and storage drives, do both.
 Each I/O device is connected through a small piece of hardware called an *I/O controller* that takes care of the device-specific details, so the rest of the computer can treat all of them in a relatively uniform way.
 
 
-### Bus
+#### Bus
 
 The [**bus**](https://www.geeksforgeeks.org/computer-organization-architecture/what-is-a-computer-bus/) is the set of wires that move instructions and data between every other component, like the corridors and counters that let staff and trolleys carry orders, ingredients, and dishes around the kitchen.
 A typical bus is split into three logical parts: an *address bus* that says which memory location or device to talk to, a *data bus* that carries the actual contents being moved, and a *control bus* that carries timing and coordination signals.
