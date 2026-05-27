@@ -7,4 +7,5 @@ paginate_by = 10
 abbr = "Homelab"
 +++
 
-My experience and stories tinkering with home servers, personal cloud, etc.
+My experience and stories tinkering with home servers and personal computing setups.
+Or just rambling about my takes on modern computer technology in general.
