@@ -2,14 +2,11 @@
 title = "Self-supervised Learning of Trajectories"
 date = 2026-02-03
 description = ""
-weight = 6
-
-[extra]
-chapter = "Chapter 6"
+aliases = ["/dl4traj/self-supervised/"]
 +++
 
 Self-supervised learning means training a model with unlabeled data, using supervisory signals extracted from the data itself. It usually does not set the model to perform a certain task, but aims to learn task-agnostic information in the data.
-Compared to [end-to-end learning](@/dl4traj/end-to-end/index.md), self-supervised learning does not rely on labeled data to train the model; in other words, it can be helpful when the availability of labeled data is limited.
+Compared to [end-to-end learning](@/ml-tech/end-to-end-trajectory-learning/index.md), self-supervised learning does not rely on labeled data to train the model; in other words, it can be helpful when the availability of labeled data is limited.
 This is also very relevant in the context of trajectory learning, since the availability of unlabeled trajectory datasets is usually much higher than that of labeled ones.
 
 Self-supervised learning is also widely used to pre-train deep learning models. Put into the perspective of trajectories, self-supervised learning can help models get a general understanding of trajectory sequences or components in trajectories; the pre-trained models can later be fine-tuned on specific tasks, or be used directly for unsupervised tasks like clustering.
@@ -218,7 +215,7 @@ The main consideration when adapting auto-encoders to trajectories is handling v
 
 A common choice is the sequence-to-sequence architecture with recurrent neural networks.
 Given a trajectory $\mathcal{T} = \langle (l_1, t_1), (l_2, t_2), \ldots, (l_n, t_n) \rangle$, each point is first embedded into a vector representation. The encoder, typically an LSTM or GRU, processes the sequence and produces a final hidden state as the latent representation $\mathbf{z}$. The decoder, another recurrent network, takes $\mathbf{z}$ as its initial state and generates the reconstructed trajectory point by point.
-Training minimizes the reconstruction loss between the original and reconstructed trajectories, computed as the sum of per-point losses, similar to [end-to-end training](@/dl4traj/end-to-end/index.md) for trajectory prediction or imputation.
+Training minimizes the reconstruction loss between the original and reconstructed trajectories, computed as the sum of per-point losses, similar to [end-to-end training](@/ml-tech/end-to-end-trajectory-learning/index.md) for trajectory prediction or imputation.
 
 The VAE formulation can also be adapted to trajectories. The encoder outputs distribution parameters $\boldsymbol{\mu}$ and $\boldsymbol{\sigma}^2$ instead of a single vector, and the latent representation is sampled during training.
 

@@ -2,10 +2,7 @@
 title = "End-to-end Learning of Trajectories"
 date = 2026-02-02
 description = ""
-weight = 5
-
-[extra]
-chapter = "Chapter 5"
+aliases = ["/dl4traj/end-to-end/"]
 +++
 
 End-to-end learning means training a model to perform a task from input to output, supervising only on how the output aligns with the task's ground truth.
@@ -26,7 +23,7 @@ For each category of tasks, we will give a general problem formulation and the g
 
 ## Trajectory Prediction
 
-Recall in the [introduction post](@/dl4traj/introduction/index.md) that a complete trajectory usually records the movement of the target from the beginning to the end of the movement process.
+Recall in the [introduction post](@/ml-tech/trajectory-deep-learning-intro/index.md) that a complete trajectory usually records the movement of the target from the beginning to the end of the movement process.
 In trajectory prediction, we assume only the earlier part of the trajectory is available, and we want to know what comes next.
 
 ### Problem Formulation: Mapping History to Future

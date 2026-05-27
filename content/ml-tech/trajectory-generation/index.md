@@ -1,16 +1,13 @@
 +++
-title = "Trajectory Generation"
+title = "Generating Spatiotemporal Trajectories"
 date = 2026-02-04
 description = ""
-weight = 7
-
-[extra]
-chapter = "Chapter 7"
+aliases = ["/dl4traj/generation/"]
 +++
 
 Trajectory generation, or trajectory synthesis, aims to generate trajectories that are not actually recorded in the available trajectory data, but are still realistic and follow a target distribution.
 It is an important task for expanding the scale of trajectory datasets, when the availability of real-world trajectory data is limited.
-It is also a unique task that does not fit neatly into the categories of [end-to-end learning](../end-to-end) or [self-supervised learning](../self-supervised).
+It is also a unique task that does not fit neatly into the categories of [end-to-end learning](../end-to-end-trajectory-learning) or [self-supervised learning](../self-supervised-trajectory-learning).
 
 In this post, we will focus on the trajectory generation task, and discuss how the problem is defined, how to evaluate the quality and diversity of the generated trajectories, and introduce a general framework for solving the problem.
 
@@ -110,7 +107,7 @@ Each offers a different mechanism for learning and sampling from the trajectory 
 
 ### Variational Auto-encoder
 
-Recall that we touched on the VAE framework in the [self-supervised learning discussion](../self-supervised/).
+Recall that we touched on the VAE framework in the [self-supervised learning discussion](../self-supervised-trajectory-learning/).
 VAE learns a generative model by training an encoder-decoder pair with a probabilistic latent space. For trajectory generation, the encoder maps an input trajectory $\mathcal{T}$ to parameters of a latent distribution, typically a Gaussian:
 
 {% math() %}

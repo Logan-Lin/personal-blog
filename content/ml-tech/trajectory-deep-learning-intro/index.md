@@ -2,10 +2,7 @@
 title = "Introduction to Deep Learning for Trajectories"
 date = 2026-02-01
 description = ""
-weight = 1
-
-[extra]
-chapter = "Chapter 1"
+aliases = ["/dl4traj/introduction/", "/dl4traj/"]
 +++
 
 A spatiotemporal trajectory is a sequence, with each item being a timestamped location. It records the movement of an object or a human through time and space.

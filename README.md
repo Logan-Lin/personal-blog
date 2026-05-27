@@ -1,9 +1,9 @@
 ## Project Structure
 
-- `config.toml`: site config (base_url, title, markdown settings)
-- `content/`: blog posts organized by category (ml-tech, homelab, ai-system, dl4traj)
-- `templates/`: Zola templates + shortcodes
-- `sass/style.scss`: styles with light/dark mode via CSS variables
+- `config.toml`: site config
+- `content/`: blog posts organized by category
+- `templates/`: Zola templates and shortcodes
+- `sass/style.scss`: global styles
 - `static/`: favicons, web manifest
 - `public/`: built output
 

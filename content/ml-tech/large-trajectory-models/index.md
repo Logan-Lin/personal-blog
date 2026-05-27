@@ -2,15 +2,12 @@
 title = "On the Horizon of Large Trajectory Models"
 date = 2026-02-05
 description = ""
-weight = 8
-
-[extra]
-chapter = "Chapter 8"
+aliases = ["/dl4traj/large-model/"]
 +++
 
 Large language models (LLMs) are the backbone of the latest AI hype and are taking all the attention in the natural language processing (NLP) domain, or even most of the attention in the broad AI and ML community.
 
-As we noticed in [end-to-end learning](../end-to-end) and [self-supervised learning](../self-supervised) for trajectories, trajectories share technical and semantic similarity with sentences in NLP, and that enables us to adapt many NLP techniques to trajectory learning.
+As we noticed in [end-to-end learning](../end-to-end-trajectory-learning) and [self-supervised learning](../self-supervised-trajectory-learning) for trajectories, trajectories share technical and semantic similarity with sentences in NLP, and that enables us to adapt many NLP techniques to trajectory learning.
 
 The same story applies to adapting techniques introduced in LLMs to build so-called _large trajectory models_.
 In this post, we will discuss the fundamentals of these techniques, what to look for when adapting them to trajectory learning, and the necessity and future directions for large trajectory models.
@@ -76,7 +73,7 @@ $$P(t_1, t_2, \ldots, t_n) = \prod_{i=1}^{n} P(t_i \mid t_1, t_2, \ldots, t_{i-1
 
 Training maximizes the log-likelihood of observed sequences. At each step, the model predicts a distribution over the vocabulary for the next token. This is the foundation of models like GPT.
 
-_Masked language models_ take a different approach, as we saw with BERT in [self-supervised learning](../self-supervised). Instead of predicting the next token, the model predicts randomly masked tokens given their bidirectional context. This allows the model to use information from both past and future positions, but the training objective does not directly model the joint probability of sequences.
+_Masked language models_ take a different approach, as we saw with BERT in [self-supervised learning](../self-supervised-trajectory-learning). Instead of predicting the next token, the model predicts randomly masked tokens given their bidirectional context. This allows the model to use information from both past and future positions, but the training objective does not directly model the joint probability of sequences.
 
 The choice of objective affects what the model learns. Autoregressive models are naturally suited for generation tasks, as they can sample tokens one by one by conditioning on previously generated tokens. Masked language models are better suited for tasks that require understanding the full context, such as classification and extraction.
 Modern LLMs predominantly use the autoregressive objective, since their task is centered around generating text.
@@ -147,7 +144,7 @@ As mentioned above trajectories and sentences in NLP have similarity, yet they a
 
 ### Trajectory Tokenizer
 
-When training a trajectory model from scratch, embedding trajectory points follows the same principles as in [self-supervised learning](../self-supervised). Technically there is not much limitation on the design of embedding layer for trajectory features.
+When training a trajectory model from scratch, embedding trajectory points follows the same principles as in [self-supervised learning](../self-supervised-trajectory-learning). Technically there is not much limitation on the design of embedding layer for trajectory features.
 
 If we want to adapt the pre-trained Transformer from an LLM, then we face a representation gap: the Transformer layers expect inputs in the word embedding space, but trajectory embeddings encode spatio-temporal patterns with no inherent relationship to linguistic semantics. One approach to bridge this gap is _reprogramming through cross-attention_.
 
