@@ -275,7 +275,7 @@ Even with all the specialized acceleration involved, the hyperscalers building m
 [Consumer DRAM and SSD prices](https://spectrum.ieee.org/dram-shortage) have roughly doubled over the past year, and [data centers are projected to consume around 70% of all DRAM produced in 2026](https://www.tomshardware.com/pc-components/ram/data-centers-will-consume-70-percent-of-memory-chips-made-in-2026-supply-shortfall-will-cause-the-chip-shortage-to-spread-to-other-segments).
 The accelerators may handle the actual AI math, but a Von Neumann computer is still what hosts them.
 
-The genius of the Von Neumann design is not in any single component but in this modular shape.
+The genius of the Von Neumann design lies in this modular shape rather than in any single component.
 Each new generation of hardware can plug in as just another component on the bus, and software running on the CPU still coordinates everything.
 Going back to the Factorio analogy, even when an update adds new types of machines, you still feed them off the same main bus you already had.
 The factory grows, but the recipe for building factories does not change.

@@ -16,10 +16,10 @@ It is relatively slow, especially if you choose to integrate heavier AI models i
 And if you run your server on a computer with a cooling fan, chances are you will start to hear it once your server starts to accept constant incoming requests.
 
 Meanwhile, most AI models behind the APIs served by companies like OpenAI, Anthropic, and Google are technically too big to fit on consumer-level computers that you can buy at Elgiganten or Power.
-And they are serving these AI models to millions of people around the globe every day. How did they manage to do that? And how do these companies single-handedly drive the global memory and storage prices crazy?
+And they are serving these AI models to millions of people around the globe every day. How did they manage to do that? And how do these companies single-handedly push global memory and storage prices to extremes?
 In this part of the course, we will be answering these questions.
 
-We will start with the basics of computer architecture in [Module B.1](@/ai-system/ai-hardware/index.md), as well as hardware made for AI computing, how it is different from conventional computing hardware while fundamentally still fitting into a computer architecture that is more than half a century old.
+We will start with the basics of computer architecture in [Module B.1](@/ai-system/ai-hardware/index.md), as well as hardware made for AI computing and how it differs from conventional computing hardware while fundamentally still fitting into a computer architecture that is more than half a century old.
 In [Module B.2](@/ai-system/container-fundamentals/index.md) and [Module B.3](@/ai-system/ai-container/index.md), we will discuss containerization, one of the most important and widely adopted techniques to streamline deployment and management of AI systems on computers.
 Finally, we will discuss two types of common hardware infrastructure, other than your own personal computers, that you will deploy AI systems on. These are the cloud in [Module B.4](@/ai-system/cloud-deployment/index.md), and the edge in [Module B.5](@/ai-system/edge-deployment/index.md).
 

@@ -228,7 +228,7 @@ You cannot send `POST` requests to APIs that accept them, since there is no plac
 
 ### API Testing Tools
 
-This is where HTTP API testing tools come in. They are dedicated development tools for testing HTTP APIs. They let us control every detail of HTTP API-based interaction, and get a better idea of the behavior of HTTP APIs.
+This is where HTTP API testing tools come in. They are dedicated development tools for testing HTTP APIs. They let us control every detail of an HTTP API interaction, and get a better idea of the behavior of HTTP APIs.
 
 There are lots of API testing tools on the market.
 Here I will use [Postman](https://www.postman.com/) as an example, which is the most widely used and intuitive one.

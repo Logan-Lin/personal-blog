@@ -55,7 +55,7 @@ deadline: 2026-05-08
 
 The `nature/*` tag is one of `nature/conference`, `nature/education`, `nature/funding`, or `nature/journal`.
 
-Each daily note under `Schedule/` can be used to document the projects I worked on that day, among other stuff.
+Each daily note under `Schedule/` can be used to document the projects I worked on that day, among other things.
 
 ````markdown
 ## TODO

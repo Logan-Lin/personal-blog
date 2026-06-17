@@ -12,7 +12,7 @@ chapter = "Module B.5"
 In [Module B.4](@/ai-system/cloud-deployment/index.md) we deployed our AI server on a small cloud VM, gave it a domain name and an HTTPS certificate, and ended up with a real public AI service backed by infrastructure we did not have to own.
 
 However, there are scenarios where running our system on a computer we have physical access to fits better than renting cloud capacity.
-For example, a smart camera that has to react to people walking past it before they have walked past, where a cloud round trip is too slow.
+For example, a smart camera that has to react to people walking past it before they are gone, where a cloud round trip is too slow.
 Or an app processing medical scans we are not allowed to send to a third party.
 Maybe a long-running service we have run for years where the cumulative cloud bill has crossed the price of just buying a small server.
 
@@ -45,7 +45,7 @@ Bandwidth use drops because not much data needs to travel back to the cloud, whi
 Privacy improves because sensitive data never has to leave the device.
 And the system keeps working when the internet goes down.
 
-And there is a variety of edge hardware that can be found in the wild.
+And there is a variety of edge hardware in use.
 The [Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/) we already met is a perfectly capable edge device for hobby and small commercial projects.
 NVIDIA's [Jetson family](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/) offers boards with on-board GPUs for harder AI workloads.
 Industrial PCs designed to sit in factories and survive vibration, dust, and temperature swings handle the higher end.
@@ -105,7 +105,7 @@ What changes is everything that happens before installing Docker: picking the ha
 The right choice depends on what we are running and what we already have around.
 
 For learning, light AI workloads, and most hobby projects, a [**Raspberry Pi 5**](https://www.raspberrypi.com/products/raspberry-pi-5/) is a great choice.
-It is small, sips power (around 3 to 5 W idle, 10 to 15 W under full load), and runs a full Linux distribution. Also, Raspberry Pi might be the most popular family of edge devices in the world. That means it is usually easier to solve a problem we run into when tinkering with one, since there is a very high chance that someone on the internet has run into the same problem, and we can just copy the solution.
+It is small, draws little power (around 3 to 5 W idle, 10 to 15 W under full load), and runs a full Linux distribution. Also, Raspberry Pi might be the most popular family of edge devices in the world. That means it is usually easier to solve a problem we run into when tinkering with one, since there is a very high chance that someone on the internet has run into the same problem, and we can just copy the solution.
 For heavier on-device AI, NVIDIA's [**Jetson Orin Nano Super Developer Kit**](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/nano-super-developer-kit/) packs a small GPU into a board not much bigger than a Raspberry Pi.
 The Jetson family scales up to much more powerful boards intended for robotics and autonomous vehicles, at correspondingly higher prices.
 We can also save money and reduce e-waste by using an old laptop or desktop computer sitting unused in a closet.

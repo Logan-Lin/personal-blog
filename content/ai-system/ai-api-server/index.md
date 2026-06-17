@@ -74,7 +74,7 @@ predictions = [
 ```
 `torch.no_grad()` skips gradient tracking, since we are not training.
 `topk(5)` picks the five highest probabilities.
-The result is a list of label–confidence pairs ready to be returned as JSON.
+The result is a list of label-confidence pairs ready to be returned as JSON.
 
 If you have a model that you trained yourself in another course, for example, the Deep Learning course, you can load it the same way.
 Instead of asking `torchvision` for pre-trained weights, you point PyTorch at the saved weights file:

@@ -266,7 +266,7 @@ Anything that differs between development, staging, and production should live o
 ### GPU Passthrough
 
 If we run our server on a machine with an NVIDIA GPU and we want the AI model to use it, the container needs explicit access to the GPU device.
-This is not the default. Containers are isolated from host hardware, and the GPU has to be passed through.
+This is not the default, because containers are isolated from host hardware and the GPU has to be passed through.
 
 The general mechanism here is the `--device <host>` flag, which grants a container access to one specific device file on the host.
 The same pattern works for any hardware Linux exposes as a device file, including webcams at `/dev/video0`, serial ports at `/dev/ttyUSB0`, USB devices, and sound cards.

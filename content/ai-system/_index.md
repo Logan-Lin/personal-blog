@@ -11,5 +11,5 @@ display_chapter = true
 
 Basics of streamlined interaction with AI systems, peripherals that enable such interaction, and deployment of AI systems on real-world infrastructure.
 
-This is also the companion literature for the _AI Systems & Infrastructure_ course at Aalborg University in the form of blog posts.
+This is also the companion literature, in the form of blog posts, for the _AI Systems & Infrastructure_ course at Aalborg University.
 

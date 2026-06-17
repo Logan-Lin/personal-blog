@@ -379,7 +379,7 @@ Other providers use slightly different markers, so check their documentation.
 ## Exercise: A Command Line Chatbot
 
 Build a Python program that takes a question from you, sends it to an AI API, and prints the model's reply.
-You can use any of the AI APIs we have been using in the previous module's exercise, and the program does not need to be fancy to count as done.
+You can use any of the AI APIs we used in the previous module's exercise, and the program does not need to be fancy to count as done.
 
 A rough outline of how you can implement your program:
 

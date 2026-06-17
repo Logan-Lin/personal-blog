@@ -27,7 +27,7 @@ One day you might become the one who can charge everyone hundreds of EUR every m
 
 ## How Each Post is Structured
 
-Each blog post under the [AI Systems section](@/ai-system/_index.md) is the corresponding literature for a module, or it serves as an introduction like this one, or it provides information on mini projects and exams of this course.
+Each blog post under the [AI Systems section](@/ai-system/_index.md) is either the corresponding literature for a module, an introduction like this one, or information on mini projects and exams of this course.
 When you are on any page of this blog site, you can always click the "AIsys" link on the top navigation bar to go to the root of the AI Systems section.
 
 The literature for each module is generally structured as follows. It starts with an introduction to bring out the topic of the module, followed by a "Table of Contents" block that makes navigating the sections of the literature easier, then the main content of the literature split into sections, and finally the exercise for this module.
@@ -40,6 +40,6 @@ They include additional learning materials to suit different learning styles, as
 
 > Here is an example extended reading block, with links to video materials explaining computer network concepts to aid your study:
 > - [IP address explained (video)](https://www.youtube.com/watch?v=7_-qWlvQQtY) by George Nisbet, a short conceptual walkthrough
-> - [Network ports explained (video)](https://www.youtube.com/watch?v=h5vq9hFROEA) by CBT Nuggets, a clear IT-training-style explainer
+> - [Network ports explained (video)](https://www.youtube.com/watch?v=h5vq9hFROEA) by CBT Nuggets, a clear explainer in the style of IT training
 
 Each module comes with an exercise, giving you a chance to solve a practical problem with the knowledge learned in this module. They also usually build on top of exercises of previous modules, so you do not need to implement everything from scratch every time.

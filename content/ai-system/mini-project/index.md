@@ -35,7 +35,7 @@ The server should be deployed using the containerization techniques we learned i
 You should also prepare a simple **client program** for validating that the server is functioning correctly. There is no strict requirement for any aspect of this client program, as long as it can demonstrate the functionality of the API server you deployed.
 
 > For implementation and deployment of the server, you are free to use Python libraries, ask AI for help, or even reference the code I included in the blog post.
-> But you shouldn't directly copy and paste any code (implemented by others or AI) without any modification, especially if you have no idea what the code means. 
+> But you shouldn't directly copy and paste any code (implemented by others or AI) without any modification, especially if you have no idea what the code means.
 > In other words, I am not against reuse of existing tools and code since it is a common practice in software development, but you have to ensure that you understand your implementation.
 
 ### Bonus Points
@@ -45,7 +45,7 @@ These are not strict requirements, but are aspects that you can consider to demo
 - Use specialized AI computing hardware to accelerate the AI model used in the server, if the machine running the server has any ([Module B.1](@/ai-system/ai-hardware/index.md#specialized-hardware-for-ai))
 - Make the server publicly accessible and enable HTTPS ([Module B.4](@/ai-system/cloud-deployment/index.md#going-public-with-domains-and-https) and [Module B.5](@/ai-system/edge-deployment/index.md#getting-past-nat))
 
-Do note that incorporating these optional achievements in the project does not directly grant you a higher score than those who don't.
+Do note that incorporating these bonus points in the project does not directly grant you a higher score than those who don't.
 The purpose of the project is to reflect your understanding of the knowledge we covered in this course, and the course is scored based on the oral exam, not the project outcome directly.
 
 ## Report

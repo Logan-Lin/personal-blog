@@ -123,7 +123,7 @@ In a note, use `##` and lower for every section heading, matching the templates.
 
 ## Dashboard mechanics
 
-`Dashboard.md` is rendered for the end user, and its three `dataviewjs` blocks only produce results inside Obsidian.
+`Dashboard.md` is rendered for the user, and its three `dataviewjs` blocks only produce results inside Obsidian.
 Reading the file gives you the query code, not the answers.
 The logic below is documented so you can reconstruct the same information by reading the source notes yourself when the user asks for it.
 
