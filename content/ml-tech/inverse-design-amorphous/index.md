@@ -24,11 +24,11 @@ An amorphous material has no long-range order, just atoms frozen into a disorder
 These disordered solids are candidates for batteries and energy storage, non-linear optics, and catalysis, and their properties depend on both composition and thermal history, which gives a large design space.
 Two glasses of identical composition can differ because one was cooled slowly and the other quenched.
 
-Inverse design targets that space directly.
+Inverse design targets that design space directly, without trial and error.
 Instead of choosing a composition and process, synthesizing, and measuring, the model starts from the desired properties and produces an atomic structure that should exhibit them.
 The difficulty is that amorphous materials remove the conveniences crystals offer, in three ways that shape the model.
 
-First, there is no single target structure.
+First, a target does not pin down one structure.
 For a given composition and process, the valid structures form a distribution, and the model must sample from it rather than predict one answer.
 Second, the relevant structure lives at the medium range, roughly 5 to 20 Angstrom, or 0.5 to 2 nm, so faithful samples need cells of hundreds of atoms rather than a handful.
 Third, density is a design variable in its own right, and it strongly affects properties.
@@ -59,7 +59,7 @@ We use a stochastic differential equation (SDE) sampler rather than a determinis
 
 > Song, Yang, Jascha Sohl-Dickstein, Diederik P. Kingma, Abhishek Kumar, Stefano Ermon, and Ben Poole. "Score-based generative modeling through stochastic differential equations."
 
-The large cells make the architecture matter.
+With cells of hundreds of atoms, the architecture has to scale, so its design matters.
 The score function is an equivariant graph neural network (EGNN) over a graph that connects atoms within a 6.5 Angstrom cutoff, computed with periodic boundary conditions so the finite cell behaves as an endlessly repeating solid.
 A material is unchanged under relabeling of atoms, translation, rotation, and mirroring, and the EGNN builds in these invariances so they need not be learned from scarce data.
 Conditioning is what makes it inverse design, with the target properties $y$ entering as node features alongside the element embedding and diffusion time.
@@ -72,7 +72,7 @@ s'_\theta(x, y) = (1 + w)\, s_\theta(x, y) - w\, s_\theta(x).
 
 The unconditional branch $s_\theta(x)$ comes either from a separate unconditional model or, more cheaply, from feeding the model random properties drawn from the training set, since a condition independent of the structure leaves the conditional score equal to the unconditional one.
 
-Density needs a mechanism specific to materials.
+Density needs a mechanism of its own, because the model has no built-in way to set it.
 A diffusion model can move atoms and change their elements but cannot change the number of atoms, which is fixed from the first sample to the last.
 AMDEN introduces a ghost atom type to fill the cell up to a target density, scattered among the real atoms during generation and removed at the end, so the model sets the real density by choosing which atoms emerge as ghosts.
 A voxel grid could also vary the number of atoms, but it would break the rotational symmetry the EGNN preserves.
@@ -172,12 +172,12 @@ The model never sees potential energy or forces during training, yet sampling on
 
 ## Discussion
 
-HMC denoising is not free.
+HMC denoising adds computational cost on top of standard denoising, in both training and inference.
 Training requires a double backpropagation, and inference runs many model evaluations per HMC step, with about 2000 diffusion steps rather than the 200 of standard denoising.
 The relevant comparison is against the simulation it replaces.
 Generating one roughly 800-atom MEG sample takes about a minute on an A100 GPU, against 2.5 to 3.5 hours for the corresponding melt-quench in the LAMMPS MD package on a single CPU core, and the larger gain is going straight from target properties to a structure rather than scanning the design space.
 
-Beyond that, a few more limits remain.
+Cost aside, AMDEN has a few more limits.
 AMDEN is most reliable within or near its training distribution, with limited extrapolation, and its samples are not guaranteed to be stoichiometrically balanced, meaning they may miss the exact element ratios such as one silicon to two oxygen, though constrained sampling at inference can enforce that cheaply.
 The largest constraint is the scarcity of large, high-quality amorphous datasets, the same simulation cost that held the field back to begin with.
 With diffusion models that only denoise, a glass whose structure looks close to right can still be clearly wrong in energy, a gap that barely shows in the structure, because of the rugged landscape.
