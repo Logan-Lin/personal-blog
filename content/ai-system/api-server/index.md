@@ -94,7 +94,7 @@ The line tells us a client at `127.0.0.1:56835` sent a `GET / HTTP/1.1` request,
 > FastAPI is not the only choice for building API servers in Python.
 > Two other widely used Python frameworks are [Flask](https://flask.palletsprojects.com/) and [Django](https://www.djangoproject.com/).
 > Flask is a lightweight, minimal framework that has been a community favorite for years, while Django is a much larger framework aimed at full websites with built-in templates, admin panels, and database tools.
-> FastAPI is the youngest of the three but has grown rapidly thanks to its type-hint-driven validation and async support, both of which fit AI workloads well.
+> FastAPI is the youngest of the three but has grown rapidly thanks to its validation driven by type hints and its async support, both of which fit AI workloads well.
 > - [A side-by-side comparison of FastAPI, Flask, and Django (video)](https://www.youtube.com/watch?v=cNlJCQHSmbE)
 >
 > Outside the Python world, every popular language has at least one mature API server framework, for example [Express](https://expressjs.com/) for Node.js, [Gin](https://gin-gonic.com/) for Go, and [Axum](https://docs.rs/axum/latest/axum/) for Rust.
@@ -134,7 +134,7 @@ from fastapi import Header
 def whoami(user_agent: str | None = Header(default=None)):
     return {"user_agent": user_agent}
 ```
-The parameter name `user_agent` is automatically mapped to the `User-Agent` header. FastAPI converts underscores to dashes and is case-insensitive.
+The parameter name `user_agent` is automatically mapped to the `User-Agent` header. FastAPI converts underscores to dashes and ignores letter case.
 If the header is missing, the default value `None` is used.
 
 If we send a `GET` request to `http://127.0.0.1:8000/whoami` from a browser, we will see the browser's User-Agent string in the response.
@@ -390,4 +390,4 @@ Once that works, try the following extensions to deepen your understanding of th
    Send a real image from the Module A.2 program and check that the server reports the correct values.
 
 If you finish all the extensions, you will have a small but real API server that mirrors the shape of the production AI APIs we have been talking to all along.
-The next module fills in what is still missing: the AI model behind the endpoints.
+The next module fills in what is still missing, the AI model behind the endpoints.

@@ -16,7 +16,7 @@ However, just the AI models themselves are far from being able to serve people a
 To help inflate the AI bubble even more and integrate AI into every piece of our digital life, all kinds of software, such as search engines, messaging apps, text editors, social media apps, and video games, need to interact with AI models.
 However, not all software is coded with Python, and even if it is, you cannot expect all software to be Python functions within a giant Python project that can call each other for communication. Therefore, there must be a more standardized, language-agnostic way to enable communication between AI models and other parts of the digital world, but what is it, and can we implement it ourselves?
 
-As a type of software, AI models also need hardware to run. And not all hardware is created equal. Why do top-of-the-line AI models like OpenAI's ChatGPT and Anthropic's Claude need to run in those data centers, each with the power draw of a small town, rather than on your smartphone?
+As a type of software, AI models also need hardware to run. And not all hardware is created equal. Why do the most advanced AI models like OpenAI's ChatGPT and Anthropic's Claude need to run in those data centers, each with the power draw of a small town, rather than on your smartphone?
 If you have ever installed and set up Windows from scratch, you can tell that it is impossible for OpenAI and Google to repeat the process of manually setting up each computer in their data centers 10,000 times. But then, what kind of techniques do they use to streamline this process?
 And is it even possible for you to run an AI model yourself at home so that you can finally stop paying those corrupt and monopolistic companies?
 

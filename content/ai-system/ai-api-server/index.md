@@ -74,7 +74,7 @@ predictions = [
 ```
 `torch.no_grad()` skips gradient tracking, since we are not training.
 `topk(5)` picks the five highest probabilities.
-The result is a list of label-confidence pairs ready to be returned as JSON.
+The result is a list of pairs, each with a label and a confidence score, ready to be returned as JSON.
 
 If you have a model that you trained yourself in another course, for example, the Deep Learning course, you can load it the same way.
 Instead of asking `torchvision` for pre-trained weights, you point PyTorch at the saved weights file:
@@ -185,7 +185,7 @@ After Base64-encoding the image and sending it to `/v1/classify`, the server ret
     ]
 }
 ```
-ResNet-18 was only trained on the 1000 ImageNet classes, none of which is "seafood casserole", so the closest matches are vaguely soup-like dishes.
+ResNet-18 was only trained on the 1000 ImageNet classes, none of which is "seafood casserole", so the closest matches are dishes that vaguely resemble soup.
 But the result still tells us that the whole pipeline is working end to end.
 
 
@@ -272,7 +272,7 @@ Each call to that remote API takes several seconds, almost all of which is spent
 With `async def` and `await`, a single server process can have hundreds of these waits going on at the same time without hiring hundreds of waiters.
 
 > The [official FastAPI docs on concurrency](https://fastapi.tiangolo.com/async/) have a much longer explanation of when `async def` helps and when it does not.
-> In short, use `async def` for endpoints that mostly wait on something outside the function, like a network reply, a database response, or another API, and use `asyncio.to_thread` to push heavy in-process computation onto a separate thread so the server stays responsive.
+> In short, use `async def` for endpoints that mostly wait on something outside the function, like a network reply, a database response, or another API, and use `asyncio.to_thread` to push heavy computation inside the process onto a separate thread so the server stays responsive.
 > If we just use plain synchronous `def` for an endpoint, FastAPI will run it in its own pool of threads, which is usually fine for low traffic but does not scale to many parallel requests as gracefully as a properly async endpoint does.
 
 
@@ -283,7 +283,7 @@ That is fine for local development, but the moment we put it on the internet, an
 For an AI server, that is more than a small problem.
 AI inference is expensive, and an unprotected endpoint can be used to overload our hardware or run up our cloud or electricity bill within minutes.
 
-This section adds the three protections most real AI APIs have: API key authentication, per-user usage tracking, and rate limiting.
+This section adds the three protections most real AI APIs have: API key authentication, usage tracking for each user, and rate limiting.
 We will start with a hardcoded key, then move the keys into a small database so we can support multiple users, and finally use that same database to enforce rate limits.
 
 ### Header Auth with API Keys
@@ -421,7 +421,7 @@ Adding or revoking a key now means inserting or deleting a row in the database, 
 > - [SQLAlchemy: the best SQL database library in Python (video)](https://www.youtube.com/watch?v=aAy-B6KPld8) by ArjanCodes, covering the same modern declarative style we used here
 > - [The official SQLAlchemy tutorial (docs)](https://docs.sqlalchemy.org/en/20/tutorial/), the canonical reference once you need anything beyond the basics
 
-> SQLite is convenient for development and small-scale deployments, but it does not handle many concurrent writers well, and it lives on a single machine.
+> SQLite is convenient for development and small deployments, but it does not handle many concurrent writers well, and it lives on a single machine.
 > Production AI APIs typically use a more capable database.
 > Two common choices are [PostgreSQL](https://www.postgresql.org/), a powerful general-purpose relational database, and [Redis](https://redis.io/), an in-memory key-value store often used for caching and rate limiting.
 > Thanks to SQLAlchemy, switching from SQLite to PostgreSQL is usually a one-line change to the connection URL, and most of the code we wrote stays the same.
@@ -526,7 +526,7 @@ The status code `429` is the standard one for rate limiting, and well-behaved cl
 In a real deployment we would also want to store the rate limit on the `User` row itself, so different users can have different limits, and probably move the counter into a faster store like Redis to avoid hitting the database on every request.
 But the principle stays the same.
 
-> Fixed and sliding windows are only two of several rate-limiting algorithms.
+> Fixed and sliding windows are only two of several rate limiting algorithms.
 > Other common ones are the token bucket and the leaky bucket, each with its own trade-offs around burstiness, smoothness, and implementation cost.
 > Below are some additional resources to learn about these algorithms more systematically.
 > - [What is rate limiting? (blog post)](https://www.imperva.com/learn/application-security/rate-limiting/), a written overview of fixed-window, sliding-window, and leaky-bucket algorithms

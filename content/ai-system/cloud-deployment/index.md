@@ -66,7 +66,7 @@ From inside the VM it looks no different from a small dedicated server.
 > - [What is a hypervisor? (article)](https://www.redhat.com/en/topics/virtualization/what-is-a-hypervisor) by Red Hat, a written walkthrough of the technology behind virtualization
 
 
-> The cloud market is dominated by three **hyperscalers**: [Amazon Web Services (AWS)](https://aws.amazon.com/), the original from the spare-capacity story above and still the largest by catalog and revenue; [Google Cloud Platform (GCP)](https://cloud.google.com/), known for data and ML services and competitive GPU pricing; and [Microsoft Azure](https://azure.microsoft.com/), the natural choice for organizations already in the Microsoft ecosystem. They offer roughly the same vast catalog of services across regions all over the world.
+> The cloud market is dominated by three **hyperscalers**: [Amazon Web Services (AWS)](https://aws.amazon.com/), the original from the spare capacity story above and still the largest by catalog and revenue; [Google Cloud Platform (GCP)](https://cloud.google.com/), known for data and ML services and competitive GPU pricing; and [Microsoft Azure](https://azure.microsoft.com/), the natural choice for organizations already in the Microsoft ecosystem. They offer roughly the same vast catalog of services across regions all over the world.
 >
 > Beyond the big three, plenty of smaller providers exist for specific needs.
 > [DigitalOcean](https://www.digitalocean.com/), [Linode](https://www.linode.com/), and [Vultr](https://www.vultr.com/) offer clean interfaces and predictable pricing, often a better fit for individual developers and small projects.
@@ -91,14 +91,14 @@ The provider takes care of the operating system and runtime, and we hand them an
 Examples are [ECS](https://aws.amazon.com/ecs/) and [EKS](https://aws.amazon.com/eks/) on AWS, [Cloud Run](https://cloud.google.com/run) on GCP, and [Container Apps](https://azure.microsoft.com/en-us/products/container-apps) on Azure.
 
 **GPU instances** are virtual machines with one or more GPUs attached, used for training models or running inference on heavier ones.
-They are powerful but also among the most expensive line items in the catalog: a top-end NVIDIA H100 instance can run several dollars per hour, and during industry-wide demand spikes they can be hard to find at all.
+They are powerful but also among the most expensive line items in the catalog: a top-end NVIDIA H100 instance can run several dollars per hour, and during demand spikes across the industry they can be hard to find at all.
 Examples are AWS [P-series and G-series](https://aws.amazon.com/ec2/instance-types/), GCP [A-series and G-series](https://cloud.google.com/compute/docs/gpus), and Azure [NC and ND-series](https://azure.microsoft.com/en-us/pricing/details/virtual-machines/series/).
 
 > A few more service categories are worth knowing about, even though we will not use them directly in this course:
 >
-> [**Managed AI platforms**](https://aws.amazon.com/sagemaker/) (like SageMaker on AWS, [Vertex AI](https://cloud.google.com/vertex-ai) on GCP, or [Azure Machine Learning](https://azure.microsoft.com/en-us/products/machine-learning) on Azure) sit one more layer of abstraction above container services and are tailored for ML workflows: training jobs, model registries, A/B testing different model versions, and one-click deployment. They are the easiest path from "I have a model" to "I have an HTTPS endpoint serving it", at the cost of writing code against the provider's APIs.
+> [**Managed AI platforms**](https://aws.amazon.com/sagemaker/) (like SageMaker on AWS, [Vertex AI](https://cloud.google.com/vertex-ai) on GCP, or [Azure Machine Learning](https://azure.microsoft.com/en-us/products/machine-learning) on Azure) sit one more layer of abstraction above container services and are tailored for ML workflows: training jobs, model registries, A/B testing different model versions, and deployment in one click. They are the easiest path from "I have a model" to "I have an HTTPS endpoint serving it", at the cost of writing code against the provider's APIs.
 >
-> [**Object storage**](https://aws.amazon.com/s3/) (like S3 on AWS, [Cloud Storage](https://cloud.google.com/storage) on GCP, or [Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) on Azure) is a separate category for storing large blobs of data: training datasets, model checkpoints, user uploads. It is not designed for low-latency access, so we do not serve API requests directly from it, but it is extremely cheap and durable, with files automatically replicated across data centers.
+> [**Object storage**](https://aws.amazon.com/s3/) (like S3 on AWS, [Cloud Storage](https://cloud.google.com/storage) on GCP, or [Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) on Azure) is a separate category for storing large blobs of data: training datasets, model checkpoints, user uploads. It is not designed for access with low latency, so we do not serve API requests directly from it, but it is extremely cheap and durable, with files automatically replicated across data centers.
 >
 > [**Serverless functions**](https://aws.amazon.com/serverless/) (like AWS Lambda or Google Cloud Functions) run a piece of code in response to an event, with no long-running server to manage, billed per millisecond of execution. Useful for short tasks but a poor fit for AI servers that need to keep large models loaded in memory.
 >
@@ -113,7 +113,7 @@ For learning purposes, and for small AI services in general, we will argue the o
 The first reason is predictable cost.
 A small VM rents at a fixed hourly or monthly rate, regardless of traffic, so the bill at the end of the month is exactly what we expect.
 Usage-based services, on the other hand, charge per request, per second of compute, per gigabyte of bandwidth, and so on, which sounds appealing but can produce unpleasant surprises.
-Stories of accidental cloud bills are easy to find: a static documentation site that suddenly cost six figures on Netlify, four-figure S3 charges overnight from public buckets being scraped, GPU instances left running through the weekend.
+Stories of accidental cloud bills are easy to find: a static documentation site that suddenly cost six figures on Netlify, thousands of dollars in S3 charges overnight from public buckets being scraped, GPU instances left running through the weekend.
 The [Serverless Horrors](https://serverlesshorrors.com/) site collects them.
 None of this happens with a fixed-price VM.
 
@@ -140,7 +140,7 @@ We can always grow into a bigger VM, or migrate to a managed service later, once
 Every provider has a slightly different web console, but the deployment flow is always the same: create a VM, SSH into it, install Docker, run the container.
 The mechanics of SSH, `apt`, and `docker run` are the same as on any other Linux box (such as the AAU servers you may have used in earlier courses), so we will only highlight the cloud-specific bits here.
 
-When creating the VM, [Ubuntu LTS](https://ubuntu.com/about/release-cycle) (`24.04` at the time of writing) is the safe default operating system, and 2 vCPUs with 4 GB of RAM and 20 to 30 GB of disk is enough for our CPU-only classifier.
+When creating the VM, [Ubuntu LTS](https://ubuntu.com/about/release-cycle) (`24.04` at the time of writing) is the safe default operating system, and 2 vCPUs with 4 GB of RAM and 20 to 30 GB of disk is enough for our classifier running on CPU only.
 Two settings deserve attention because they are the most common cause of "I deployed it but it does not respond": make sure the VM is assigned a public IP address, and open ports 22 (SSH), 8000 (our API), and the default HTTP and HTTPS ports 80 and 443 in the cloud firewall (called *security groups* on AWS, *firewall rules* on GCP, *network security groups* on Azure). We will come back to why ports 80 and 443 matter in the [next section](#going-public-with-domains-and-https).
 Cloud firewalls deny everything by default, so anything we do not explicitly allow will be unreachable from outside, regardless of what the VM itself is doing.
 Finally, paste in an SSH public key so we can log in without a password. If you do not have one yet, [DigitalOcean's tutorial](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server) walks through generating and installing one.
@@ -186,7 +186,7 @@ The fix on both fronts is standard infrastructure: a domain name and an HTTPS ce
 
 ### Domains and DNS
 
-We saw in [Module A.1](@/ai-system/api-fundamentals/index.md#network-fundamentals) that an IP address is the actual location of a server on the network, and that a domain name is the human-friendly handle pointing to that location.
+We saw in [Module A.1](@/ai-system/api-fundamentals/index.md#network-fundamentals) that an IP address is the actual location of a server on the network, and that a domain name is the readable handle people use to point to that location.
 The system that translates domain names into IP addresses is called the [**Domain Name System (DNS)**](https://www.cloudflare.com/learning/dns/what-is-dns/), and it is one of the oldest pieces of internet infrastructure still in active use.
 
 DNS works as a globally distributed lookup service.
@@ -256,9 +256,9 @@ A reverse proxy works the other way around: it stands in front of a server and i
 That indirection is useful for many things beyond HTTPS termination, including writing access logs, limiting how many requests per second a client may send, caching responses so repeated requests do not hit the application, compressing what is sent back to the browser, splitting incoming traffic across several copies of the same application running on different machines, and serving fixed files like images and HTML directly so the application is not bothered with them.
 
 The most common reverse proxy is [**Nginx**](https://nginx.org/), a small and fast web server that has been around since 2004 and powers a large fraction of the internet.
-It became popular because a single Nginx instance can handle tens of thousands of simultaneous connections on modest hardware, which is far more than what earlier web servers like [Apache HTTP Server](https://httpd.apache.org/) could manage at the time, and that made Nginx a default choice for high-traffic sites.
+It became popular because a single Nginx instance can handle tens of thousands of simultaneous connections on modest hardware, which is far more than what earlier web servers like [Apache HTTP Server](https://httpd.apache.org/) could manage at the time, and that made Nginx a default choice for sites with heavy traffic.
 
-On Ubuntu or other Debian-based Linux systems, install Nginx with apt:
+On Ubuntu or other Linux systems based on Debian, install Nginx with apt:
 ```bash
 sudo apt install -y nginx
 ```
@@ -337,7 +337,7 @@ Then run Certbot:
 sudo certbot --nginx -d api.example.com
 ```
 Certbot will ask for an email address (used for renewal warnings), ask us to accept the Let's Encrypt terms, and then complete a domain validation challenge: it places a small file under `/.well-known/acme-challenge/` on the server, asks Let's Encrypt to fetch it over HTTP, and proves we control the domain because we are the ones serving it.
-Once the domain is validated, Certbot installs the issued certificate, edits the Nginx config to add a `listen 443 ssl;` block with the right paths, and (optionally but recommended) sets up an HTTP-to-HTTPS redirect.
+Once the domain is validated, Certbot installs the issued certificate, edits the Nginx config to add a `listen 443 ssl;` block with the right paths, and (optionally but recommended) sets up a redirect from HTTP to HTTPS.
 
 Visit `https://api.example.com` in a browser and the padlock icon should appear, with the certificate details showing it was issued by Let's Encrypt.
 HTTP requests to the same hostname should automatically redirect to HTTPS.
@@ -351,7 +351,7 @@ Once that succeeds, certificate management takes care of itself.
 
 > An alternative worth knowing about is [**Traefik**](https://traefik.io/), a reverse proxy designed for container environments.
 > Traefik watches Docker for new containers, reads routing rules from container labels, and can request and renew Let's Encrypt certificates automatically with no separate Certbot step.
-> The trade-off is that the configuration is spread across container labels rather than in a single Nginx file, which is harder to read for a small one-container deployment but very convenient once you are running ten or twenty services on the same VM.
+> The trade-off is that the configuration is spread across container labels rather than in a single Nginx file, which is harder to read for a small deployment with a single container but very convenient once you are running ten or twenty services on the same VM.
 > The [Traefik getting-started guide for Docker](https://doc.traefik.io/traefik/getting-started/docker/) is a good starting point if you want to try this approach.
 
 

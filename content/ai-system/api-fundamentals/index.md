@@ -35,7 +35,7 @@ Without going too deep into computer networking, we will focus on four core conc
 An [**IP address**](https://www.geeksforgeeks.org/computer-science-fundamentals/what-is-an-ip-address/) is a unique identifier assigned to each device connected to a network, telling applications where to find each other. Think of it as a street address such as _Fredrik Bajers Vej 7K, 9220 Aalborg East, Denmark_. An IPv4 address looks something like `65.108.210.169`.
 
 Technically speaking, APIs can be reached solely by IP addresses. The problem is that IP addresses are difficult for humans to read and remember, just like street addresses are usually too long for us to remember.
-We usually prefer a shorter, semantically rich name like _Aalborg University_. Similarly, domain names provide this human-friendly alternative.
+We usually prefer a shorter, semantically rich name like _Aalborg University_. Similarly, domain names provide this alternative that is easier for humans.
 A [**domain**](https://www.geeksforgeeks.org/computer-networks/introduction-to-domain-name/) is also a unique identifier pointing to some network resource and usually has one or more corresponding IP addresses.
 In the ChatGPT example above, `api.openai.com` is the domain name of the API, pointing to IP addresses like `162.159.140.245` and `172.66.0.243`.
 
@@ -49,11 +49,11 @@ Typically we don't have to specify a port when calling an API, since there are d
 
 > Below are some videos explaining computer network concepts to aid your study.
 > - [IP address explained (video)](https://www.youtube.com/watch?v=7_-qWlvQQtY) by George Nisbet, a short conceptual walkthrough
-> - [Network ports explained (video)](https://www.youtube.com/watch?v=h5vq9hFROEA) by CBT Nuggets, a clear IT-training-style explainer
+> - [Network ports explained (video)](https://www.youtube.com/watch?v=h5vq9hFROEA) by CBT Nuggets, a clear explainer in the style of IT training
 > - [Understanding URLs (video)](https://www.youtube.com/watch?v=5Jr-_Za5yQM) by LearnFree, a slow-paced introduction for beginners
 > 
 > We also skipped more advanced computer networking concepts, like the OSI model of computer networks, and how computers process network addresses. But if you are interested in digging deeper, below are links for extended study:
-> - [The OSI model of computer networks (blog post)](https://www.geeksforgeeks.org/computer-networks/open-systems-interconnection-model-osi/) by GeeksforGeeks, an in-depth walkthrough of all seven layers with examples
+> - [The OSI model of computer networks (blog post)](https://www.geeksforgeeks.org/computer-networks/open-systems-interconnection-model-osi/) by GeeksforGeeks, a detailed walkthrough of all seven layers with examples
 > - [The OSI model explained (video)](https://www.youtube.com/watch?v=keeqnciDVOo) by Fireship, a dense, fast-paced 100-second overview of computer networking
 > - [How domains are mapped to IP addresses (video)](https://www.youtube.com/watch?v=mpQZVYPuDGU) by PowerCert Animated Videos, an animated explainer of how DNS resolves domains
 
@@ -72,7 +72,7 @@ HTTP follows the request-response model. That means an HTTP-based communication 
 
 ### HTTP Request
 
-On top of the request-response model, the HTTP protocol standardizes how a request should be formatted, similar to a real-life standard for how a letter should be addressed and sealed.
+On top of the request-response model, the HTTP protocol standardizes how a request should be formatted, similar to a standard in real life for how a letter should be addressed and sealed.
 This standard is in the form of several [**HTTP request components**](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Messages#http_requests): request line, request headers, and request body.
 
 The [**request line**](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Messages#request_line) is a single line that summarizes the intent of the request: what action the sender wants to perform, where to perform it, and which version of the protocol to use. It is similar to the first line on the front of a letter that states the purpose and destination, such as _Delivery - Fredrik Bajers Vej 7K, 3.2.50_. A request line will be something like this:
@@ -95,7 +95,7 @@ Accept: application/json
 User-Agent: SomeAIApp/1.0
 ```
 Here, `Authorization` identifies the user and protects the API. This is usually where we specify our API keys. `Content-Type` and `Accept` specify the format of data we're sending and the expected response, respectively. `User-Agent` identifies the type of application or client we are using to interact with the API.
-While there are some common header fields you will frequently encounter in practice, there is not really a standardized list of header fields that will always be included in any HTTP request. What fields to include in each HTTP request largely depends on what the specific API we are trying to communicate with requires, which we will see when we start to interact with real-world APIs.
+While there are some common header fields you will frequently encounter in practice, there is not really a standardized list of header fields that will always be included in any HTTP request. What fields to include in each HTTP request largely depends on what the specific API we are trying to communicate with requires, which we will see when we start to interact with real APIs.
 
 Finally, we have the **request body**, which is the content of the request. There are various data formats to use for the body. In the above example, notice that we specified the content format in one request header as `Content-Type: application/json`, which means we will be using the [JSON format](https://www.w3schools.com/whatis/whatis_json.asp) in the request body. In other words, our request body will look like this:
 ```json
@@ -110,7 +110,7 @@ Finally, we have the **request body**, which is the content of the request. Ther
 ```
 The key-value format of the JSON object is specific to the API we are sending our request to.
 In practice, when we are sending a request to an existing API served by an AI system provider, like OpenAI with one of their APIs, we will need to read their documentation for the specification of the expected format.
-There are also other [content types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Type) that might be more suitable for certain types of data. Generally speaking, JSON is the most popular one since it's both machine-parseable and human-friendly.
+There are also other [content types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Type) that might be more suitable for certain types of data. Generally speaking, JSON is the most popular one since it's both parseable by machines and friendly to humans.
 
 Also recall that of the two HTTP methods `GET` and `POST`, we will be sending data to the recipient when using `POST` but not when using `GET`. Thus, we will not include the request body in a `GET` request.
 
@@ -173,7 +173,7 @@ Again, the format of this JSON object is specific to the API you requested.
 >
 > While HTTP is the predominant API protocol, it is not the only one, and there are other protocols that can achieve different functionalities or are more suitable than HTTP in certain scenarios. For example, WebSocket is a protocol that, instead of using the request-response model like HTTP does, establishes a continuous, bidirectional (full-duplex) communication tunnel between two applications. It is widely used in video conferencing platforms, and by some AI systems like [OpenAI's Realtime API](https://openai.com/index/introducing-the-realtime-api/) and [Google's Gemini Live](https://gemini.google/overview/gemini-live/).
 > You can learn more about alternative protocols to HTTP that are relevant in the AI context if you are interested:
-> - [WebSocket Protocol (blog post)](https://www.geeksforgeeks.org/web-tech/what-is-web-socket-and-how-it-is-different-from-the-http/) by GeeksforGeeks, a beginner-friendly comparison between WebSocket and HTTP
+> - [WebSocket Protocol (blog post)](https://www.geeksforgeeks.org/web-tech/what-is-web-socket-and-how-it-is-different-from-the-http/) by GeeksforGeeks, a comparison between WebSocket and HTTP friendly to beginners
 > - [WebRTC Protocol (blog post)](https://www.geeksforgeeks.org/techtips/introduction-to-webrtc/), another protocol for full-duplex communication
 > - [Model Context Protocol (MCP) (docs)](https://modelcontextprotocol.io/docs/getting-started/intro), which streamlines interaction between AI chat models and external tools. I think calling it a protocol is questionable, since it uses HTTP internally. Nonetheless, it is very relevant in the context of AI
 > - [Message Queuing Telemetry Transport (MQTT) Protocol (blog post)](https://www.emqx.com/en/blog/the-easiest-guide-to-getting-started-with-mqtt), a protocol that operates on the publish-subscribe pattern, suitable for efficiently distributing data to lots of applications at once

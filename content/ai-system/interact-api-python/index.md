@@ -132,7 +132,7 @@ print(response.status_code)  # e.g., 200
 ```
 There are also shortcuts like `response.ok`, which is true for any status code below 400, and `response.reason`, which is the reason phrase like `"OK"` or `"Not Found"`.
 
-Response headers are exposed as a dictionary-like object on `response.headers`:
+Response headers are exposed as an object that behaves like a dictionary on `response.headers`:
 ```python
 print(response.headers["Content-Type"])  # e.g., "application/json"
 ```
@@ -158,7 +158,7 @@ The network could be down, the API key could be invalid, the request body could 
 A program that crashes the moment any of these happen is not very useful.
 
 The `requests` package signals failures in two ways.
-Network-level failures, like the connection being refused or timing out, raise exceptions from the `requests.exceptions` module.
+Failures at the network level, like the connection being refused or timing out, raise exceptions from the `requests.exceptions` module.
 Failures at the HTTP level, where the request reaches the server but the server responds with an error status code like 4xx or 5xx, do not raise exceptions by default.
 We have to either check `response.status_code` ourselves or call `response.raise_for_status()`, which raises an `HTTPError` if the status code indicates failure.
 
@@ -182,7 +182,7 @@ except requests.exceptions.RequestException as e:
     print(f"Request failed: {e}")
 ```
 
-`requests.exceptions.RequestException` is the base class for all exceptions raised by `requests`, so it acts as a catch-all if we just want one branch to handle anything network-related.
+`requests.exceptions.RequestException` is the base class for all exceptions raised by `requests`, so it acts as a catch-all if we just want one branch to handle anything related to the network.
 Here we catch `Timeout` and `HTTPError` separately because they often deserve different treatment.
 A timeout might be worth retrying, while a 401 from a bad API key is not.
 
@@ -231,7 +231,7 @@ headers = {
 ```
 The key never appears in source code, and we can safely share or commit our work.
 
-For longer-running projects with several environment variables, manually exporting each one quickly gets tedious.
+For projects that run longer and have several environment variables, manually exporting each one quickly gets tedious.
 A common practice is to store them in a `.env` file at the root of the project, then load them at startup using a package like [`python-dotenv`](https://pypi.org/project/python-dotenv/).
 A `.env` file looks like this:
 ```
@@ -371,7 +371,7 @@ Other providers use slightly different markers, so check their documentation.
 >
 > SSE is not the only protocol AI services use for streaming.
 > Protocols like WebSocket and WebRTC support two-way communication and are widely used in voice and video AI features, including [OpenAI's Realtime API](https://developers.openai.com/api/docs/guides/realtime) and [Google's Gemini Live](https://gemini.google/overview/gemini-live/).
-> For these protocols the `requests` package is no longer enough, and we need protocol-specific Python libraries:
+> For these protocols the `requests` package is no longer enough, and we need Python libraries specific to each protocol:
 > - [`websockets` (docs)](https://websockets.readthedocs.io/en/stable/) for WebSocket clients and servers
 > - [`aiortc` (docs)](https://aiortc.readthedocs.io/en/latest/) for WebRTC clients and servers
 
@@ -391,7 +391,7 @@ A rough outline of how you can implement your program:
 
 Once you have the basic version working, try the following extensions to deepen your understanding of the topics covered in this module:
 
-1. Intentionally trigger errors. Try an invalid API key, a malformed body, or unplugging your network cable mid-request. Verify that each branch of your error handling actually fires, and that the user-facing messages are useful.
+1. Intentionally trigger errors. Try an invalid API key, a malformed body, or unplugging your network cable in the middle of a request. Verify that each branch of your error handling actually fires, and that the messages shown to the user are useful.
 2. Add a `--image <path>` flag that lets the user attach a local image to the question. Use Pillow and Base64 to embed the image into the message.
 3. Replace the regular `POST` with a streaming version that prints the assistant's reply word by word using SSE. Once it works, you should feel a noticeable difference compared to waiting for the full reply.
 

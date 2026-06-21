@@ -81,7 +81,7 @@ What makes one a program and the other a value is how the processor uses them.
 #### Central Processing Unit (CPU)
 
 The [**Central Processing Unit (CPU)**](https://www.geeksforgeeks.org/computer-science-fundamentals/central-processing-unit-cpu/) is the part that actually executes instructions on data, like the chefs in the kitchen who follow recipes to turn ingredients into dishes.
-Modern CPUs are built from many sub-components, but for this course we will focus on the two essential ones: the control unit and the arithmetic logic unit.
+Modern CPUs are built from many subcomponents, but for this course we will focus on the two essential ones: the control unit and the arithmetic logic unit.
 
 The [**control unit (CU)**](https://www.geeksforgeeks.org/computer-organization-architecture/introduction-of-control-unit-and-its-design/) is like the executive chef who reads the orders and recipes, figures out what needs to happen next, and tells everyone else what to do.
 In CPU terms it fetches the next instruction from memory, decodes it into an [operation code](https://en.wikipedia.org/wiki/Opcode) that says what to do and [operands](https://en.wikipedia.org/wiki/Operand#Computer_science) that say what to do it on, and signals the rest of the CPU to actually carry it out.
@@ -108,7 +108,7 @@ On the input side we have devices like keyboards, mice, microphones, and cameras
 On the output side we have monitors, speakers, and printers.
 Some devices, such as network cards and storage drives, do both.
 
-Each I/O device is connected through a small piece of hardware called an *I/O controller* that takes care of the device-specific details, so the rest of the computer can treat all of them in a relatively uniform way.
+Each I/O device is connected through a small piece of hardware called an *I/O controller* that takes care of the details specific to each device, so the rest of the computer can treat all of them in a relatively uniform way.
 
 
 #### Bus
@@ -118,7 +118,7 @@ A typical bus is split into three logical parts: an *address bus* that says whic
 
 If you have ever played [Factorio](https://www.factorio.com/), the factory automation game, you have already seen the same idea.
 Production lines feed into a main bus of conveyor belts, and any new machine you build can tap into that bus instead of being wired up individually.
-The bus turns adding new components into a near-trivial change, which is exactly what makes computer architectures scalable.
+The bus turns adding new components into an almost trivial change, which is exactly what makes computer architectures scalable.
 
 ![Factorio main bus](factorio-bus.webp)
 
@@ -143,13 +143,13 @@ The remaining two instructions store that result back into memory and hand it of
 Every step goes through the same machinery in some combination. The control unit decides what to do next, the ALU does the arithmetic, memory holds instructions and intermediate values, the I/O system shuttles things across the computer's boundary, and the bus carries everything between them.
 The Von Neumann architecture is essentially this loop, repeated billions of times per second.
 
-As a small but complete example, here is a [Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/), a credit-card-sized computer often used for hobby projects and prototypes.
+As a small but complete example, here is a [Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/), a computer the size of a credit card often used for hobby projects and prototypes.
 
 ![Raspberry Pi 5 board](raspberry-pi.webp)
 
 {% cap() %}The components of the Von Neumann architecture, as they appear on a Raspberry Pi 5 board.{% end %}
 
-The CPU sits in the middle-left, labeled `BCM2712 processor`.
+The CPU sits in the middle left, labeled `BCM2712 processor`.
 Like most modern CPUs, it has multiple cores, equivalent to having several chefs cooking in parallel in one kitchen.
 The memory chip is right next to it, labeled `RAM`.
 Memory is placed close to the CPU to keep the wires short, since longer wires mean longer access times, just like keeping prep counters close to the chefs makes their work faster.
@@ -251,8 +251,8 @@ GPUs and TPUs target the high end of the spectrum, where power and cooling are n
 The other end of the spectrum is consumer devices, like phones, tablets, and laptops, where battery life matters more than raw throughput.
 The chip family targeting that end is the [**Neural Processing Unit (NPU)**](https://en.wikipedia.org/wiki/Neural_Engine).
 
-NPUs are built for *inference*, meaning running a pre-trained model rather than training a new one.
-Inference uses far less compute than training and tolerates lower numerical precision, so NPUs typically use lower-precision arithmetic such as 8-bit or even 4-bit numbers instead of the 16- or 32-bit precision used during training.
+NPUs are built for *inference*, meaning running a pretrained model rather than training a new one.
+Inference uses far less compute than training and tolerates lower numerical precision, so NPUs typically use arithmetic with lower precision such as 8-bit or even 4-bit numbers instead of the 16- or 32-bit precision used during training.
 Lower precision means smaller circuits, less data to move, and lower power, all of which fit a phone or laptop.
 
 Different vendors brand their NPUs differently.
@@ -302,7 +302,7 @@ Open a new Colab notebook or an AI-LAB session and try the following:
 2. From the Colab `Runtime` menu, switch the runtime hardware between `CPU` and `GPU`.
    After each switch, restart the runtime and rerun the notebook so the model is reloaded onto the new device.
 3. Time how long the model takes to classify one image on each device.
-   Run it a few times and take the average, since the first run also includes some warm-up overhead.
+   Run it a few times and take the average, since the first run also includes some warmup overhead.
 
 A few extensions to deepen the experience:
 

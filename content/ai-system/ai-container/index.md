@@ -59,7 +59,7 @@ And most fundamentally, it throws away the [layered structure](@/ai-system/conta
 ### Dockerfile (The Recommended Way)
 
 The fix is to describe the image as code instead of building it interactively.
-A [**Dockerfile**](https://docs.docker.com/reference/dockerfile/) is a plain-text file that lists, step by step, what should go into the image, much like a recipe lists the steps to prepare a dish.
+A [**Dockerfile**](https://docs.docker.com/reference/dockerfile/) is a plain text file that lists, step by step, what should go into the image, much like a recipe lists the steps to prepare a dish.
 Docker reads the file from top to bottom and produces an image whose contents are the result of applying each step.
 
 Putting the build steps in a file gives us everything that interactive building lacks.
@@ -187,7 +187,7 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 A few details worth pointing out.
 
 We use `python:3.13-slim` as the base.
-The full `python:3.13` image works too but is several hundred megabytes larger because it includes a wider range of OS-level packages we do not need.
+The full `python:3.13` image works too but is several hundred megabytes larger because it includes a wider range of operating system packages we do not need.
 
 The `--host 0.0.0.0` argument to `uvicorn` matters.
 By default Uvicorn binds to `127.0.0.1`, which inside a container only accepts traffic from that container.
@@ -288,7 +288,7 @@ We can also pass `--gpus "device=0"` to expose only a specific one, or `--gpus 2
 
 The image itself does not need any special tweaks beyond ensuring its Python packages have GPU support.
 The PyTorch wheels installed via `pip install torch` already include CUDA support on Linux.
-For larger models, basing the image on NVIDIA's pre-built [`nvidia/cuda`](https://hub.docker.com/r/nvidia/cuda) or [`pytorch/pytorch`](https://hub.docker.com/r/pytorch/pytorch) images is sometimes more convenient, since they come with the CUDA libraries preconfigured.
+For larger models, basing the image on NVIDIA's prebuilt [`nvidia/cuda`](https://hub.docker.com/r/nvidia/cuda) or [`pytorch/pytorch`](https://hub.docker.com/r/pytorch/pytorch) images is sometimes more convenient, since they come with the CUDA libraries preconfigured.
 
 > The `--gpus` flag described above only covers NVIDIA cards, since the toolkit is NVIDIA-specific.
 > Other AI hardware we covered in [Module B.1](@/ai-system/ai-hardware/index.md) needs different plumbing, and the level of support varies a lot.
@@ -326,7 +326,7 @@ The same options apply on the push side, with one extra consideration. Pushing p
 > - [The Only Docker Tutorial You Need To Get Started (video)](https://www.youtube.com/watch?v=DQdB7wFEygo) by The Coding Sloth, a fast hands-on tour that includes writing a Dockerfile
 > - [The official Dockerfile reference (docs)](https://docs.docker.com/reference/dockerfile/), the canonical list of every Dockerfile instruction with examples
 >
-> Once we have several containers and the lifecycle gets non-trivial, like rolling updates, autoscaling, or restarting on failure, we typically move from running individual `docker run` commands to a container orchestration platform.
+> Once we have several containers and the lifecycle gets nontrivial, like rolling updates, autoscaling, or restarting on failure, we typically move from running individual `docker run` commands to a container orchestration platform.
 > [**Kubernetes**](https://kubernetes.io/) is the most popular such platform. It lets us declare how a set of containers should behave, including how many replicas to run, how to update them, and where to schedule them, and then handles the rest.
 > Cloud providers all offer hosted Kubernetes services that take care of running the underlying infrastructure for us.
 > We will not use Kubernetes in this course, but it is a natural step beyond what this module covers.

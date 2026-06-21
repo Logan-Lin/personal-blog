@@ -27,7 +27,7 @@ Examples include:
 Note that at least one of them should incorporate "AI functionality", for example, an image classifier, a large language model, or an image generator.
 For the AI model powering the AI functionality, you can use off-the-shelf models from HuggingFace, the model you prepared for other courses, or elsewhere. This is not the focus of this mini project.
 
-> Nevertheless, it is suggested that these AI-enabled endpoints actually compute AI models under the hood.
+> Nevertheless, it is suggested that these AI endpoints actually compute AI models under the hood.
 > In other words, you probably shouldn't just route API calls from these endpoints to other AI service providers, for example OpenAI or Google, since this makes the API server not really an "AI API server", but more of a broker or proxy to existing AI services.
 
 The server should be deployed using the containerization techniques we learned in [Module B.2](@/ai-system/container-fundamentals/index.md) and [Module B.3](@/ai-system/ai-container/index.md), rather than running directly on the computer.
@@ -41,7 +41,7 @@ You should also prepare a simple **client program** for validating that the serv
 ### Bonus Points
 
 These are not strict requirements, but are aspects that you can consider to demonstrate your understanding of the knowledge covered in this course:
-- Integration with databases for API key management, per-API-key usage tracking, and rate-limiting-protected endpoints ([Module A.4](@/ai-system/ai-api-server/index.md#protecting-and-tracking-the-endpoints))
+- Integration with databases for managing API keys, tracking usage per API key, and protecting endpoints with rate limiting ([Module A.4](@/ai-system/ai-api-server/index.md#protecting-and-tracking-the-endpoints))
 - Use specialized AI computing hardware to accelerate the AI model used in the server, if the machine running the server has any ([Module B.1](@/ai-system/ai-hardware/index.md#specialized-hardware-for-ai))
 - Make the server publicly accessible and enable HTTPS ([Module B.4](@/ai-system/cloud-deployment/index.md#going-public-with-domains-and-https) and [Module B.5](@/ai-system/edge-deployment/index.md#getting-past-nat))
 

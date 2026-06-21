@@ -22,7 +22,7 @@ These cases fall under two related ideas.
 
 In this module we cover both, because despite the different motivations, they share most of the practical concerns.
 The hardware and operating system are now ours to manage, the network sits behind a home or office router rather than in a data center, and we are the only ones responsible for keeping the data alive.
-Once we have those covered, the actual deploying-a-container part is identical to what we already did in [Module B.4](@/ai-system/cloud-deployment/index.md).
+Once we have those covered, actually deploying a container is identical to what we already did in [Module B.4](@/ai-system/cloud-deployment/index.md).
 
 {{ toc() }}
 
@@ -313,6 +313,6 @@ The cloud VM you set up in [Module B.4](@/ai-system/cloud-deployment/index.md#ex
 Once that works, try the following extensions:
 
 1. Set up a periodic backup of the SQLite database file using one of the tools we covered above. For bonus points, simulate a file loss event and test restoring the backup.
-2. Compare the response time of your self-hosted server to the cloud-VM version from [Module B.4](@/ai-system/cloud-deployment/index.md). Depending on your hardware and home network, the self-hosted version may well be faster, despite the cloud VM having "professional" infrastructure behind it.
+2. Compare the response time of your self-hosted server to the cloud VM version from [Module B.4](@/ai-system/cloud-deployment/index.md). Depending on your hardware and home network, the self-hosted version may well be faster, despite the cloud VM having "professional" infrastructure behind it.
 
 If you finish all the extensions, you have built a real publicly accessible AI service running on your own hardware, with backups in place and an understanding of why each piece is there.

@@ -21,7 +21,7 @@ Saying _it works on my machine_ is not going to be very helpful.
 This is where containers come in.
 A **container** is a self-contained package of a program plus everything the program needs to run, so that the same package can run on any machine that supports containers.
 Once our AI server is in a container, deploying it to another machine becomes one or two commands.
-Containers are arguably the most important reason cloud-scale AI deployment is even practical today, and they are the focus of the rest of Part B.
+Containers are arguably the most important reason AI deployment at cloud scale is even practical today, and they are the focus of the rest of Part B.
 
 In this module we will look at what containers are, how they work, and how to use existing container images to run software on our own machine.
 In [Module B.3](@/ai-system/ai-container/index.md) we will go a step further and package our own AI API server as a container.
@@ -83,7 +83,7 @@ For example, an image for a Python program and an image for a Java program might
 What containers actually use is a [**layered filesystem**](https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/).
 Think of building burgers in a fast-food restaurant.
 The bottom bun and the beef patty are the same across most of the menu. A cheeseburger only adds a slice of cheese, and a deluxe burger adds lettuce, tomato, and sauce.
-The kitchen does not assemble each burger from scratch, but stacks the variable parts on top of a shared base.
+The kitchen stacks the variable parts on top of a shared base instead of assembling each burger from scratch.
 A container image is built the same way, as a stack of read-only layers, each describing a small set of changes from the layer below it.
 A typical image for a Python application might look like this:
 ```
@@ -216,7 +216,7 @@ The repository name (`python`) tells the daemon which image to fetch, and the ta
 If we omit the tag, Docker defaults to `latest`, which is whatever the publisher most recently labeled as such.
 
 For larger projects we usually want to pin a specific tag rather than `latest`, since `latest` changes whenever the publisher pushes new versions.
-Many official images also publish smaller variants that can save hundreds of megabytes per image. For example, `python:3.13-slim` uses a stripped-down Debian base, and `python:3.13-alpine` is built on the much smaller Alpine Linux base:
+Many official images also publish smaller variants that can save hundreds of megabytes per image. For example, `python:3.13-slim` uses a Debian base that has been stripped down, and `python:3.13-alpine` is built on the much smaller Alpine Linux base:
 ```bash
 docker pull python:3.13-slim
 docker pull python:3.13-alpine
@@ -402,8 +402,8 @@ A reasonable starting point:
 Once that works, try the following extensions:
 
 1. Replace the interactive `pip install` step with a one-shot `docker run` command that installs the dependency and runs your script in a single line. Look up the `--rm` flag and use it so containers do not pile up after each run.
-2. Run the same script through a different image, for example `python:3.13-alpine`, and notice that everything still works while the image is much smaller. This is the portability promise from the start of the module. The same container-based command runs on any compatible image.
+2. Run the same script through a different image, for example `python:3.13-alpine`, and notice that everything still works while the image is much smaller. This is the portability promise from the start of the module. The same command based on containers runs on any compatible image.
 3. Try `docker stats` while a container is running to watch its CPU and memory usage in real time, and `docker inspect <container>` to see the full configuration that Docker applied to it. Both commands give you a feel for what the daemon is actually managing on your behalf.
 
-If you finish all the extensions, you should have a feel for how containers run programs without any per-machine setup, and a working command you can reuse on any other machine that has Docker installed.
+If you finish all the extensions, you should have a feel for how containers run programs without any setup on each machine, and a working command you can reuse on any other machine that has Docker installed.
 In the next module we drop the "install `requests` at the start of every run" step by building our own image instead of relying on someone else's.
