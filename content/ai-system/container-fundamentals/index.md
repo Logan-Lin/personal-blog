@@ -23,6 +23,10 @@ A **container** is a self-contained package of a program plus everything the pro
 Once our AI server is in a container, deploying it to another machine becomes one or two commands.
 Containers are arguably the most important reason AI deployment at cloud scale is even practical today, and they are the focus of the rest of Part B.
 
+![](container-ship.webp)
+
+{% cap() %}AI applications packaged as containers. Each container is a stack of layers.{% end %}
+
 In this module we will look at what containers are, how they work, and how to use existing container images to run software on our own machine.
 In [Module B.3](@/ai-system/ai-container/index.md) we will go a step further and package our own AI API server as a container.
 

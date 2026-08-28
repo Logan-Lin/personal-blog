@@ -18,6 +18,10 @@ The standard answer to this is to rent a computer somewhere else and run our con
 That somewhere else is what people call ["the cloud"](https://en.wikipedia.org/wiki/Cloud_computing): a fleet of computers sitting in [data centers](https://en.wikipedia.org/wiki/Data_center) operated by companies that specialize in keeping them powered, cooled, and connected to the internet.
 We rent some slice of that capacity by the hour or the month, log into it remotely, and run whatever we want.
 
+![](cloud.webp)
+
+{% cap() %}Behind the "cloud" are physical servers in a data center, which a hypervisor splits into the virtual machines we rent.{% end %}
+
 In this module we walk through what the cloud actually is under the hype, look at the main types of services cloud providers sell, and then deploy our containerized AI server to a small rented machine.
 Once the server is running publicly, we will also cover what it takes to make it look professional: a domain name, an HTTPS certificate, and a reverse proxy in front.
 

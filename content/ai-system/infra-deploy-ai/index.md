@@ -25,3 +25,7 @@ Finally, we will discuss two types of common hardware infrastructure, other than
 
 At the end of this part, we will have all the important knowledge needed for us to replicate standard industry practices used by these companies to scale up their AI systems.
 Of course, the physical hardware and the absurd funding needed to do so are not included.
+
+![](part-b-overview.webp)
+
+{% cap() %}AI models run in containers on edge devices and in data centers, and serve clients through API endpoints over the internet.{% end %}

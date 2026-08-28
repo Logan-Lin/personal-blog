@@ -24,3 +24,7 @@ In [Module A.4](@/ai-system/ai-api-server/index.md) we will go a bit deeper and 
 In the end, we will be capable of implementing a system with AI functionalities powered by AI models, while allowing streamlined interaction from various types of software on the market.
 In other words, a system we can confidently call an AI system, fully featured and ready to be deployed in the real world to inflate the AI bubble even more.
 
+![](part-a-overview.webp)
+
+{% cap() %}Clients reach AI models through API endpoints exposed by API servers.{% end %}
+
