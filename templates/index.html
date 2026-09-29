@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
+{% block site_title %}<h1 class="site-title"><a href="{{ get_url(path='/') }}">{{ config.title }}</a></h1>{% endblock site_title %}
+
 {% block content %}
-<article class="homepage">
+<section class="homepage" aria-label="About">
     {{ section.content | safe }}
-</article>
+</section>
 
 <section class="recent-posts">
-    <p style=" font-size: 1.1rem; font-weight: bold; ">Recent Posts</p>
+    <h2>Recent Posts</h2>
     {% set root = get_section(path="_index.md") %}
     {% set_global all_pages = [] %}
     {% for subsection_path in root.subsections %}

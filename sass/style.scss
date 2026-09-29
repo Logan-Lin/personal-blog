@@ -60,7 +60,8 @@ header nav {
   .site-title {
     font-size: 1.25rem;
     font-weight: 600;
-    margin-right: auto;
+    line-height: inherit;
+    margin: 0 auto 0 0;
   }
 
   @media (max-width: 600px) {
@@ -166,6 +167,16 @@ ul, ol {
 
 .recent-posts {
   margin-top: 3rem;
+
+  h2 {
+    font-size: 1.1rem;
+    line-height: inherit;
+    margin: 0 0 1rem;
+
+    &::after {
+      content: none;
+    }
+  }
 }
 
 code {
@@ -234,18 +245,19 @@ table {
 }
 
 .post-nav {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
   padding-top: 1rem;
   border-top: 1px solid var(--border);
 
   .prev, .next {
-    flex: 1 1 0;
-    min-width: 0;
+    margin: 0;
   }
 
   .next {
+    grid-column: 2;
     text-align: right;
   }
 
@@ -274,7 +286,12 @@ table {
   .toc-title {
     font-size: 1rem;
     font-weight: bold;
+    line-height: inherit;
     margin: 0 0 0.5rem;
+
+    &::after {
+      content: none;
+    }
   }
 
   ul {
@@ -293,23 +310,24 @@ table {
 }
 
 footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin-top: 3rem;
-  padding-top: 1rem;
+  padding: 1rem 0;
   border-top: 1px solid var(--border);
   color: var(--muted);
   font-size: 1.0rem;
 
-  .footer-line {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.0rem;
+  p {
+    margin: 0;
   }
 
   .footer-links {
     display: flex;
     gap: 1.5rem;
+    font-style: normal;
   }
 }

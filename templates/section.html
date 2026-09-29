@@ -14,11 +14,7 @@
 {% block content %}
 <h1>{{ section.title }}</h1>
 
-{% if section.content %}
-<div class="section-content">
-    {{ section.content | safe }}
-</div>
-{% endif %}
+{{ section.content | safe }}
 
 <ul class="post-list">
 {% if paginator %}

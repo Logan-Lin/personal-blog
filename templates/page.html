@@ -19,32 +19,30 @@
         <h1>{{ page.title }}</h1>
         {% if page.date %}<time datetime="{{ page.date }}">{{ page.date | date(format="%B %d, %Y") }}</time>{% endif %}
     </header>
-    <div class="content">
-        {% if page.content is containing("<!--TOC_PLACEHOLDER-->") %}
-            {% set parts = page.content | split(pat="<!--TOC_PLACEHOLDER-->") %}
-            {{ parts[0] | safe }}
-            <nav class="toc">
-                <p class="toc-title">Table of Contents</p>
-                <ul>
-                {% for h2 in page.toc %}
-                    <li>
-                        <a href="{{ h2.permalink | safe }}">{{ h2.title }}</a>
-                        {% if h2.children %}
-                        <ul>
-                            {% for h3 in h2.children %}
-                            <li><a href="{{ h3.permalink | safe }}">{{ h3.title }}</a></li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-                </ul>
-            </nav>
-            {{ parts[1] | safe }}
-        {% else %}
-            {{ page.content | safe }}
-        {% endif %}
-    </div>
+    {% if page.content is containing("<!--TOC_PLACEHOLDER-->") %}
+        {% set parts = page.content | split(pat="<!--TOC_PLACEHOLDER-->") %}
+        {{ parts[0] | safe }}
+        <nav class="toc">
+            <h2 class="toc-title">Table of Contents</h2>
+            <ul>
+            {% for h2 in page.toc %}
+                <li>
+                    <a href="{{ h2.permalink | safe }}">{{ h2.title }}</a>
+                    {% if h2.children %}
+                    <ul>
+                        {% for h3 in h2.children %}
+                        <li><a href="{{ h3.permalink | safe }}">{{ h3.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        </nav>
+        {{ parts[1] | safe }}
+    {% else %}
+        {{ page.content | safe }}
+    {% endif %}
 </article>
 
 {% set parent_section = get_section(path=page.ancestors | last) %}
@@ -65,18 +63,18 @@
 {% endfor %}
 {% if before_page or after_page %}
 <nav class="post-nav">
-    <div class="prev">
-        {% if before_page %}
+    {% if before_page %}
+    <p class="prev">
         <span class="label">{% if parent_section.extra.display_chapter %}Previous Post:{% else %}Newer Post:{% endif %}</span>
         <a href="{{ before_page.permalink }}">{{ before_page.title }}</a>
-        {% endif %}
-    </div>
-    <div class="next">
-        {% if after_page %}
+    </p>
+    {% endif %}
+    {% if after_page %}
+    <p class="next">
         <span class="label">{% if parent_section.extra.display_chapter %}Next Post:{% else %}Older Post:{% endif %}</span>
         <a href="{{ after_page.permalink }}">{{ after_page.title }}</a>
-        {% endif %}
-    </div>
+    </p>
+    {% endif %}
 </nav>
 {% endif %}
 {% endblock content %}
