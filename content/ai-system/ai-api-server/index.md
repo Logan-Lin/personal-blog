@@ -8,6 +8,8 @@ weight = 14
 chapter = "Module A.4"
 +++
 
+> Download the lecture slides for this module using [this link](https://github.com/AI-Systems-Infrastructure/slides-a-4/releases/latest/download/main.pdf).
+
 In [Module A.3](@/ai-system/api-server/index.md) we built a small API server with FastAPI.
 We can take requests, validate their bodies, and stream responses.
 The catch is that the server does not actually compute anything yet.

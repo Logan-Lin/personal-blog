@@ -8,6 +8,8 @@ weight = 23
 chapter = "Module B.3"
 +++
 
+> Download the lecture slides for this module using [this link](https://github.com/AI-Systems-Infrastructure/slides-b-3/releases/latest/download/main.pdf).
+
 In [Module B.2](@/ai-system/container-fundamentals/index.md) we used Docker to run programs from images that someone else had already built and published.
 That covers most off-the-shelf software, but our AI server from [Module A.4](@/ai-system/ai-api-server/index.md) is not on Docker Hub. Nobody is going to package it for us.
 If we want to run our server in a container on another machine, we have to build the image ourselves.

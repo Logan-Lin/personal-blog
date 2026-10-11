@@ -9,6 +9,8 @@ aliases = [ "/ai-system/advanced-apis/" ]
 chapter = "Module A.2"
 +++
 
+> Download the lecture slides for this module using [this link](https://github.com/AI-Systems-Infrastructure/slides-a-2/releases/latest/download/main.pdf).
+
 In [Module A.1](@/ai-system/api-fundamentals/index.md) we treated APIs as something to poke at through browsers and API testing tools, which is great for getting a feel for what HTTP traffic looks like.
 But we don't usually ship software in the form of "open Postman and click send."
 Sooner or later, we want our own programs to talk to APIs on their own, especially when we want to bake AI capabilities into our applications.

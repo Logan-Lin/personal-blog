@@ -8,6 +8,8 @@ weight = 11
 chapter = "Module A.1"
 +++
 
+> Download the lecture slides for this module using [this link](https://github.com/AI-Systems-Infrastructure/slides-a-1/releases/latest/download/main.pdf).
+
 Interactions are common in both human society and the digital world. We as humans interact with each other through language to communicate our thoughts and purposes. In the digital world, a food delivery application interacts with restaurants to process your order and interacts with banks to ensure payment for the meal. Interactions between applications (AI or not) are what build the digital world we cannot live without. But how do applications interact with each other?
 In the [Introduction to Part A](@/ai-system/interact-ais/index.md), we mentioned that there is a standardized method for streamlined interaction between applications, and that method is what we call **Application Programming Interfaces (APIs)**.
 If applications need to communicate like humans do but face barriers like different programming languages and different deployment infrastructure, APIs are like having a universal post office that knows where everyone lives and how they prefer to receive and send messages.

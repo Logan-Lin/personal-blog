@@ -9,6 +9,8 @@ aliases = [ "/ai-system/packaging-containerization/" ]
 chapter = "Module B.2"
 +++
 
+> Download the lecture slides for this module using [this link](https://github.com/AI-Systems-Infrastructure/slides-b-2/releases/latest/download/main.pdf).
+
 In [Module B.1](@/ai-system/ai-hardware/index.md) we looked at the hardware side of running AI: how a generic computer is put together, why that design struggles with AI workloads, and what kinds of accelerators have been built to bridge the gap.
 The next question is how we actually get our software running on all that hardware.
 

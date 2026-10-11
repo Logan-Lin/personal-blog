@@ -9,6 +9,8 @@ aliases = [ "/ai-system/ai-compute-hardware/" ]
 chapter = "Module B.1"
 +++
 
+> Download the lecture slides for this module using [this link](https://github.com/AI-Systems-Infrastructure/slides-b-1/releases/latest/download/main.pdf).
+
 In the [introduction to Part B](@/ai-system/infra-deploy-ai/index.md), we noticed that our small AI API server gets noticeably slow once we plug in heavier models, and we wondered how companies like OpenAI and Google can serve much larger models to millions of users at once.
 Both observations come back to hardware.
 To understand why a laptop struggles where a data center does not, we first need to look at how a computer is actually put together, and then at how that design has been adapted for AI workloads.

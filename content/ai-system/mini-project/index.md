@@ -8,6 +8,8 @@ weight = 31
 chapter = "Info"
 +++
 
+> Download the lecture slides for this module using [this link](https://github.com/AI-Systems-Infrastructure/slides-mp/releases/latest/download/main.pdf).
+
 Using the knowledge from this course, we will develop and deploy an AI system in our mini project.
 
 ## Outcome

@@ -8,6 +8,8 @@ weight = 32
 chapter = "Info"
 +++
 
+> Download the lecture slides for this module using [this link](https://github.com/AI-Systems-Infrastructure/slides-mp/releases/latest/download/main.pdf).
+
 ## Modality and Duration
 
 **Individual oral exam based on submitted project.**

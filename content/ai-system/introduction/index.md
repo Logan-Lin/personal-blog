@@ -8,6 +8,8 @@ weight = 1
 chapter = "Intro"
 +++
 
+> Download the lecture slides for this module using [this link](https://github.com/AI-Systems-Infrastructure/slides-intro/releases/latest/download/main.pdf).
+
 What is AI composed of, and how are companies like OpenAI, Anthropic, Google, and Microsoft pushing AI for millions of people around the globe to use, whether people want it or not?
 From courses you've taken in previous semesters and the Deep Learning course this semester, you know that one of the essential components of AI is what we call AI models, usually neural network or deep learning models these days, trained on large amounts of data.
 AI models are also essentially a type of software, predominantly implemented using the Python programming language and Python libraries like PyTorch and TensorFlow.

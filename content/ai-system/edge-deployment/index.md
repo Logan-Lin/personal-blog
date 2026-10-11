@@ -9,6 +9,8 @@ aliases = [ "/ai-system/edge-self-hosted-deployment/" ]
 chapter = "Module B.5"
 +++
 
+> Download the lecture slides for this module using [this link](https://github.com/AI-Systems-Infrastructure/slides-b-5/releases/latest/download/main.pdf).
+
 In [Module B.4](@/ai-system/cloud-deployment/index.md) we deployed our AI server on a small cloud VM, gave it a domain name and an HTTPS certificate, and ended up with a real public AI service backed by infrastructure we did not have to own.
 
 However, there are scenarios where running our system on a computer we have physical access to fits better than renting cloud capacity.

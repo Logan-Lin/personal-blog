@@ -8,6 +8,8 @@ weight = 24
 chapter = "Module B.4"
 +++
 
+> Download the lecture slides for this module using [this link](https://github.com/AI-Systems-Infrastructure/slides-b-4/releases/latest/download/main.pdf).
+
 In [Module B.3](@/ai-system/ai-container/index.md) we packaged our AI API server into a container image that anyone with Docker can pull and run.
 That solves the *how do we ship the software* problem, but it leaves the *whose machine does it run on* problem wide open.
 

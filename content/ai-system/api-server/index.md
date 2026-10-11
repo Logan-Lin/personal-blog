@@ -9,6 +9,8 @@ aliases = [ "/ai-system/wrap-ai-with-api/" ]
 chapter = "Module A.3"
 +++
 
+> Download the lecture slides for this module using [this link](https://github.com/AI-Systems-Infrastructure/slides-a-3/releases/latest/download/main.pdf).
+
 So far we have been API consumers.
 We pointed our browsers, testing tools, and Python scripts at APIs that someone else wrote and someone else ran for us, and we got back answers.
 That is convenient, but it also means we are paying someone else's bills, playing by their rules, and waiting for their AI models to do the work.
