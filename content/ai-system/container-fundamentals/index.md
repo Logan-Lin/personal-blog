@@ -400,10 +400,11 @@ In this exercise we will run the same script inside a container based on an off-
 
 A reasonable starting point:
 
-1. Open a terminal in the directory containing your Module A.2 program. We will call the file `chatbot.py`.
-2. Pull the official Python image with `docker pull python:3.13-slim`. Confirm with `docker images` that it now appears on your machine.
-3. Run a container with three flags: `-it` so we can interact with it, `-v` to mount the current directory at, say, `/app` inside the container, and `-e` to pass your AI provider's API key in.
-4. Inside the running container, install `requests` (`pip install requests`) and then run your script (`python /app/chatbot.py`). Verify that the chatbot replies as before.
+1. Download and install the Docker runtime. [Docker Desktop](https://www.docker.com/products/docker-desktop/) is nice in that it comes with both the engine and a GUI client.
+2. Open a terminal in the directory containing your Module A.2 program. We will call the file `chatbot.py`.
+3. Pull the official Python image with `docker pull python:3.13-slim`. Confirm with `docker images` that it now appears on your machine.
+4. Run a container with three flags: `-it` so we can interact with it, `-v` to mount the current directory at, say, `/app` inside the container, and `-e` to pass your AI provider's API key in.
+5. Inside the running container, install `requests` (`pip install requests`) and then run your script (`python /app/chatbot.py`). Verify that the chatbot replies as before.
 
 Once that works, try the following extensions:
 
