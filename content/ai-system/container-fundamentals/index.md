@@ -211,6 +211,19 @@ The first step is to [install Docker](https://docs.docker.com/get-started/get-do
 The examples below all use the official Python image as a stand-in, but the same commands work for any other image.
 
 
+### Running Docker Without `sudo`
+
+On Linux with Docker Engine, the `docker` command talks to the daemon through a socket (`/var/run/docker.sock`) that only root and members of the `docker` group can access.
+Out of the box our user is in neither, so every command needs a `sudo` prefix, such as `sudo docker pull python:3.13`.
+To drop the prefix, we can add our user to the `docker` group, then log out and back in (or run `newgrp docker`) for the change to take effect:
+```bash
+sudo usermod -aG docker $USER
+```
+Keep in mind that membership in the `docker` group is effectively root access to the machine, since any container can mount the host's filesystem, so only do this on machines we trust.
+The [post-installation guide](https://docs.docker.com/engine/install/linux-postinstall/) covers the details.
+Docker Desktop does not need this setup, and the commands in the rest of this module are written without `sudo`.
+
+
 ### Pulling Images
 
 To get a container image onto our machine, we use `docker pull`:
