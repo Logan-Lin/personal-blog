@@ -31,6 +31,10 @@ The server takes an image in the request body, runs it through a vision model, a
 The same pattern works for any other AI model.
 What changes is the data type of the inputs and outputs and the model itself.
 
+![Image classification API server](classification-server.webp)
+
+{% cap() %}The image classification API server we will build in this module.{% end %}
+
 ### Loading a Pre-trained PyTorch Model
 
 The most common source of pre-trained vision models in the PyTorch ecosystem is [`torchvision`](https://docs.pytorch.org/vision/stable/index.html), which ships with a long list of standard architectures along with weights trained on ImageNet.
@@ -172,7 +176,9 @@ def classify(req: ImageRequest):
 We can send a real image to this endpoint from our [Module A.2](@/ai-system/interact-api-python/index.md) program, and watch real predictions come back.
 For example, here is a Spanish-style seafood casserole I cooked the other day, and it was delicious:
 
-![Seafood casserole](seafood-casserole.webp)
+![Seafood casserole classified by the API endpoint](classification-pipeline.webp)
+
+{% cap() %}The seafood casserole classified by our endpoint, with the result simplified to two labels.{% end %}
 
 After Base64-encoding the image and sending it to `/v1/classify`, the server returns the following JSON response:
 ```json

@@ -49,6 +49,10 @@ Finally, we have ports.
 Just as some people run several businesses in the same location and have multiple corresponding mailboxes, computers run multiple applications simultaneously. A [**port**](https://www.geeksforgeeks.org/computer-networks/what-is-ports-in-networking/) is used to identify which specific application should receive the incoming message, and each IP address can have up to 65,535 ports.
 Typically we don't have to specify a port when calling an API, since there are default ports assigned to certain services, protocols, and applications. For example, HTTPS-based APIs usually run on port 443.
 
+{{ img(src="network-address.webp", alt="Network address breakdown", width="600px") }}
+
+{% cap() %}How the domain and port of a URL lead an application to the API it wants to reach.{% end %}
+
 > Below are some videos explaining computer network concepts to aid your study.
 > - [IP address explained (video)](https://www.youtube.com/watch?v=7_-qWlvQQtY) by George Nisbet, a short conceptual walkthrough
 > - [Network ports explained (video)](https://www.youtube.com/watch?v=h5vq9hFROEA) by CBT Nuggets, a clear explainer in the style of IT training
@@ -58,6 +62,10 @@ Typically we don't have to specify a port when calling an API, since there are d
 > - [The OSI model of computer networks (blog post)](https://www.geeksforgeeks.org/computer-networks/open-systems-interconnection-model-osi/) by GeeksforGeeks, a detailed walkthrough of all seven layers with examples
 > - [The OSI model explained (video)](https://www.youtube.com/watch?v=keeqnciDVOo) by Fireship, a dense, fast-paced 100-second overview of computer networking
 > - [How domains are mapped to IP addresses (video)](https://www.youtube.com/watch?v=mpQZVYPuDGU) by PowerCert Animated Videos, an animated explainer of how DNS resolves domains
+>
+> {{ img(src="osi-model.webp", alt="OSI model", width="450px") }}
+>
+> {% cap() %}The seven layers of the OSI model.{% end %}
 
 
 ## HTTP Protocol
@@ -71,6 +79,10 @@ For APIs, you might also get to decide which protocol to use based on your speci
 For now, we will focus on the one protocol used in most APIs called [**HTTP (HyperText Transfer Protocol)**](https://www.geeksforgeeks.org/html/what-is-http/).
 
 HTTP follows the request-response model. That means an HTTP-based communication will always start with a sender application sending an HTTP request to a recipient. After the recipient receives and processes the request, it will send an HTTP response back to the sender, and the communication ends there.
+
+![HTTP request-response model](http-request-response.webp)
+
+{% cap() %}A browser and a web server communicating through an HTTP request and response.{% end %}
 
 ### HTTP Request
 

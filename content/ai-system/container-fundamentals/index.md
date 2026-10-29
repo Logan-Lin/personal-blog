@@ -46,6 +46,10 @@ Loading a single ship could take days, and goods often got damaged, lost, or sto
 The fix was embarrassingly simple. Agree on a standard box that any ship, train, or truck can carry, and pack everything into those boxes once at the source.
 Cranes can move them mechanically, the inside of the box does not matter to the ship, and the same box can be transferred between modes of transport without ever being opened.
 
+{{ img(src="iso-container.webp", alt="ISO 668 freight container", width="600px") }}
+
+{% cap() %}The ISO 668 standard fixes the dimensions of freight containers.{% end %}
+
 Software containers solve a very similar problem.
 A container packages a program together with its code, libraries, configuration, and the rest of the filesystem layout it expects to see.
 Once a program is packaged this way, any machine with a container runtime can run it without us having to set anything up on that machine first.
@@ -108,7 +112,7 @@ When the container is removed, the writable layer is discarded, so the next cont
 
 ![Layered structure of a running container](container-layers.webp)
 
-{% cap() %}A running container sits on top of the read-only image layers, with one writable layer of its own that holds any changes made while the container is running.{% end %}
+{% cap() %}Running a container image adds one writable container layer on top of its read-only image layers.{% end %}
 
 > When a running program tries to modify a file that lives in one of the read-only image layers, the runtime quietly copies the file up to the writable layer first and modifies the copy, a technique called **copy-on-write**.
 > The original layer stays untouched, which is what makes layer sharing safe across many running containers.
@@ -128,6 +132,10 @@ The [**Open Container Initiative (OCI)**](https://opencontainers.org/) is an ind
 As long as a tool follows the OCI specs, the images and containers it produces are interoperable with everyone else's tools.
 We can build an image with one tool, push it to a registry hosted by another, and run it on a third without any conversion step in between.
 
+![OCI standard](oci-standard.webp)
+
+{% cap() %}Images built by any OCI-compliant builder can be run by any OCI-compliant runtime.{% end %}
+
 This is exactly what made shipping containers explode in the real world, not the steel boxes alone but the agreement that all steel boxes have the same dimensions and the same locking corners.
 Software containers had a few competing formats early on, but the industry has since converged on OCI, and most modern container tools are OCI-compliant.
 Docker is the most well-known of those tools and the one we will use in this course, but the concepts and most of the commands transfer almost unchanged to the alternatives.
@@ -139,6 +147,10 @@ Docker is the most well-known of those tools and the one we will use in this cou
 The name "Docker" is often used as a stand-in for "containers" in conversations, the same way "Google it" tends to mean searching the web in general.
 In reality, Docker is a collection of tools that work together.
 Below are the four pieces we will actually use in this course.
+
+![The Docker ecosystem](docker-ecosystem.webp)
+
+{% cap() %}The four pieces of the Docker ecosystem and how they work together.{% end %}
 
 
 ### Docker Engine
@@ -163,6 +175,10 @@ The two clients we will use to talk to the Docker daemon are the Docker CLI and 
 The [**Docker CLI**](https://docs.docker.com/reference/cli/docker/) is the command-line client, a program called `docker` that ships with Docker Engine.
 Almost everything we will do in this course goes through `docker`-prefixed commands like `docker pull`, `docker run`, and `docker build`.
 Each command turns into a request to the daemon, which does the actual work and reports back.
+
+![Docker CLI in a terminal](docker-cli.webp)
+
+{% cap() %}A few common commands run with the Docker CLI.{% end %}
 
 [**Docker Desktop**](https://www.docker.com/products/docker-desktop/) bundles the daemon, the CLI, and a graphical user interface into a single installer for macOS, Windows, and Linux.
 The GUI is mainly for browsing images, inspecting running containers, and tweaking settings.

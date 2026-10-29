@@ -14,9 +14,17 @@ What is AI composed of, and how are companies like OpenAI, Anthropic, Google, an
 From courses you've taken in previous semesters and the Deep Learning course this semester, you know that one of the essential components of AI is what we call AI models, usually neural network or deep learning models these days, trained on large amounts of data.
 AI models are also essentially a type of software, predominantly implemented using the Python programming language and Python libraries like PyTorch and TensorFlow.
 
+{{ img(src="model-and-code.webp", alt="AI model as a neural network and as code", width="450px") }}
+
+{% cap() %}An AI model is a neural network in concept and Python code in practice.{% end %}
+
 However, just the AI models themselves are far from being able to serve people all over the world with different styles and habits for using AI.
 To help inflate the AI bubble even more and integrate AI into every piece of our digital life, all kinds of software, such as search engines, messaging apps, text editors, social media apps, and video games, need to interact with AI models.
 However, not all software is coded with Python, and even if it is, you cannot expect all software to be Python functions within a giant Python project that can call each other for communication. Therefore, there must be a more standardized, language-agnostic way to enable communication between AI models and other parts of the digital world, but what is it, and can we implement it ourselves?
+
+{{ img(src="model-in-software.webp", alt="Software in different languages interacting with an AI model", width="650px") }}
+
+{% cap() %}Software written in all kinds of programming languages needs to interact with AI models.{% end %}
 
 As a type of software, AI models also need hardware to run. And not all hardware is created equal. Why do the most advanced AI models like OpenAI's ChatGPT and Anthropic's Claude need to run in those data centers, each with the power draw of a small town, rather than on your smartphone?
 If you have ever installed and set up Windows from scratch, you can tell that it is impossible for OpenAI and Google to repeat the process of manually setting up each computer in their data centers 10,000 times. But then, what kind of techniques do they use to streamline this process?

@@ -15,6 +15,10 @@ In the [introduction to Part B](@/ai-system/infra-deploy-ai/index.md), we notice
 Both observations come back to hardware.
 To understand why a laptop struggles where a data center does not, we first need to look at how a computer is actually put together, and then at how that design has been adapted for AI workloads.
 
+![Software running on hardware](software-hardware.webp)
+
+{% cap() %}Everything we built in Part A is software, and software needs hardware to run on.{% end %}
+
 In the meantime, vendors love to slap "AI" onto every new device.
 Marketing pages keep talking about "AI computers" and "AI-ready" laptops as if a new kind of machine has been invented just for the hype.
 The reality is much less dramatic.

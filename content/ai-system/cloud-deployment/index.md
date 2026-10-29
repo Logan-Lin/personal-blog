@@ -62,9 +62,9 @@ In practice, cloud providers rely on both: the hypervisor splits each physical s
 When we rent a "VM" or an "instance" from a cloud provider, what we are getting is exactly this: a slice of a real machine, running its own operating system, accessible to us alone over the network.
 From inside the VM it looks no different from a small dedicated server.
 
-![Virtualization vs containerization](virtualization.webp)
+![Virtual machines vs containers](virtualization.webp)
 
-{% cap() %}Virtualization and containerization side by side: each VM carries its own guest OS on top of the hypervisor, while containers share the host kernel through Docker.{% end %}
+{% cap() %}Each VM carries its own guest OS and kernel, while containers share the host kernel.{% end %}
 
 > Below are some additional resources for getting more comfortable with cloud and virtualization concepts.
 > - [Cloud computing in 6 minutes (video)](https://www.youtube.com/watch?v=M988_fsOSWo) by Simplilearn, a short overview at a slower pace

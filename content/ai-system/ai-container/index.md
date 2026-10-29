@@ -37,17 +37,18 @@ In [Module B.2](@/ai-system/container-fundamentals/index.md#using-off-the-shelf-
 Inside, we can install packages, copy files in, and configure the environment, all of which write to the container's writable layer.
 The [`docker commit`](https://docs.docker.com/reference/cli/docker/container/commit/) command then snapshots that writable layer into a brand new image:
 ```bash
-# Start an interactive container
-docker run -it --name builder python:3.13 bash
+# Start an interactive container, with the current directory mounted at /app
+docker run -it -v $(pwd):/app --name ais-builder python:3.13 bash
 
-# Inside the container, install dependencies
+# Inside the container, install dependencies and copy our code in
 pip install fastapi uvicorn
+mkdir -p /opt/ai-system && cp /app/main.py /opt/ai-system/
 exit
 
 # On the host, snapshot the modified container into a new image
-docker commit builder my-fastapi-image:dev
+docker commit ais-builder ai-system:1.0
 ```
-After this, `my-fastapi-image:dev` exists locally and can be run like any other image.
+After this, `ai-system:1.0` exists locally and can be run like any other image.
 
 This works, but it is rarely a good idea.
 There is no record of what we actually installed. If the image breaks in six months, we cannot reproduce it without remembering every command we typed.
@@ -56,6 +57,10 @@ Every change also requires going through the same manual steps again, which is s
 
 The interactive approach is sometimes useful for one-off snapshots, such as capturing a debugging session, but it should not be the way we build images we plan to use repeatedly.
 And most fundamentally, it throws away the [layered structure](@/ai-system/container-fundamentals/index.md#layered-filesystems) that makes images efficient in the first place. Every change we made inside the container, big or small, gets squashed into a single opaque layer on top of the base image, defeating the per-layer caching and sharing we covered in the previous module.
+
+![Committing a container into an image](docker-commit.webp)
+
+{% cap() %}`docker commit` squashes all changes in the container layer into one opaque image layer.{% end %}
 
 
 ### Dockerfile (The Recommended Way)
@@ -82,6 +87,10 @@ docker build -t my-hello:1.0 .
 ```
 The `-t` flag tags the resulting image as `my-hello:1.0`. The `.` at the end tells Docker that the build context is the current directory, which is the set of files Docker has access to during the build.
 Anything we want to `COPY` into the image has to live somewhere in this context.
+
+![Building an image from a Dockerfile](dockerfile-build.webp)
+
+{% cap() %}Docker Engine builds an image from a Dockerfile and its build context.{% end %}
 
 Once built, the image runs like any other:
 ```bash
@@ -116,8 +125,12 @@ Recall from [Module B.2](@/ai-system/container-fundamentals/index.md#layered-fil
 Docker caches layers between builds, so an instruction whose inputs have not changed reuses the cached layer instead of running again.
 This is what makes rebuilding an image fast.
 
-The cache rule has one important consequence. As soon as one layer's input changes, every layer below it has to be rebuilt as well, even if its own inputs did not change.
-So we want layers that change rarely above layers that change often. For example, `pip install` for dependencies that we do not touch every day should come above our own application code.
+![Dockerfile instructions and image layers](dockerfile-layers.webp)
+
+{% cap() %}How the instructions of a Dockerfile map to the layers of the built image.{% end %}
+
+The cache rule has one important consequence. As soon as one layer's input changes, every layer built after it has to be rebuilt as well, even if its own inputs did not change.
+So we want layers that change rarely to come before layers that change often in the Dockerfile. For example, `pip install` for dependencies that we do not touch every day should come before our own application code.
 
 A common newcomer mistake looks like this:
 ```dockerfile
