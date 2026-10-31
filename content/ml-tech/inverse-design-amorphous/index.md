@@ -1,5 +1,5 @@
 +++
-title = "Inverse Design of Amorphous Materials, and the Relaxation Problem"
+title = "Inverse Design of Amorphous Materials and the Relaxation Problem"
 date = 2026-06-17
 description = "AMDEN, a diffusion framework for inverse design of amorphous materials, why standard denoising fails to produce relaxed low-energy structures, and how HMC denoising recovers them."
 +++
@@ -9,6 +9,12 @@ For crystalline materials this works well, with frameworks like MatterGen genera
 [Amorphous materials](https://en.wikipedia.org/wiki/Amorphous_solid), the disordered solids such as glasses, have lagged behind.
 
 This post presents AMDEN, a diffusion framework for the inverse design of amorphous materials, and the problem that ended up at its center.
+
+![amden-pipeline](./amden-pipeline.webp)
+{% cap() %}
+The AMDEN pipeline, where reverse diffusion turns a random sample into a structure, with the score predicted by an equivariant graph neural network conditioned on the target properties.
+{% end %}
+
 A diffusion model trained on glass structures can generate a sample that looks structurally close to the reference, with only minor differences in the [radial distribution function](https://en.wikipedia.org/wiki/Radial_distribution_function) (RDF) that captures how interatomic distances are distributed, while its energy is clearly wrong, sitting well above the relaxed, low-energy structures it was trained on, the ones whose atoms have settled into a local energy minimum.
 This limitation comes from denoising on the energy landscapes that glasses occupy, and it is what stands between diffusion models and the relaxed structures that materials design actually targets.
 
@@ -76,11 +82,6 @@ Density needs a mechanism of its own, because the model has no built-in way to s
 A diffusion model can move atoms and change their elements but cannot change the number of atoms, which is fixed from the first sample to the last.
 AMDEN introduces a ghost atom type to fill the cell up to a target density, scattered among the real atoms during generation and removed at the end, so the model sets the real density by choosing which atoms emerge as ghosts.
 A voxel grid could also vary the number of atoms, but it would break the rotational symmetry the EGNN preserves.
-
-![amden-pipeline](./amden-pipeline.webp)
-{% cap() %}
-The AMDEN pipeline, where reverse diffusion turns a random sample into a structure, with the score predicted by an equivariant graph neural network conditioned on the target properties.
-{% end %}
 
 ## Composition and Structure
 

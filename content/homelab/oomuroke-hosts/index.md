@@ -11,6 +11,10 @@ But that's too technical for me. I want my personal devices to be a bit more emo
 That's why I name my devices after the characters from Oomuroke (大室家), a manga series that is a spin-off of the [Yuru Yuri (ゆるゆり) series](https://ja.wikipedia.org/wiki/%E3%82%86%E3%82%8B%E3%82%86%E3%82%8A).
 And you will soon see that each device is named after the character that (in my view) the device's property matches the best in terms of personality.
 
+![](manga.webp)
+
+{% cap() %}The host setup displayed on `misaki` alongside volume 4 of the Oomuroke manga series.{% end %}
+
 Below, the quote blocks are introductions to each character sourced from the [official website](https://ohmuroke.com/).
 
 ## `sakurako`
@@ -101,6 +105,3 @@ Like her, this is viewed as the underdog of the fleet, a tablet joked about as r
 > 4人の中ではいじられキャラで明るい性格。
 > ケーキ屋でアルバイトをしている。 
 
-![](manga.webp)
-
-{% cap() %}The host setup displayed on `misaki` alongside volume 4 of the Oomuroke manga series.{% end %}
