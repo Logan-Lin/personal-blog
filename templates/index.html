@@ -2,26 +2,49 @@
 
 {% block site_title %}<h1 class="site-title"><a href="{{ get_url(path='/') }}">{{ config.title }}</a></h1>{% endblock site_title %}
 
+{% block canonical %}{{ current_url | safe }}{% endblock canonical %}
+{% block og_url %}{{ current_url | safe }}{% endblock og_url %}
+
 {% block content %}
+{% if paginator.current_index == 1 %}
 <section class="homepage" aria-label="About">
     {{ section.content | safe }}
 </section>
+{% endif %}
 
-<section class="recent-posts">
-    <h2>Recent Posts</h2>
-    {% set root = get_section(path="_index.md") %}
-    {% set_global all_pages = [] %}
-    {% for subsection_path in root.subsections %}
-        {% set subsection = get_section(path=subsection_path) %}
-        {% set_global all_pages = all_pages | concat(with=subsection.pages) %}
-    {% endfor %}
-    <ul class="post-list">
-    {% for page in all_pages | sort(attribute="date") | reverse | slice(end=7) %}
-        <li>
-            <time datetime="{{ page.date }}">{{ page.date | date(format="%Y-%m-%d") }}</time>
-            <a href="{{ page.permalink }}">{{ page.title }}</a>
-        </li>
-    {% endfor %}
-    </ul>
+<section aria-label="Posts">
+{% for page in paginator.pages %}
+    <article class="post-preview">
+        <h2 class="post-title"><a href="{{ page.permalink | safe }}">{{ page.title }}</a></h2>
+        <time datetime="{{ page.date }}">{{ page.date | date(format="%B %d, %Y") }}</time>
+
+        {# The start of the post, up to its table of contents if any, cut only after a complete top-level block. Relative URLs are resolved against the post. #}
+        {% set intro = page.content | split(pat="<!--TOC_PLACEHOLDER-->") | first %}
+        {% set blocks = intro
+            | regex_replace(pattern="</(ul|ol)>\s*</li>", rep="</$1 ></li>")
+            | regex_replace(pattern="(?s)(<blockquote>.*?</blockquote>|<figcaption>.*?</figcaption>|<ul>.*?</ul>|<ol.*?</ol>|<pre.*?</pre>|<table>.*?</table>|<p>.*?</p>)", rep="$1<!--block-end-->")
+            | split(pat="<!--block-end-->") %}
+        {% set_global excerpt = "" %}
+        {% for block in blocks %}
+            {% set_global excerpt = excerpt ~ block %}
+            {% if excerpt | striptags | length >= 800 %}{% break %}{% endif %}
+        {% endfor %}
+        {% set resolved_url = '$1="' ~ page.permalink ~ '$2"' %}
+        {{ excerpt | regex_replace(pattern='(src|href)="([^"/:#][^":]*)"', rep=resolved_url) | safe }}
+
+        <a class="read-more" href="{{ page.permalink | safe }}">Read more &rarr;</a>
+    </article>
+{% endfor %}
 </section>
+
+{% if paginator.previous or paginator.next %}
+<nav class="pagination">
+    {% if paginator.previous %}
+        <a href="{{ paginator.previous | safe }}">&larr; Newer Posts</a>
+    {% endif %}
+    {% if paginator.next %}
+        <a href="{{ paginator.next | safe }}">Older Posts &rarr;</a>
+    {% endif %}
+</nav>
+{% endif %}
 {% endblock content %}

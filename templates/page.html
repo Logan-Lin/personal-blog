@@ -45,7 +45,8 @@
     {% endif %}
 </article>
 
-{% set parent_section = get_section(path=page.ancestors | last) %}
+{% set section_dir = page.components | first %}
+{% set parent_section = get_section(path=section_dir ~ "/_index.md") %}
 {% set siblings = parent_section.pages %}
 {% set total = siblings | length %}
 {% set_global before_page = false %}

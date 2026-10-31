@@ -1,5 +1,7 @@
 +++
 title = "Yan Lin's Blog"
+sort_by = "date"
+paginate_by = 7
 +++
 
 My name is Yan Lin. Computer science research is my career, and my research is centered on data mining, i.e., extracting and utilizing patterns from large-scale data, usually with machine learning models.
