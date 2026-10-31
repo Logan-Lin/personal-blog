@@ -11,6 +11,7 @@ Static site built with [Zola](https://www.getzola.org/), served at `blog.yanlinc
 - `sass/style.scss`: the single global stylesheet, compiled to `style.css`
 - `static/`: favicons and the web manifest
 - `runtime/`: development runtime defined by a Nix flake 
+- `Makefile`: build and preview pipelines
 - `public/`: built output
 - `.github/workflows/deploy.yml`: CI for running `zola build` and deploying `public/` to Cloudflare Pages on every push to `main`
 
