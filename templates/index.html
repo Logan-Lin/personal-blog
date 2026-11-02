@@ -6,12 +6,6 @@
 {% block og_url %}{{ current_url | safe }}{% endblock og_url %}
 
 {% block content %}
-{% if paginator.current_index == 1 %}
-<section class="homepage" aria-label="About">
-    {{ section.content | safe }}
-</section>
-{% endif %}
-
 <section aria-label="Posts">
 {% for page in paginator.pages %}
     <article class="post-preview">
