@@ -9,8 +9,10 @@
 <section aria-label="Posts">
 {% for page in paginator.pages %}
     <article class="post-preview">
-        <h2 class="post-title"><a href="{{ page.permalink | safe }}">{{ page.title }}</a></h2>
-        <time datetime="{{ page.date }}">{{ page.date | date(format="%B %d, %Y") }}</time>
+        <header class="post-header">
+            <h2 class="post-title"><a href="{{ page.permalink | safe }}">{{ page.title }}</a></h2>
+            <time datetime="{{ page.date }}">{{ page.date | date(format="%B %d, %Y") }}</time>
+        </header>
 
         {# The start of the post, up to its table of contents if any, cut only after a complete top-level block. Relative URLs are resolved against the post. #}
         {% set intro = page.content | split(pat="<!--TOC_PLACEHOLDER-->") | first %}
